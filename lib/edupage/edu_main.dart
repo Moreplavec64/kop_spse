@@ -15,10 +15,15 @@ class EduPage {
     try {
       final r = await Requests.get(requestUrl);
       r.raiseForStatus();
-      dev.log(r.content());
-      print('done');
+      //dev.log(r.content());
+      final token_regex = RegExp(r'(?<=name="csrfauth" value=")(.*)(?=">)',
+          caseSensitive: true, multiLine: false);
+      final regex_out = token_regex.stringMatch(r.content());
+      print(regex_out.toString());
+
+      print('xxx');
     } catch (e) {
-      //print(e.toString());
+      print('oops');
     }
   }
 
