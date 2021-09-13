@@ -8,17 +8,21 @@
             "name": "kop_spse",
             "request": "launch",
             "type": "dart",
+            /*
             "args": [
                 "--no-sound-null-safety",
             ]
+            */
         },
         {
             "name": "kop_spse (profile mode)",
             "request": "launch",
             "type": "dart",
+            /*
             "args": [
                 "--no-sound-null-safety",
-            ],
+            ]
+            */
             "flutterMode": "profile"
         }
     ]
