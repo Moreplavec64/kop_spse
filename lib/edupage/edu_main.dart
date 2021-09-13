@@ -1,6 +1,9 @@
 // ignore: import_of_legacy_library_into_null_safe
-import 'package:requests/requests.dart';
-import 'dart:developer' as dev;
+//import 'package:requests/requests.dart';
+
+//import 'dart:developer' as dev;
+
+import 'package:http/http.dart' as http;
 
 class EduPage {
   final String school;
@@ -10,20 +13,51 @@ class EduPage {
 
   EduPage(this.school, this.username, this.password);
 
-  void initRequest() async {
+  void login() async {
     String requestUrl = 'https://$school.edupage.org/login/index.php';
     try {
-      final r = await Requests.get(requestUrl);
-      r.raiseForStatus();
-      //dev.log(r.content());
-      final token_regex = RegExp(r'(?<=name="csrfauth" value=")(.*)(?=">)',
-          caseSensitive: true, multiLine: false);
-      final regex_out = token_regex.stringMatch(r.content());
-      print(regex_out.toString());
+      final r = await http.get(Uri.parse(requestUrl));
 
-      print('xxx');
+      // x final r = await Requests.get(requestUrl);
+      //dev.log(r.content());
+
+      final tokenRegex = RegExp(r'(?<=name="csrfauth" value=")(.*)(?=">)',
+          caseSensitive: true, multiLine: false);
+      final csrfToken = tokenRegex.stringMatch(r.body);
+
+      print('CSRF TOKER : ' + csrfToken.toString());
+
+      print(csrfToken.toString().length);
+
+      final Uri loginRequestUrl =
+          Uri.parse("https://$school.edupage.org/login/edubarLogin.php");
+
+      Map<String, String> parameters = {
+        "username": username,
+        "password": password,
+        "csrfauth": csrfToken.toString(),
+      };
+
+      final loginResponse = await http.post(loginRequestUrl, body: parameters);
+
+      print(loginResponse.body);
+      print(loginResponse.contentLength);
+
+      /*
+
+      final response = await Requests.post(
+        loginRequestUrl,
+        queryParameters: parameters,
+      );
+
+      response.raiseForStatus();
+
+      print(response.content());
+      print(parameters);*/
+
     } catch (e) {
       print('oops');
+      print(e.toString());
     }
   }
 

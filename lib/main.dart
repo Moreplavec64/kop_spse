@@ -31,8 +31,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    EduPage e = EduPage('spojenaskolanz', 'username', 'password');
-    e.initRequest();
+    EduPage e = EduPage('spojenaskolanz', 'AdamHadar', '5RDVUDPSPA');
+    e.login();
     return Scaffold(
       appBar: AppBar(),
       body: Center(
