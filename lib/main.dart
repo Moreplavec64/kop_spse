@@ -34,7 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
     EduPage e = EduPage('spojenaskolanz', 'AdamHadar', '5RDVUDPSPA');
     //e.login();
 
-    e.headerToCookies({
+    final x = e.headerToCookies({
       'connection': 'Upgrade',
       'last-modified': 'Tue, 14 Sep 2021 05:34:16 GMT',
       'cache-control':
@@ -49,6 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
       'referrer-policy': 'same-origin',
       'expires': 'Mon, 26 Jul 1997 05:00:00 GMT'
     });
+
     return Scaffold(
       appBar: AppBar(),
       body: Center(

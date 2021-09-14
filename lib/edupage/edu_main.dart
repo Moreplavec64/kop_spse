@@ -12,19 +12,32 @@ class EduPage {
   EduPage(this.school, this.username, this.password);
 
   bool isLoggedIn = false;
+  final Map<String, String> headers = {};
 
   Map<String, String> headerToCookies(Map<String, String> responseHeaders) {
     final Map<String, String> headers = {};
     List<String> c;
+    String cookieList = '';
     List<String> wantedCookies = ['PHPSESSID', 'hsid', 'edid'];
     final String? setCookie = responseHeaders['set-cookie'];
     final List<String> cookies =
         (setCookie == null) ? [''] : setCookie.split(',');
     for (var x in cookies) {
       c = x.split('=');
-      if (wantedCookies.contains(c[0]))
-        headers.addAll({c[0]: c[1].split(';')[0]});
+      if (wantedCookies.contains(c[0])) {
+        if (headers.keys.contains(c[0])) {
+          headers.update(c[0], (_) => c[1].split(';')[0]);
+        } else {
+          headers.addAll({c[0]: c[1].split(';')[0]});
+        }
+      }
     }
+    headers.forEach((key, value) {
+      cookieList = cookieList + '$key=$value; ';
+    });
+
+    print(cookieList.substring(0, cookieList.lastIndexOf(';')));
+
     return headers;
   }
 
@@ -33,8 +46,8 @@ class EduPage {
     try {
       final r = await http.get(Uri.parse(requestUrl));
 
-      // x final r = await Requests.get(requestUrl);
-      //dev.log(r.content());
+      print(r.headers['set-cookie']);
+      headerToCookies(r.headers);
 
       final tokenRegex = RegExp(r'(?<=name="csrfauth" value=")(.*)(?=">)',
           caseSensitive: true, multiLine: false);
@@ -62,8 +75,17 @@ class EduPage {
       print(loginResponse.headers);
       print(loginResponse.headers.entries);
       print(loginResponse.statusCode);
-      print(loginResponse.headers['set-cookie']);
       */
+
+      final loggedInResponse = await http.post(
+          Uri.parse('https://$school.edupage.org/user/'),
+          headers: headerToCookies(loginResponse.headers));
+
+      print(headerToCookies(loginResponse.headers));
+      print(loggedInResponse.headers['location']);
+
+      print(loggedInResponse.body);
+      print(loggedInResponse.headers);
 
       /*
       dev.log(http
