@@ -13,6 +13,21 @@ class EduPage {
 
   bool isLoggedIn = false;
 
+  Map<String, String> headerToCookies(Map<String, String> responseHeaders) {
+    final Map<String, String> headers = {};
+    List<String> c;
+    List<String> wantedCookies = ['PHPSESSID', 'hsid', 'edid'];
+    final String? setCookie = responseHeaders['set-cookie'];
+    final List<String> cookies =
+        (setCookie == null) ? [''] : setCookie.split(',');
+    for (var x in cookies) {
+      c = x.split('=');
+      if (wantedCookies.contains(c[0]))
+        headers.addAll({c[0]: c[1].split(';')[0]});
+    }
+    return headers;
+  }
+
   void login() async {
     String requestUrl = 'https://$school.edupage.org/login/index.php';
     try {
@@ -39,7 +54,9 @@ class EduPage {
       };
 
       final loginResponse =
-          await http.post(Uri.parse(requestUrl), body: parameters);
+          await http.post(Uri.parse(loginRequestUrl), body: parameters);
+
+      print(loginResponse.statusCode);
 
       /*
       print(loginResponse.headers);
