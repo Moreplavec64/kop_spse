@@ -32,39 +32,38 @@ class EduPage {
         }
       }
     }
-
     //Update cookie listu (parameter do requestov)
     cookieList = '';
-    headers.forEach((key, value) {
-      cookieList =
-          cookieList + '$key=$value${(headers.keys.last != key) ? '; ' : ''}';
-    });
-    print('COOKIE LIST: ');
-    print(cookieList + '\n///////////');
+    headers.forEach(
+      (key, value) {
+        cookieList =
+            cookieList + '$key=$value${(headers.keys.last != key) ? '; ' : ''}';
+      },
+    );
   }
 
   void login() async {
-    String requestUrl = 'https://$school.edupage.org/login/index.php';
+    final String requestUrl = 'https://$school.edupage.org/login/index.php';
+    final String loginRequestUrl =
+        'https://$school.edupage.org/login/edubarLogin.php';
     try {
       final r = await http.get(
         Uri.parse(requestUrl),
         headers: {'Cookie': cookieList},
       );
-
       headerToCookies(r.headers);
 
-      final tokenRegex = RegExp(r'(?<=name="csrfauth" value=")(.*)(?=">)',
-          caseSensitive: true, multiLine: false);
+      final RegExp tokenRegex = RegExp(
+        r'(?<=name="csrfauth" value=")(.*)(?=">)',
+        caseSensitive: true,
+        multiLine: false,
+      );
+
       final csrfToken = tokenRegex.stringMatch(r.body);
 
-      print('CSRF TOKER : ' + csrfToken.toString());
+      //print('CSRF TOKER : ' + csrfToken.toString());
 
-      print(csrfToken.toString().length);
-
-      final String loginRequestUrl =
-          'https://$school.edupage.org/login/edubarLogin.php';
-
-      Map<String, String> parameters = {
+      final Map<String, String> parameters = {
         "username": username,
         "password": password,
         "csrfauth": csrfToken.toString(),
@@ -81,32 +80,11 @@ class EduPage {
       print(loginResponse.statusCode);
 
       final loggedInResponse = await http.post(
-          Uri.parse('https://$school.edupage.org/user/'),
-          headers: {'Cookie': cookieList});
-
-      //print(loggedInResponse.headers['location']);
-
-      dev.log(loggedInResponse.body);
-      print(loggedInResponse.headers);
-
-      /*
-      dev.log(http
-          .get('https://spojenaskolanz.edupage.org/login/index.php')
-          .toString());
-      */
-
-      /*
-
-      final response = await Requests.post(
-        loginRequestUrl,
-        queryParameters: parameters,
+        Uri.parse('https://$school.edupage.org/user/'),
+        headers: {'Cookie': cookieList},
       );
 
-      response.raiseForStatus();
-
-      print(response.content());
-      print(parameters);*/
-
+      dev.log(loggedInResponse.body);
     } catch (e) {
       print('oops');
       print(e.toString());
