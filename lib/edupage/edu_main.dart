@@ -13,40 +13,44 @@ class EduPage {
 
   bool isLoggedIn = false;
   final Map<String, String> headers = {};
+  String cookieList = '';
 
-  Map<String, String> headerToCookies(Map<String, String> responseHeaders) {
-    final Map<String, String> headers = {};
-    List<String> c;
-    String cookieList = '';
+  void headerToCookies(Map<String, String> responseHeaders) {
+    List<String> setCookieEntry;
     List<String> wantedCookies = ['PHPSESSID', 'hsid', 'edid'];
     final String? setCookie = responseHeaders['set-cookie'];
     final List<String> cookies =
         (setCookie == null) ? [''] : setCookie.split(',');
     for (var x in cookies) {
-      c = x.split('=');
-      if (wantedCookies.contains(c[0])) {
-        if (headers.keys.contains(c[0])) {
-          headers.update(c[0], (_) => c[1].split(';')[0]);
+      setCookieEntry = x.split('=');
+      if (wantedCookies.contains(setCookieEntry[0])) {
+        if (headers.keys.contains(setCookieEntry[0])) {
+          headers.update(
+              setCookieEntry[0], (_) => setCookieEntry[1].split(';')[0]);
         } else {
-          headers.addAll({c[0]: c[1].split(';')[0]});
+          headers.addAll({setCookieEntry[0]: setCookieEntry[1].split(';')[0]});
         }
       }
     }
+
+    //Update cookie listu (parameter do requestov)
+    cookieList = '';
     headers.forEach((key, value) {
-      cookieList = cookieList + '$key=$value; ';
+      cookieList =
+          cookieList + '$key=$value${(headers.keys.last != key) ? '; ' : ''}';
     });
-
-    print(cookieList.substring(0, cookieList.lastIndexOf(';')));
-
-    return headers;
+    print('COOKIE LIST: ');
+    print(cookieList + '\n///////////');
   }
 
   void login() async {
     String requestUrl = 'https://$school.edupage.org/login/index.php';
     try {
-      final r = await http.get(Uri.parse(requestUrl));
+      final r = await http.get(
+        Uri.parse(requestUrl),
+        headers: {'Cookie': cookieList},
+      );
 
-      print(r.headers['set-cookie']);
       headerToCookies(r.headers);
 
       final tokenRegex = RegExp(r'(?<=name="csrfauth" value=")(.*)(?=">)',
@@ -66,25 +70,23 @@ class EduPage {
         "csrfauth": csrfToken.toString(),
       };
 
-      final loginResponse =
-          await http.post(Uri.parse(loginRequestUrl), body: parameters);
+      final loginResponse = await http.post(
+        Uri.parse(loginRequestUrl),
+        body: parameters,
+        headers: {'Cookie': cookieList},
+      );
+
+      headerToCookies(loginResponse.headers);
 
       print(loginResponse.statusCode);
-
-      /*
-      print(loginResponse.headers);
-      print(loginResponse.headers.entries);
-      print(loginResponse.statusCode);
-      */
 
       final loggedInResponse = await http.post(
           Uri.parse('https://$school.edupage.org/user/'),
-          headers: headerToCookies(loginResponse.headers));
+          headers: {'Cookie': cookieList});
 
-      print(headerToCookies(loginResponse.headers));
-      print(loggedInResponse.headers['location']);
+      //print(loggedInResponse.headers['location']);
 
-      print(loggedInResponse.body);
+      dev.log(loggedInResponse.body);
       print(loggedInResponse.headers);
 
       /*
