@@ -15,7 +15,7 @@ class EduPage {
   final Map<String, String> headers = {};
   String cookieList = '';
 
-  void headerToCookies(Map<String, String> responseHeaders) {
+  void _headerToCookies(Map<String, String> responseHeaders) {
     List<String> setCookieEntry;
     List<String> wantedCookies = ['PHPSESSID', 'hsid', 'edid'];
     final String? setCookie = responseHeaders['set-cookie'];
@@ -51,7 +51,7 @@ class EduPage {
         Uri.parse(requestUrl),
         headers: {'Cookie': cookieList},
       );
-      headerToCookies(r.headers);
+      _headerToCookies(r.headers);
 
       final RegExp tokenRegex = RegExp(
         r'(?<=name="csrfauth" value=")(.*)(?=">)',
@@ -75,7 +75,7 @@ class EduPage {
         headers: {'Cookie': cookieList},
       );
 
-      headerToCookies(loginResponse.headers);
+      _headerToCookies(loginResponse.headers);
 
       print(loginResponse.statusCode);
 
@@ -89,5 +89,9 @@ class EduPage {
       print('oops');
       print(e.toString());
     }
+  }
+
+  void parseEduData(String response) {
+    dev.log(response);
   }
 }
