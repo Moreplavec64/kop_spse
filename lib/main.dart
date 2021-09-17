@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kop_spse/edupage/edu_main.dart';
+import 'package:kop_spse/edupage/parse_json.dart';
 
 void main() {
   runApp(MyApp());
@@ -34,7 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
     EduPage e = EduPage('spojenaskolanz', 'AdamHadar', '5RDVUDPSPA');
     //e.login();
 
-    e.parseEduData('');
+    parseEduJsonData();
 
     return Scaffold(
       appBar: AppBar(),

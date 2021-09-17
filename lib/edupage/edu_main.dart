@@ -90,8 +90,4 @@ class EduPage {
       print(e.toString());
     }
   }
-
-  void parseEduData(String response) {
-    dev.log(response);
-  }
 }
