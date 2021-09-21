@@ -4,6 +4,7 @@
 import 'dart:developer' as dev;
 
 import 'package:http/http.dart' as http;
+import 'package:kop_spse/edupage/parse_json.dart';
 
 class EduPage {
   final String school;
@@ -84,7 +85,9 @@ class EduPage {
         headers: {'Cookie': cookieList},
       );
 
-      dev.log(loggedInResponse.body);
+      //dev.log(loggedInResponse.body);
+      final parsed = await parseEduJsonData(data: loggedInResponse.body);
+      getRozvrh(parsed, DateTime.now());
     } catch (e) {
       print('oops');
       print(e.toString());

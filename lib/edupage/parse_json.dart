@@ -4,14 +4,15 @@ import 'dart:developer' as dev;
 import 'dart:convert' as convert;
 
 import 'package:intl/intl.dart';
+import 'package:kop_spse/redux/store.dart';
 import 'package:kop_spse/utils/edu_id_util.dart';
 
 Future<String> loadAsset() async {
   return await rootBundle.loadString('assets\\test_reponse\\edu_response.html');
 }
 
-Future<String> parseEduJsonData() async {
-  final String data = await loadAsset();
+Future<Map<String, dynamic>> parseEduJsonData({String data = ''}) async {
+  if (data == '') data = await loadAsset();
   String json;
   json = data.split("\$j(document).ready(function() {")[1];
   json = json.split(");")[0];
@@ -26,9 +27,9 @@ Future<String> parseEduJsonData() async {
 
   // dev.log(conv_json['dp'].toString());
 
-  getRozvrh(convJson, DateTime.now().subtract(Duration(days: 2)));
+  //getRozvrh(convJson, DateTime.now().subtract(Duration(days: 2)));
 
-  return '';
+  return convJson;
 }
 
 void getRozvrh(Map<String, dynamic> convJson, DateTime date) {
@@ -45,10 +46,12 @@ void getRozvrh(Map<String, dynamic> convJson, DateTime date) {
   final todayPlan = todayPlans['plan'];
 
   for (Map<String, dynamic> hodina in todayPlan) {
-    // print(hodina['uniperiod']);
+    // Redux.store.state.eduState.eduRepository
     // print(hodina['subjectid']);
     final List<dynamic> ucebne = hodina['classroomids'];
-    // print(EduIdUtil.idToClassroom(
-    //     convJson, ucebne.isNotEmpty ? hodina['classroomids'][0] : ''));
+    print(hodina['uniperiod'] +
+        '  ' +
+        EduIdUtil.idToClassroom(
+            convJson, ucebne.isNotEmpty ? hodina['classroomids'][0] : ''));
   }
 }
