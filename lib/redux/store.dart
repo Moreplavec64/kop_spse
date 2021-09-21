@@ -1,3 +1,4 @@
+import 'package:kop_spse/redux/eudpage/edupage_actions.dart';
 import 'package:kop_spse/redux/eudpage/edupage_reducer.dart';
 import 'package:kop_spse/redux/eudpage/edupage_state.dart';
 import 'package:redux/redux.dart';
@@ -8,21 +9,29 @@ class AppState {
   AppState({
     required this.eduState,
   });
+
+  AppState copyWith(EduState eduState) {
+    return AppState(eduState: eduState);
+  }
+}
+
+AppState reducer(AppState state, dynamic action) {
+  switch (action.runtimeType) {
+    case EduActions:
+      eduReducer(state.eduState, action);
+      return state.copyWith(state.eduState);
+  }
+
+  return state;
 }
 
 class Redux {
   static Store<AppState> _store = Store<AppState>(
-    (prevState, action) => prevState,
+    reducer,
     initialState: AppState(
       eduState: EduState.initial(),
     ),
   );
 
-  static Store<AppState> get store {
-    if (_store == null) {
-      throw Exception("store is not initialized");
-    } else {
-      return _store;
-    }
-  }
+  static Store<AppState> get store => _store;
 }
