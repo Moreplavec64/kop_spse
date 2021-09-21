@@ -1,8 +1,4 @@
-// ignore: import_of_legacy_library_into_null_safe
-//import 'package:requests/requests.dart';
-
 import 'dart:developer' as dev;
-
 import 'package:http/http.dart' as http;
 import 'package:kop_spse/edupage/parse_json.dart';
 
@@ -59,10 +55,7 @@ class EduPage {
         caseSensitive: true,
         multiLine: false,
       );
-
-      final csrfToken = tokenRegex.stringMatch(r.body);
-
-      //print('CSRF TOKER : ' + csrfToken.toString());
+      final String? csrfToken = tokenRegex.stringMatch(r.body);
 
       final Map<String, String> parameters = {
         "username": username,
