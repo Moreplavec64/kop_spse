@@ -4,7 +4,6 @@ import 'dart:developer' as dev;
 import 'dart:convert' as convert;
 
 import 'package:intl/intl.dart';
-import 'package:kop_spse/redux/store.dart';
 import 'package:kop_spse/utils/edu_id_util.dart';
 
 Future<String> loadAsset() async {
