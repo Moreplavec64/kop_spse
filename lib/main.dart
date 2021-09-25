@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kop_spse/edupage/edu_main.dart';
-import 'package:kop_spse/edupage/parse_json.dart';
+import 'package:kop_spse/screens/home_screen.dart';
+import 'package:kop_spse/screens/login_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,32 +16,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      routes: {
+        '/': (ctx) => const LoginScreen(),
+        '/home': (ctx) => const HomeScreen(),
+      },
     );
   }
 }
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    EduPage e = EduPage('spojenaskolanz', 'AdamHadar', '5RDVUDPSPA');
-    //e.login();
-
-    parseEduJsonData();
-
-    return Scaffold(
-      appBar: AppBar(),
-      body: Center(
-        child: Text('AAAAAAAAAA'),
-      ),
-    );
-  }
-}
+//EduPage e = EduPage('spojenaskolanz', 'AdamHadar', '5RDVUDPSPA');
