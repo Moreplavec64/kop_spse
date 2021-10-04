@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kop_spse/widgets/appbar.dart';
 
 class HomeScreen extends StatefulWidget {
   static String route = "/homeScreen";
@@ -8,50 +9,18 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
-  late Animation<double> _animation;
-  late AnimationController _animationController;
-
-  @override
-  void initState() {
-    super.initState();
-    _animationController = AnimationController(
-      vsync: this,
-      duration: Duration(seconds: 1),
-    );
-    _animation = Tween(begin: 0.0, end: 1.0).animate(_animationController);
-  }
-
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     return Scaffold(
       key: _scaffoldKey,
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            // ak sa uz animuje a pride k stlaceni, zisti ci kade sa ma vratit
-            if (_animationController.isAnimating) {
-              if (_animationController.value < 0.5)
-                _animationController.reverse();
-              else {
-                _animationController.forward();
-              }
-            } else {
-              _animationController.isCompleted
-                  ? _animationController.reverse()
-                  : _animationController.forward();
-            }
-            _scaffoldKey.currentState!.openDrawer();
-          },
-          icon: AnimatedIcon(
-            progress: _animation,
-            icon: AnimatedIcons.close_menu,
-          ),
-        ),
+      appBar: CustomAppBar(
+        scaffoldKey: _scaffoldKey,
+        size: MediaQuery.of(context).size,
       ),
-      drawer: Drawer(),
+      drawer: const Drawer(),
       body: Column(
         children: [
           Center(
@@ -66,11 +35,5 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         ],
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
   }
 }
