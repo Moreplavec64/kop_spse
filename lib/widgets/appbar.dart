@@ -16,7 +16,8 @@ class CustomAppBar extends StatefulWidget with PreferredSizeWidget {
   State<CustomAppBar> createState() => _CustomAppBarState();
 
   @override
-  Size get preferredSize => Size.fromHeight(_size.height * .07);
+  Size get preferredSize => Size.fromHeight(
+      (_size.height - kToolbarHeight - kBottomNavigationBarHeight) * .07);
 }
 
 class _CustomAppBarState extends State<CustomAppBar>
@@ -35,30 +36,36 @@ class _CustomAppBarState extends State<CustomAppBar>
   }
 
   @override
-  PreferredSize build(BuildContext context) {
-    return PreferredSize(
-      preferredSize: Size.infinite,
-      child: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            // ak sa uz animuje a pride k stlaceni, zisti ci kade sa ma vratit
-            if (_animationController.isAnimating) {
-              if (_animationController.value < 0.5)
-                _animationController.reverse();
-              else {
-                _animationController.forward();
-              }
-            } else {
-              _animationController.isCompleted
-                  ? _animationController.reverse()
-                  : _animationController.forward();
+  void dispose() {
+    super.dispose();
+    _animationController.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      backgroundColor: Theme.of(context).primaryColor,
+      leading: IconButton(
+        onPressed: () {
+          // ak sa uz animuje a pride k stlaceni, zisti ci kade sa ma vratit
+          if (_animationController.isAnimating) {
+            if (_animationController.value < 0.5)
+              _animationController.reverse();
+            else {
+              _animationController.forward();
             }
-            widget._scaffoldKey.currentState!.openDrawer();
-          },
-          icon: AnimatedIcon(
-            progress: _animation,
-            icon: AnimatedIcons.close_menu,
-          ),
+          } else {
+            _animationController.isCompleted
+                ? _animationController.reverse()
+                : _animationController.forward();
+          }
+          widget._scaffoldKey.currentState!.openDrawer();
+
+          //TODO reverse animation after closing drawer
+        },
+        icon: AnimatedIcon(
+          progress: _animation,
+          icon: AnimatedIcons.menu_close,
         ),
       ),
     );

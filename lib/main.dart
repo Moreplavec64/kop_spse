@@ -22,7 +22,8 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primaryColor: Color.fromRGBO(3, 192, 60, 1),
+          // primarySwatch: Colors.blue,
         ),
         routes: {
           '/': (ctx) => const LoginScreen(),
