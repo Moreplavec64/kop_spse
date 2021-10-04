@@ -16,6 +16,7 @@ class EduPageProvider with ChangeNotifier {
   bool get getIsLogin => _isLogin;
 
   Map<String, dynamic> _parsedEdupageData = Map();
+  Map<String, dynamic> get getEduData => _parsedEdupageData;
   late List<LessonPlan> _dnesnyRozvrh;
   late final EduUser _eduUser;
 

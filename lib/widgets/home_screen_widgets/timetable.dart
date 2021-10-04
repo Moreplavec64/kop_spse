@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kop_spse/providers/edupage.dart';
+import 'package:kop_spse/utils/edu_id_util.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreenTimeTable extends StatelessWidget {
@@ -18,6 +19,8 @@ class HomeScreenTimeTable extends StatelessWidget {
       width: _size.width,
       child: Center(
         child: ListView.builder(
+          physics: BouncingScrollPhysics(),
+          padding: EdgeInsets.symmetric(vertical: _size.height * (0.75 / 7)),
           scrollDirection: Axis.horizontal,
           itemCount: Provider.of<EduPageProvider>(context, listen: false)
               .getDnesnyRozvrh
@@ -25,9 +28,16 @@ class HomeScreenTimeTable extends StatelessWidget {
           itemBuilder: (ctx, i) {
             return Container(
               padding: const EdgeInsets.all(10),
-              child: Text(Provider.of<EduPageProvider>(context)
-                  .getDnesnyRozvrh[i]
-                  .subjectID),
+              child: Text(
+                EduIdUtil.idToSubject(
+                    Provider.of<EduPageProvider>(
+                      context,
+                      listen: false,
+                    ).getEduData,
+                    Provider.of<EduPageProvider>(context)
+                        .getDnesnyRozvrh[i]
+                        .subjectID),
+              ),
             );
           },
         ),

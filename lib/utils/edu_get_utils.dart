@@ -1,6 +1,5 @@
 import 'package:intl/intl.dart';
 import 'package:kop_spse/models/plan.dart';
-import 'package:kop_spse/utils/edu_id_util.dart';
 
 List<LessonPlan> getRozvrh(Map<String, dynamic> convJson, DateTime date) {
   //date format - YYYY-MM-DD
@@ -13,19 +12,9 @@ List<LessonPlan> getRozvrh(Map<String, dynamic> convJson, DateTime date) {
     return [];
   }
 
-  // final List<Map<String, dynamic>>
-  // final List<Map<String, dynamic>> todayPlan =
+  //List<Map<String, dynamic>>
   final List<dynamic> todayPlan = todayPlans['plan'];
 
-  // for (Map<String, dynamic> hodina in todayPlan) {
-  //   // Redux.store.state.eduState.eduRepository
-  //   // print(hodina['subjectid']);
-  //   final List<dynamic> ucebne = hodina['classroomids'];
-  //   print(hodina['uniperiod'] +
-  //       '  ' +
-  //       EduIdUtil.idToClassroom(
-  //           convJson, ucebne.isNotEmpty ? hodina['classroomids'][0] : ''));
-  // }
   return todayPlan
       .map(
         (hodina) => LessonPlan(
