@@ -54,8 +54,20 @@ Future<void> _showMyDialog({
         lessonData.subjectID,
       );
       return AlertDialog(
-        title: Text(
-          longNazov.replaceRange(0, 1, longNazov[0].toUpperCase()),
+        title: Column(
+          children: [
+            Align(
+              alignment: Alignment.topLeft,
+              child: IconButton(
+                padding: const EdgeInsets.all(0),
+                onPressed: () => Navigator.of(context).pop(),
+                icon: Icon(Icons.arrow_back),
+              ),
+            ),
+            Text(
+              longNazov.replaceRange(0, 1, longNazov[0].toUpperCase()),
+            ),
+          ],
         ),
         content: SingleChildScrollView(
           child: ListBody(

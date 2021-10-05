@@ -18,34 +18,37 @@ class HomeScreenTimeTable extends StatelessWidget {
     return Container(
       height: _size.height * (2 / 7),
       width: _size.width,
-      child: Stack(children: [
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Container(
-            decoration: BoxDecoration(
-                color: Colors.grey[400],
-                borderRadius: BorderRadius.all(Radius.circular(16))),
-            width: _size.width,
-            height: _size.height / 7,
-            child: ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              scrollDirection: Axis.horizontal,
-              itemCount: Provider.of<EduPageProvider>(context, listen: false)
-                  .getDnesnyRozvrh
-                  .length,
-              itemBuilder: (ctx, i) {
-                return Padding(
-                  padding: EdgeInsets.symmetric(vertical: _size.height / 7 / 4),
-                  child: TimeTableItem(
-                    index: i,
-                    size: _size,
-                  ),
-                );
-              },
+      child: Stack(
+        children: [
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Colors.grey[400],
+                  borderRadius: BorderRadius.all(Radius.circular(16))),
+              width: _size.width,
+              height: _size.height / 7,
+              child: ListView.builder(
+                physics: const BouncingScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                itemCount: Provider.of<EduPageProvider>(context, listen: false)
+                    .getDnesnyRozvrh
+                    .length,
+                itemBuilder: (ctx, i) {
+                  return Padding(
+                    padding:
+                        EdgeInsets.symmetric(vertical: _size.height / 7 / 4),
+                    child: TimeTableItem(
+                      index: i,
+                      size: _size,
+                    ),
+                  );
+                },
+              ),
             ),
           ),
-        ),
-      ]),
+        ],
+      ),
     );
   }
 }
