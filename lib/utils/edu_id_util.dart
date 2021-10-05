@@ -7,6 +7,9 @@ class EduIdUtil {
       data['dbi']['subjects'][id.toString()]['short'];
   static String idToTeacher(Map<String, dynamic> data, String id) {
     final td = data['dbi']['teachers'][id.toString()];
-    return '${td["firstname"]} ${td["lastname"]}';
+    return '${td['firstname']} ${td['lastname']}';
   }
+
+  static String idToLongSubject(Map<String, dynamic> data, String id) =>
+      data['dbi']['subjects'][id.toString()]['name'];
 }

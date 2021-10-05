@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:kop_spse/models/plan.dart';
-import 'package:kop_spse/providers/edupage.dart';
-import 'package:kop_spse/utils/edu_id_util.dart';
 import 'package:provider/provider.dart';
+
+import 'package:kop_spse/providers/edupage.dart';
+import 'package:kop_spse/widgets/home_screen_widgets/time_table_idem.dart';
 
 class HomeScreenTimeTable extends StatelessWidget {
   const HomeScreenTimeTable({
@@ -48,74 +48,4 @@ class HomeScreenTimeTable extends StatelessWidget {
       ]),
     );
   }
-}
-
-class TimeTableItem extends StatelessWidget {
-  const TimeTableItem({
-    Key? key,
-    required this.index,
-    required this.size,
-  }) : super(key: key);
-
-  final int index;
-  final Size size;
-  @override
-  Widget build(BuildContext context) {
-    final provider = Provider.of<EduPageProvider>(context, listen: false);
-
-    return GestureDetector(
-      onTap: () {
-        _showMyDialog(
-          context: context,
-          lessonData: provider.getDnesnyRozvrh[index],
-        );
-      },
-      child: Container(
-        color: Colors.red,
-        margin: const EdgeInsets.all(5),
-        height: size.height / 7,
-        width: (size.width / provider.getDnesnyRozvrh.length) - 10,
-        padding: const EdgeInsets.all(5),
-        child: Center(
-          child: Text(
-            EduIdUtil.idToSubject(
-                provider.getEduData, provider.getDnesnyRozvrh[index].subjectID),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-Future<void> _showMyDialog({
-  required BuildContext context,
-  required LessonPlan lessonData,
-}) async {
-  final provider = Provider.of<EduPageProvider>(context, listen: false);
-  return showDialog<void>(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text(
-          EduIdUtil.idToSubject(
-            provider.getEduData,
-            lessonData.subjectID,
-          ),
-        ),
-        content: SingleChildScrollView(
-          child: ListBody(
-            children: <Widget>[],
-          ),
-        ),
-        actions: <Widget>[
-          TextButton(
-            child: const Text('Approve'),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-        ],
-      );
-    },
-  );
 }
