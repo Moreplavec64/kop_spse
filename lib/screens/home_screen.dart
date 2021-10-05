@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
             HomeScreenTimeTable(size: _size),
             Container(
               height: _size.height * (4 / 7),
-              color: Colors.grey,
+              color: Colors.grey[200],
             ),
             Container(
               height: _size.height * (1 / 7),
