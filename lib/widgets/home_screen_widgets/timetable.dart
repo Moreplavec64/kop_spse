@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:kop_spse/providers/edupage.dart';
-import 'package:kop_spse/widgets/home_screen_widgets/time_table_idem.dart';
+import 'package:kop_spse/widgets/home_screen_widgets/time_table_item.dart';
 
 class HomeScreenTimeTable extends StatelessWidget {
   const HomeScreenTimeTable({

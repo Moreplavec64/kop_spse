@@ -32,8 +32,10 @@ class TimeTableItem extends StatelessWidget {
         padding: const EdgeInsets.all(5),
         child: Center(
           child: Text(
-            EduIdUtil.idToSubject(
-                provider.getEduData, provider.getDnesnyRozvrh[index].subjectID),
+            EduIdUtil.idToSubject(provider.getEduData,
+                    provider.getDnesnyRozvrh[index].subjectID)
+                .substring(0, 3)
+                .toUpperCase(),
           ),
         ),
       ),
@@ -54,29 +56,40 @@ Future<void> _showMyDialog({
         lessonData.subjectID,
       );
       return AlertDialog(
-        title: Column(
-          children: [
-            Align(
-              alignment: Alignment.topLeft,
-              child: IconButton(
-                padding: const EdgeInsets.all(0),
-                onPressed: () => Navigator.of(context).pop(),
-                icon: Icon(Icons.arrow_back),
-              ),
-            ),
-            Text(
-              longNazov.replaceRange(0, 1, longNazov[0].toUpperCase()),
-            ),
-          ],
-        ),
+        contentPadding: const EdgeInsets.all(0),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         content: SingleChildScrollView(
           child: ListBody(
-            children: <Widget>[],
+            children: <Widget>[
+              Align(
+                alignment: Alignment.topLeft,
+                child: IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.arrow_back),
+                ),
+              ),
+              Text(
+                longNazov.replaceRange(0, 1, longNazov[0].toUpperCase()),
+                textAlign: TextAlign.center,
+              ),
+              Text(
+                '${lessonData.period}. hodina  ${lessonData.startTime} - ${lessonData.endTime}',
+                textAlign: TextAlign.center,
+              ),
+              if (lessonData.skupina.isNotEmpty)
+                Text(
+                  'Skupina ' + lessonData.skupina,
+                  textAlign: TextAlign.center,
+                ),
+            ],
           ),
         ),
         actions: <Widget>[
           TextButton(
-            child: const Text('Approve'),
+            child: Text(
+              'OK',
+              style: TextStyle(color: Theme.of(context).primaryColor),
+            ),
             onPressed: () {
               Navigator.of(context).pop();
             },
