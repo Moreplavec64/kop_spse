@@ -30,6 +30,11 @@ class LoginScreen extends StatelessWidget {
             },
             child: Text('Druha screena'),
           ),
+          Container(
+            height: 50,
+            width: 50,
+            color: Color(0xffffff80),
+          )
         ],
       ),
     );

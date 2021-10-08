@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:kop_spse/models/plan.dart';
 import 'package:kop_spse/providers/edupage.dart';
@@ -16,6 +18,8 @@ class TimeTableItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<EduPageProvider>(context, listen: false);
+    final String shortTitleHodiny = EduIdUtil.idToShortSubject(
+        provider.getEduData, provider.getDnesnyRozvrh[index].subjectID);
 
     return GestureDetector(
       onTap: () {
@@ -25,18 +29,13 @@ class TimeTableItem extends StatelessWidget {
         );
       },
       child: Container(
-        color: Colors.red,
+        color: _getColor(shortTitleHodiny),
         margin: const EdgeInsets.all(5),
-        height: size.height / 7,
+        height: (size.width / provider.getDnesnyRozvrh.length) - 10,
         width: (size.width / provider.getDnesnyRozvrh.length) - 10,
         padding: const EdgeInsets.all(5),
         child: Center(
-          child: Text(
-            EduIdUtil.idToSubject(provider.getEduData,
-                    provider.getDnesnyRozvrh[index].subjectID)
-                .substring(0, 3)
-                .toUpperCase(),
-          ),
+          child: Text(shortTitleHodiny),
         ),
       ),
     );
@@ -98,4 +97,23 @@ Future<void> _showMyDialog({
       );
     },
   );
+}
+
+Color _getColor(String nazovHodiny) {
+  final Map<String, Color> colorMap = {
+    'ROB': Color(0xffffff80),
+    'MAT': Color(0xff80b3b3),
+    'TSV': Color(0xffffccb3),
+    'EKO': Color(0xffe0ff80),
+    'DAA': Color(0xff99b380),
+    'ANJ': Color(0xffff8080),
+    'WIS': Color(0xff80b3cc),
+  };
+  if (colorMap.keys.contains(nazovHodiny)) {
+    return colorMap[nazovHodiny]!;
+  } else {
+    return colorMap.values.elementAt(
+      Random().nextInt(colorMap.values.length),
+    );
+  }
 }
