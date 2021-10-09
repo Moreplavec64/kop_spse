@@ -20,7 +20,7 @@ class LoginScreen extends StatelessWidget {
                 if (!provider.getIsLogin) {
                   provider.setIsLogin = true;
                   provider.setAuthValues('AdamHadar', '5RDVUDPSPA');
-                  provider.login();
+                  provider.login(useTestValues: true);
                 }
               },
               child: Text('login????')),

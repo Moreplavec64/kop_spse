@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'dart:convert' as convert;
+import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
+
 import 'package:kop_spse/models/edu_user.dart';
 import 'package:kop_spse/models/plan.dart';
 import 'package:kop_spse/utils/edu_get_utils.dart';
-import 'dart:convert' as convert;
-import 'package:http/http.dart' as http;
 
 class EduPageProvider with ChangeNotifier {
   final String _school = 'spojenaskolanz';
@@ -17,9 +19,9 @@ class EduPageProvider with ChangeNotifier {
 
   Map<String, dynamic> _parsedEdupageData = Map();
   Map<String, dynamic> get getEduData => _parsedEdupageData;
-  late List<LessonPlan> _dnesnyRozvrh;
   late final EduUser _eduUser;
 
+  late List<LessonPlan> _dnesnyRozvrh;
   List<LessonPlan> get getDnesnyRozvrh =>
       _dnesnyRozvrh.isNotEmpty ? _dnesnyRozvrh : [];
 
@@ -34,7 +36,12 @@ class EduPageProvider with ChangeNotifier {
     _username = username;
   }
 
-  void login() async {
+  void login({bool useTestValues = false}) async {
+    //skip login, a load test response
+    if (useTestValues) {
+      _parseEduJsonData();
+      return;
+    }
     print('login');
     final String requestUrl = 'https://$_school.edupage.org/login/index.php';
     final String loginRequestUrl =
@@ -113,11 +120,14 @@ class EduPageProvider with ChangeNotifier {
   void _parseEduJsonData({String data = ''}) async {
     //data = reponse header na parsnutie, ak sa nezada, nacita sa test reponse
     //TODO errors
-    print('parsing data');
+    late final DateTime date;
     if (data == '') {
       data = await rootBundle
           .loadString('assets\\test_reponse\\edu_response.html');
-    }
+      date = DateTime.parse(
+          DateFormat('yyyy/dd/MM').parse('2021/16/09').toString());
+    } else
+      date = DateTime.now();
     String json;
     json = data.split("\$j(document).ready(function() {")[1];
     json = json.split(");")[0];
@@ -127,13 +137,27 @@ class EduPageProvider with ChangeNotifier {
     json.replaceAll('\r', '');
 
     _parsedEdupageData = convert.json.decode(json) as Map<String, dynamic>;
-    _createData();
-  }
 
-  void _createData() {
-    print('create data');
+    // create data
     if (_parsedEdupageData.isEmpty) return;
-    _dnesnyRozvrh = getRozvrh(_parsedEdupageData, DateTime.now());
+    _dnesnyRozvrh = getRozvrh(_parsedEdupageData, date);
     print(_dnesnyRozvrh);
   }
+
+  final Map<String, Color> colorMap = {
+    'ROB': Color(0xffffff80),
+    'MAT': Color(0xff80b3b3),
+    'TSV': Color(0xffffccb3),
+    'EKO': Color(0xffe0ff80),
+    'SJL': Color(0xffe090ff),
+    'RPJ': Color(0xffc0e0ff),
+    'PRO': Color(0xff80ffc0),
+    'ELK': Color(0xffb3b3b3),
+    'SXT': Color(0xffffc0c0),
+    'CEC': Color(0xff80c0c0),
+    'SIE': Color(0xffffb3b3),
+    'DAA': Color(0xff99b380),
+    'ANJ': Color(0xffff8080),
+    'WIS': Color(0xff80b3cc),
+  };
 }

@@ -29,7 +29,7 @@ class TimeTableItem extends StatelessWidget {
         );
       },
       child: Container(
-        color: _getColor(shortTitleHodiny),
+        color: _getColor(shortTitleHodiny, provider),
         margin: const EdgeInsets.all(5),
         height: (size.width / provider.getDnesnyRozvrh.length) - 10,
         width: (size.width / provider.getDnesnyRozvrh.length) - 10,
@@ -99,21 +99,16 @@ Future<void> _showMyDialog({
   );
 }
 
-Color _getColor(String nazovHodiny) {
-  final Map<String, Color> colorMap = {
-    'ROB': Color(0xffffff80),
-    'MAT': Color(0xff80b3b3),
-    'TSV': Color(0xffffccb3),
-    'EKO': Color(0xffe0ff80),
-    'DAA': Color(0xff99b380),
-    'ANJ': Color(0xffff8080),
-    'WIS': Color(0xff80b3cc),
-  };
-  if (colorMap.keys.contains(nazovHodiny)) {
-    return colorMap[nazovHodiny]!;
+Color _getColor(String nazovHodiny, EduPageProvider provider) {
+  if (provider.colorMap.keys.contains(nazovHodiny)) {
+    return provider.colorMap[nazovHodiny]!;
   } else {
-    return colorMap.values.elementAt(
-      Random().nextInt(colorMap.values.length),
+    //ak sa nenachadza v liste farieb, vyberie sa random farba a priradi sa do listu
+    // aby dalsie rovnake hodiny boli vyfarbene rovnakou farbou
+    final randColor = provider.colorMap.values.elementAt(
+      Random().nextInt(provider.colorMap.values.length),
     );
+    provider.colorMap.addAll({nazovHodiny: randColor});
+    return randColor;
   }
 }
