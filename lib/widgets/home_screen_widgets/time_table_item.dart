@@ -14,7 +14,7 @@ class TimeTableItem extends StatelessWidget {
   }) : super(key: key);
 
   final int index;
-  final Size size;
+  final double size;
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<EduPageProvider>(context, listen: false);
@@ -29,13 +29,20 @@ class TimeTableItem extends StatelessWidget {
         );
       },
       child: Container(
+        height: size,
+        width: size,
         color: _getColor(shortTitleHodiny, provider),
-        margin: const EdgeInsets.all(5),
-        height: (size.width / provider.getDnesnyRozvrh.length) - 10,
-        width: (size.width / provider.getDnesnyRozvrh.length) - 10,
-        padding: const EdgeInsets.all(5),
-        child: Center(
-          child: Text(shortTitleHodiny),
+        margin: const EdgeInsets.all(4),
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(
+            shortTitleHodiny,
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 22,
+            ),
+          ),
         ),
       ),
     );
@@ -103,7 +110,7 @@ Color _getColor(String nazovHodiny, EduPageProvider provider) {
   if (provider.colorMap.keys.contains(nazovHodiny)) {
     return provider.colorMap[nazovHodiny]!;
   } else {
-    //ak sa nenachadza v liste farieb, vyberie sa random farba a priradi sa do listu
+    // ak sa nenachadza v liste farieb, vyberie sa random farba a priradi sa do listu
     // aby dalsie rovnake hodiny boli vyfarbene rovnakou farbou
     final randColor = provider.colorMap.values.elementAt(
       Random().nextInt(provider.colorMap.values.length),

@@ -2,12 +2,11 @@ import 'package:intl/intl.dart';
 import 'package:kop_spse/models/plan.dart';
 
 List<LessonPlan> getRozvrh(Map<String, dynamic> convJson, DateTime date) {
-  //date format - YYYY-MM-DD
+  //date format - yyyy-MM-dd
   final String formattedDate = DateFormat('yyyy-MM-dd').format(date);
   final dp = convJson['dp'];
   final todayPlans = dp['dates'][formattedDate];
   if (todayPlans == null) {
-    //TODO chyba na tento datum neexistuje rozvrh
     print('chyba na tento datum neexistuje rozvrh');
     return [];
   }

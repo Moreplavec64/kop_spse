@@ -15,6 +15,10 @@ class HomeScreenTimeTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final EduPageProvider provider =
+        Provider.of<EduPageProvider>(context, listen: false);
+    final int subjNumber = provider.getDnesnyRozvrh.length;
+    final double ttItemsize = (_size.width / subjNumber) - 10;
     return Container(
       height: _size.height * (2 / 7),
       width: _size.width,
@@ -22,29 +26,47 @@ class HomeScreenTimeTable extends StatelessWidget {
         children: [
           Align(
             alignment: Alignment.bottomCenter,
-            child: Container(
-              decoration: BoxDecoration(
-                  color: Colors.grey[400],
-                  borderRadius: BorderRadius.all(Radius.circular(16))),
-              width: _size.width,
-              height: _size.height / 7,
-              child: ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                scrollDirection: Axis.horizontal,
-                itemCount: Provider.of<EduPageProvider>(context, listen: false)
-                    .getDnesnyRozvrh
-                    .length,
-                itemBuilder: (ctx, i) {
-                  return Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: _size.height / 7 / 4),
-                    child: TimeTableItem(
-                      index: i,
-                      size: _size,
+            child: Column(
+              children: [
+                SizedBox(
+                  width: _size.width - 10,
+                  child: Row(
+                    children: provider.getDnesnyRozvrh
+                        .map((e) => Container(
+                            width: ttItemsize + 8,
+                            padding: const EdgeInsets.all(5),
+                            child: Text(
+                              e.period.toString() + '.',
+                              textAlign: TextAlign.center,
+                            )))
+                        .toList(),
+                  ),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                      color: Colors.grey[350],
+                      borderRadius: BorderRadius.all(Radius.circular(16))),
+                  width: _size.width - 10,
+                  height: _size.height / 7,
+                  child: ListView.builder(
+                    padding: EdgeInsets.symmetric(
+                      vertical: (_size.height / 7 - ttItemsize - 10) / 2,
                     ),
-                  );
-                },
-              ),
+                    physics: const BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    itemCount:
+                        Provider.of<EduPageProvider>(context, listen: false)
+                            .getDnesnyRozvrh
+                            .length,
+                    itemBuilder: (ctx, i) {
+                      return TimeTableItem(
+                        index: i,
+                        size: ttItemsize,
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
           ),
         ],
