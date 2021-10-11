@@ -8,14 +8,25 @@ import 'package:kop_spse/models/edu_user.dart';
 import 'package:kop_spse/models/plan.dart';
 import 'package:kop_spse/utils/edu_get_utils.dart';
 
+enum LoginStatus {
+  LoggedOut,
+  LoggingIn,
+  LoggedIn,
+  LoginFailed,
+}
+
 class EduPageProvider with ChangeNotifier {
   final String _school = 'spojenaskolanz';
   late final String? _username;
   late final String? _password;
 
-  bool _isLogin = false;
-  set setIsLogin(bool x) => _isLogin = x;
-  bool get getIsLogin => _isLogin;
+  LoginStatus _isLogin = LoginStatus.LoggedOut;
+  set setLoginStatus(LoginStatus x) {
+    _isLogin = x;
+    notifyListeners();
+  }
+
+  LoginStatus get getLoginStatus => _isLogin;
 
   Map<String, dynamic> _parsedEdupageData = Map();
   Map<String, dynamic> get getEduData => _parsedEdupageData;
@@ -36,11 +47,11 @@ class EduPageProvider with ChangeNotifier {
     _username = username;
   }
 
-  void login({bool useTestValues = false}) async {
+  Future<bool> login({bool useTestValues = false}) async {
     //skip login, a load test response
     if (useTestValues) {
       _parseEduJsonData();
-      return;
+      return true;
     }
     print('login');
     final String requestUrl = 'https://$_school.edupage.org/login/index.php';
@@ -83,8 +94,10 @@ class EduPageProvider with ChangeNotifier {
       );
       //dev.log(loggedInResponse.body);
       _parseEduJsonData(data: loggedInResponse.body);
+      return true;
     } catch (e) {
       print(e.toString());
+      return false;
     }
   }
 
@@ -121,6 +134,7 @@ class EduPageProvider with ChangeNotifier {
     //data = reponse header na parsnutie, ak sa nezada, nacita sa test reponse
     //TODO errors
     late final DateTime date;
+    // dev.log(data);
     if (data == '') {
       data = await rootBundle
           .loadString('assets\\test_reponse\\edu_response.html');
