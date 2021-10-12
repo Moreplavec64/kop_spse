@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kop_spse/widgets/appbar.dart';
+import 'package:kop_spse/widgets/home_screen_widgets/drawer.dart';
 import 'package:kop_spse/widgets/home_screen_widgets/timetable.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -26,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
           scaffoldKey: _scaffoldKey,
           size: MediaQuery.of(context).size,
         ),
-        drawer: const Drawer(),
+        drawer: CustomDrawer(),
         body: Column(
           children: [
             HomeScreenTimeTable(size: _size),
