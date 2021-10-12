@@ -19,11 +19,27 @@ class CustomDrawer extends StatelessWidget {
               SizedBox(
                 height: size.height * .1,
               ),
-              Spacer(),
-              Container(
-                width: 100,
-                height: 100,
-              ),
+              Row(children: [
+                Icon(
+                  Icons.settings_outlined,
+                  size: 32,
+                ),
+                Text(
+                  'Nastavenia',
+                  style: TextStyle(fontSize: 24),
+                ),
+              ]),
+              Row(children: [
+                Icon(
+                  Icons.school_outlined,
+                  size: 32,
+                ),
+                Text(
+                  'Stránka školy',
+                  style: TextStyle(fontSize: 24),
+                ),
+              ]),
+              Spacer(flex: 2),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -45,12 +61,17 @@ class CustomDrawer extends StatelessWidget {
                     ],
                   ),
                   SizedBox(width: 40),
-                  GestureDetector(
-                    child: Image.asset(
-                      'assets\\images\\uk_flag.png',
-                      height: size.height * .05,
+                  Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                            color: Theme.of(context).primaryColor, width: 0)),
+                    child: GestureDetector(
+                      child: Image.asset(
+                        'assets\\images\\uk_flag.png',
+                        height: size.height * .05,
+                      ),
                     ),
-                  )
+                  ),
                 ],
               ),
               SizedBox(
