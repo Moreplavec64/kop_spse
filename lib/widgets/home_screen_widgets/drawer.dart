@@ -8,11 +8,10 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    bool isSlovak = true;
 
     return Theme(
-      data: Theme.of(context).copyWith(
-        canvasColor: Colors.grey[300],
-      ),
+      data: Theme.of(context).copyWith(canvasColor: Colors.grey[300]),
       child: Drawer(
         child: SafeArea(
           child: Column(
@@ -28,11 +27,22 @@ class CustomDrawer extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  GestureDetector(
-                    child: Image.asset(
-                      'assets\\images\\svk_flag.png',
-                      height: size.height * .05,
-                    ),
+                  Stack(
+                    children: [
+                      if (isSlovak)
+                        Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: Theme.of(context).primaryColor,
+                                  width: 5)),
+                          child: GestureDetector(
+                            child: Image.asset(
+                              'assets\\images\\svk_flag.png',
+                              height: size.height * .05,
+                            ),
+                          ),
+                        ),
+                    ],
                   ),
                   SizedBox(width: 40),
                   GestureDetector(
