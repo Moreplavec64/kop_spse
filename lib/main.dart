@@ -4,6 +4,7 @@ import 'package:kop_spse/providers/edupage.dart';
 import 'package:kop_spse/screens/home_screen.dart';
 import 'package:kop_spse/screens/login_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/services.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => EduPageProvider()),
@@ -38,4 +40,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-//EduPage e = EduPage('spojenaskolanz', 'AdamHadar', '5RDVUDPSPA');
