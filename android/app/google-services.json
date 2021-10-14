@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "718043565778",
+    "project_id": "kopspse",
+    "storage_bucket": "kopspse.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:718043565778:android:4f102ac1f23d0d56c7a70b",
+        "android_client_info": {
+          "package_name": "com.example.kop_spse"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "718043565778-q8bfkl8na7r3960v96v4on4dnvim86ir.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEerQKlbwEWjHawfYsJuJI81nJ2xNF704"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "718043565778-q8bfkl8na7r3960v96v4on4dnvim86ir.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
