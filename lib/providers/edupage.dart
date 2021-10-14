@@ -17,8 +17,8 @@ enum LoginStatus {
 
 class EduPageProvider with ChangeNotifier {
   final String _school = 'spojenaskolanz';
-  late final String? _username;
-  late final String? _password;
+  late final String _username;
+  late final String _password;
 
   LoginStatus _isLogin = LoginStatus.LoggedOut;
   set setLoginStatus(LoginStatus x) {
@@ -73,8 +73,8 @@ class EduPageProvider with ChangeNotifier {
       final String? csrfToken = tokenRegex.stringMatch(r.body);
 
       final Map<String, String> parameters = {
-        "username": _username!,
-        "password": _password!,
+        "username": _username,
+        "password": _password,
         "csrfauth": csrfToken.toString(),
       };
 
