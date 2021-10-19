@@ -1,4 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:kop_spse/providers/auth.dart';
+import 'package:kop_spse/providers/edupage.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreenVzor extends StatelessWidget {
   Widget build(BuildContext context) {
