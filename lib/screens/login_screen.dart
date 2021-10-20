@@ -17,38 +17,42 @@ class LoginScreen extends StatelessWidget {
       child: Scaffold(
         body: (provider.getEduLoginStatus == LoginStatus.LoggingIn)
             ? Center(
-                child: CircularProgressIndicator(),
+                child: const CircularProgressIndicator(),
               )
-            : Column(
-                children: [
-                  Container(
-                    width: double.infinity,
-                    height: size.height * .35,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.elliptical(
-                            size.width * .5, size.height * .05),
-                        bottomRight: Radius.elliptical(
-                            size.width * .5, size.height * .05),
+            : SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Column(
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      height: size.height * .35,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.elliptical(
+                              size.width * .5, size.height * .05),
+                          bottomRight: Radius.elliptical(
+                              size.width * .5, size.height * .05),
+                        ),
+                        color: Theme.of(context).primaryColor,
                       ),
-                      color: Theme.of(context).primaryColor,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('Vitajte',
+                              style: TextStyle(
+                                  fontSize: 64,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white)),
+                          Text('Prihláste sa do svojho účtu',
+                              style:
+                                  TextStyle(fontSize: 16, color: Colors.white))
+                        ],
+                      ),
                     ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text('Vitajte',
-                            style: TextStyle(
-                                fontSize: 64,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white)),
-                        Text('Prihláste sa do svojho účtu',
-                            style: TextStyle(fontSize: 16, color: Colors.white))
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 12),
-                  LoginFormBody(),
-                ],
+                    SizedBox(height: 12),
+                    LoginFormBody(),
+                  ],
+                ),
               ),
       ),
     );

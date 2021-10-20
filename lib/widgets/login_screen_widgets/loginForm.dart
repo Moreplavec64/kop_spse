@@ -2,6 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:kop_spse/providers/auth.dart';
 import 'package:kop_spse/providers/edupage.dart';
+import 'package:kop_spse/widgets/login_screen_widgets/login_button.dart';
+import 'package:kop_spse/widgets/login_screen_widgets/login_button_google.dart';
+import 'package:kop_spse/widgets/login_screen_widgets/or_divider.dart';
 import 'package:provider/provider.dart';
 
 class LoginFormBody extends StatefulWidget {
@@ -36,6 +39,8 @@ class _LoginFormState extends State<LoginFormBody> {
     final provider = Provider.of<EduPageProvider>(context, listen: false);
     final authProvider = Provider.of<UserProvider>(context);
     return Container(
+      padding: EdgeInsets.symmetric(
+          vertical: MediaQuery.of(context).size.height * .05),
       width: double.infinity,
       alignment: Alignment.center,
       child: Form(
@@ -50,9 +55,7 @@ class _LoginFormState extends State<LoginFormBody> {
               controller: _userNameController,
               labelText: 'Prihlasovacie meno alebo Email',
             ),
-            SizedBox(
-              height: 12,
-            ),
+            const SizedBox(height: 12),
             _buildTextInputWidget(
               size: MediaQuery.of(context).size,
               validator: (String? x) {
@@ -60,23 +63,7 @@ class _LoginFormState extends State<LoginFormBody> {
               },
               controller: _passwordController,
               labelText: 'Heslo',
-            ),
-            TextButton(
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  print('Meno : ' + _userNameController.value.text);
-                  print('heslo : ' + _passwordController.value.text);
-                  if (provider.getEduLoginStatus != LoginStatus.LoggingIn) {
-                    provider.setLoginStatus = LoginStatus.LoggingIn;
-                  }
-                  Provider.of<EduPageProvider>(context, listen: false)
-                      .setAuthValues(
-                    _userNameController.value.text,
-                    _passwordController.value.text,
-                  );
-                }
-              },
-              child: Text('Submittttttt'),
+              isPassword: true,
             ),
             if (!authProvider.getLoggingIn)
               Row(
@@ -92,6 +79,44 @@ class _LoginFormState extends State<LoginFormBody> {
                       onChanged: (_) => authProvider.toggleUdajeZhodne()),
                 ],
               ),
+            const SizedBox(height: 24),
+            LoginButton(
+              () {
+                if (_formKey.currentState!.validate()) {
+                  print('Meno : ' + _userNameController.value.text);
+                  print('heslo : ' + _passwordController.value.text);
+                  if (provider.getEduLoginStatus != LoginStatus.LoggingIn) {
+                    provider.setLoginStatus = LoginStatus.LoggingIn;
+                  }
+                  Provider.of<EduPageProvider>(context, listen: false)
+                      .setAuthValues(
+                    _userNameController.value.text,
+                    _passwordController.value.text,
+                  );
+                }
+              },
+              authProvider.getLoggingIn ? 'Login' : 'Register',
+            ),
+            OrDivider(label: 'OR', height: 24),
+            LoginGoogleButton(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('Dont have an account yet?'),
+                SizedBox(
+                  width: 12,
+                ),
+                TextButton(
+                  onPressed: authProvider.toggleIsLoggingIn,
+                  child: Text(
+                    'Click here',
+                    style: TextStyle(
+                        decoration: TextDecoration.underline,
+                        color: Theme.of(context).primaryColor),
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),
