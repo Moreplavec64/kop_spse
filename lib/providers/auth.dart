@@ -5,6 +5,22 @@ class UserProvider with ChangeNotifier {
   late final String _uid;
   late final String _email;
 
+  bool _isLoggingIn = true;
+  void toggleIsLoggingIn() {
+    _isLoggingIn = !_isLoggingIn;
+    notifyListeners();
+  }
+
+  bool get getLoggingIn => _isLoggingIn;
+
+  bool _udajeZhodne = false;
+  void toggleUdajeZhodne() {
+    _udajeZhodne = !_udajeZhodne;
+    notifyListeners();
+  }
+
+  bool get getUdajeZhodne => _udajeZhodne;
+
   String get getUID => _uid;
   String get getEmail => _email;
 

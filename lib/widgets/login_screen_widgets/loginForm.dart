@@ -1,61 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:kop_spse/providers/auth.dart';
 import 'package:kop_spse/providers/edupage.dart';
-import 'package:kop_spse/widgets/appbar.dart';
 import 'package:provider/provider.dart';
-
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-    final size = MediaQuery.of(context).size;
-
-    return Scaffold(
-        appBar: CustomAppBar(
-          scaffoldKey: _scaffoldKey,
-          size: size,
-        ),
-        body: LoginForm());
-  }
-}
-
-class LoginForm extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final provider = Provider.of<EduPageProvider>(context);
-
-    return (provider.getLoginStatus == LoginStatus.LoggingIn)
-        ? Center(
-            child: CircularProgressIndicator(),
-          )
-        : Column(
-            children: [
-              TextButton(
-                onPressed: () async {
-                  print('logging in');
-                  if (provider.getLoginStatus != LoginStatus.LoggingIn) {
-                    provider.setLoginStatus = LoginStatus.LoggingIn;
-                    await provider
-                        .login(useTestValues: false)
-                        .then((logInStatus) {
-                      if (logInStatus) {
-                        provider.setLoginStatus = LoginStatus.LoggedIn;
-                        Navigator.of(context).pushReplacementNamed('/home');
-                      }
-                    });
-                  }
-                },
-                child: Text('login????'),
-              ),
-              LoginFormBody(),
-            ],
-          );
-  }
-}
 
 class LoginFormBody extends StatefulWidget {
   const LoginFormBody({
@@ -86,40 +33,67 @@ class _LoginFormState extends State<LoginFormBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          _buildTextInputWidget(
-            size: MediaQuery.of(context).size,
-            validator: (String? x) {
-              return null;
-            },
-            controller: _userNameController,
-            labelText: 'Prihlasovacie meno alebo Email',
-          ),
-          SizedBox(
-            height: 12,
-          ),
-          _buildTextInputWidget(
-            size: MediaQuery.of(context).size,
-            validator: (String? x) {
-              return null;
-            },
-            controller: _passwordController,
-            labelText: 'Heslo',
-          ),
-          TextButton(
-            onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                print('Meno : ' + _userNameController.value.text);
-                print('heslo : ' + _passwordController.value.text);
-              }
-            },
-            child: Text('Subnittttttts'),
-          )
-        ],
+    final provider = Provider.of<EduPageProvider>(context, listen: false);
+    final authProvider = Provider.of<UserProvider>(context);
+    return Container(
+      width: double.infinity,
+      alignment: Alignment.center,
+      child: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            _buildTextInputWidget(
+              size: MediaQuery.of(context).size,
+              validator: (String? x) {
+                return null;
+              },
+              controller: _userNameController,
+              labelText: 'Prihlasovacie meno alebo Email',
+            ),
+            SizedBox(
+              height: 12,
+            ),
+            _buildTextInputWidget(
+              size: MediaQuery.of(context).size,
+              validator: (String? x) {
+                return null;
+              },
+              controller: _passwordController,
+              labelText: 'Heslo',
+            ),
+            TextButton(
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  print('Meno : ' + _userNameController.value.text);
+                  print('heslo : ' + _passwordController.value.text);
+                  if (provider.getEduLoginStatus != LoginStatus.LoggingIn) {
+                    provider.setLoginStatus = LoginStatus.LoggingIn;
+                  }
+                  Provider.of<EduPageProvider>(context, listen: false)
+                      .setAuthValues(
+                    _userNameController.value.text,
+                    _passwordController.value.text,
+                  );
+                }
+              },
+              child: Text('Submittttttt'),
+            ),
+            if (!authProvider.getLoggingIn)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    'Prihlasovacie údaje zhodné s EduPage',
+                    style: TextStyle(color: Colors.grey[700], fontSize: 14),
+                  ),
+                  Checkbox(
+                      activeColor: Theme.of(context).primaryColor,
+                      value: authProvider.getUdajeZhodne,
+                      onChanged: (_) => authProvider.toggleUdajeZhodne()),
+                ],
+              ),
+          ],
+        ),
       ),
     );
   }

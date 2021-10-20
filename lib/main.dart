@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:kop_spse/providers/auth.dart';
 import 'package:kop_spse/providers/edupage.dart';
 import 'package:kop_spse/screens/home_screen.dart';
+import 'package:kop_spse/screens/login_screen_vzor.dart';
 import 'package:kop_spse/screens/login_screen.dart';
-import 'package:kop_spse/screens/new_login_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
 

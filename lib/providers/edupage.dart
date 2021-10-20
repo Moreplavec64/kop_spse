@@ -19,6 +19,7 @@ class EduPageProvider with ChangeNotifier {
   final String _school = 'spojenaskolanz';
   late final String _username;
   late final String _password;
+  late final EduUser _eduUser;
 
   LoginStatus _isLogin = LoginStatus.LoggedOut;
   set setLoginStatus(LoginStatus x) {
@@ -26,11 +27,10 @@ class EduPageProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  LoginStatus get getLoginStatus => _isLogin;
+  LoginStatus get getEduLoginStatus => _isLogin;
 
   Map<String, dynamic> _parsedEdupageData = Map();
   Map<String, dynamic> get getEduData => _parsedEdupageData;
-  late final EduUser _eduUser;
 
   late List<LessonPlan> _dnesnyRozvrh;
   List<LessonPlan> get getDnesnyRozvrh =>

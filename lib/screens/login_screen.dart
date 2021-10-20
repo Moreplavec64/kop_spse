@@ -1,52 +1,55 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:kop_spse/providers/auth.dart';
 import 'package:kop_spse/providers/edupage.dart';
+import 'package:kop_spse/widgets/login_screen_widgets/loginForm.dart';
 import 'package:provider/provider.dart';
 
-class LoginScreenVzor extends StatelessWidget {
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({Key? key}) : super(key: key);
+
+  @override
   Widget build(BuildContext context) {
-    print("Redux: Login rebuild");
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final size = MediaQuery.of(context).size;
-    return Scaffold(
-      body: GestureDetector(
-        onTap: () {
-          FocusScope.of(context).requestFocus(new FocusNode());
-        },
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                width: double.infinity,
-                height: size.height * .35,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    bottomLeft:
-                        Radius.elliptical(size.width * .5, size.height * .05),
-                    bottomRight:
-                        Radius.elliptical(size.width * .5, size.height * .05),
+    final provider = Provider.of<EduPageProvider>(context, listen: false);
+
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        body: (provider.getEduLoginStatus == LoginStatus.LoggingIn)
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : Column(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    height: size.height * .35,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.elliptical(
+                            size.width * .5, size.height * .05),
+                        bottomRight: Radius.elliptical(
+                            size.width * .5, size.height * .05),
+                      ),
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('Vitajte',
+                            style: TextStyle(
+                                fontSize: 64,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white)),
+                        Text('Prihláste sa do svojho účtu',
+                            style: TextStyle(fontSize: 16, color: Colors.white))
+                      ],
+                    ),
                   ),
-                  color: Theme.of(context).primaryColor,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('Hello',
-                        style: TextStyle(
-                            fontSize: 64,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white)),
-                    Text('Login in to your account',
-                        style: TextStyle(fontSize: 16, color: Colors.white))
-                  ],
-                ),
+                  SizedBox(height: 12),
+                  LoginFormBody(),
+                ],
               ),
-              SizedBox(
-                height: 12,
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }
