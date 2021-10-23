@@ -19,7 +19,7 @@ class LoginFormBody extends StatefulWidget {
 class _LoginFormState extends State<LoginFormBody> {
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  late final GlobalKey<FormState> _formKey;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
@@ -29,14 +29,7 @@ class _LoginFormState extends State<LoginFormBody> {
   }
 
   @override
-  void initState() {
-    _formKey = GlobalKey<FormState>();
-    super.initState();
-  }
-
-  @override
   void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
     super.didChangeDependencies();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       if (Provider.of<EduPageProvider>(context, listen: false)
@@ -185,7 +178,6 @@ class _LoginFormState extends State<LoginFormBody> {
     await userProvider.registerEmail(email, password);
 
     eduProvider.setAuthValues(eduUser, eduPassword);
-    //TODO verify edupage login data
     await eduProvider.login();
 
     authProvider.createDataAfterReg(eduUser, eduPassword);
