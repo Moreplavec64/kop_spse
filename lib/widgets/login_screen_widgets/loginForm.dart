@@ -35,9 +35,28 @@ class _LoginFormState extends State<LoginFormBody> {
   }
 
   @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      if (Provider.of<EduPageProvider>(context, listen: false)
+              .getEduLoginStatus ==
+          LoginStatus.LoginFailed) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            duration: Duration(seconds: 2),
+            content: const Text('Neplatne prihlasovacie udaje do Edupage'),
+          ),
+        );
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final provider = Provider.of<EduPageProvider>(context, listen: false);
     final authProvider = Provider.of<UserProvider>(context);
+
     return Container(
       padding: EdgeInsets.symmetric(
           vertical: MediaQuery.of(context).size.height * .05),
@@ -85,14 +104,15 @@ class _LoginFormState extends State<LoginFormBody> {
                 if (_formKey.currentState!.validate()) {
                   print('Meno : ' + _userNameController.value.text);
                   print('heslo : ' + _passwordController.value.text);
-                  if (provider.getEduLoginStatus != LoginStatus.LoggingIn) {
+                  if (provider.getEduLoginStatus != LoginStatus.LoggingIn)
                     provider.setLoginStatus = LoginStatus.LoggingIn;
-                  }
+
                   Provider.of<EduPageProvider>(context, listen: false)
                       .setAuthValues(
                     _userNameController.value.text,
                     _passwordController.value.text,
                   );
+                  Provider.of<EduPageProvider>(context, listen: false).login();
                 }
               },
               authProvider.getLoggingIn ? 'Login' : 'Register',
@@ -143,7 +163,10 @@ class _LoginFormState extends State<LoginFormBody> {
       data['eduUsername'],
       data['eduPassword'],
     );
-    await Provider.of<EduPageProvider>(context).login();
+    if (Provider.of<EduPageProvider>(context, listen: false)
+            .getEduLoginStatus !=
+        LoginStatus.LoggedIn)
+      await Provider.of<EduPageProvider>(context).login();
   }
 
   Future<void> register({
@@ -157,13 +180,13 @@ class _LoginFormState extends State<LoginFormBody> {
         Provider.of<UserProvider>(context, listen: false);
     final UserProvider authProvider =
         Provider.of<UserProvider>(context, listen: false);
-    final EduPageProvider eduProvider =
-        Provider.of<EduPageProvider>(context, listen: false);
+    final EduPageProvider eduProvider = Provider.of<EduPageProvider>(context);
 
     await userProvider.registerEmail(email, password);
 
     eduProvider.setAuthValues(eduUser, eduPassword);
     //TODO verify edupage login data
+    await eduProvider.login();
 
     authProvider.createDataAfterReg(eduUser, eduPassword);
 

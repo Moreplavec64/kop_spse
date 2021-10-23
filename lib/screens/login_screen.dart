@@ -9,12 +9,12 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final provider = Provider.of<EduPageProvider>(context, listen: false);
+    final eduProvider = Provider.of<EduPageProvider>(context);
 
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
-        body: (provider.getEduLoginStatus == LoginStatus.LoggingIn)
+        body: (eduProvider.getEduLoginStatus == LoginStatus.LoggingIn)
             ? Center(
                 child: const CircularProgressIndicator(),
               )
@@ -49,7 +49,7 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 12),
-                    LoginFormBody(),
+                    const LoginFormBody(),
                   ],
                 ),
               ),

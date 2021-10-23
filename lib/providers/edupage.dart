@@ -17,8 +17,8 @@ enum LoginStatus {
 
 class EduPageProvider with ChangeNotifier {
   final String _school = 'spojenaskolanz';
-  late final String _username;
-  late final String _password;
+  late String _username;
+  late String _password;
   late final EduUser _eduUser;
 
   LoginStatus _isLogin = LoginStatus.LoggedOut;
@@ -42,16 +42,15 @@ class EduPageProvider with ChangeNotifier {
   String _cookieList = '';
 
   void setAuthValues(String username, String password) {
-    print('set auth values');
     _password = password;
     _username = username;
   }
 
-  Future<bool> login({bool useTestValues = false}) async {
+  Future<void> login({bool useTestValues = false}) async {
     //skip login, a load test response
     if (useTestValues) {
       _parseEduJsonData();
-      return true;
+      setLoginStatus = LoginStatus.LoggedIn;
     }
     print('login');
     final String requestUrl = 'https://$_school.edupage.org/login/index.php';
@@ -86,7 +85,10 @@ class EduPageProvider with ChangeNotifier {
 
       _updateCookies(loginResponse.headers);
 
-      print(loginResponse.statusCode);
+      if (loginResponse.headers['location']!.contains('bad')) {
+        setLoginStatus = LoginStatus.LoginFailed;
+        throw Exception('Nespravne udaje!');
+      }
 
       final loggedInResponse = await http.post(
         Uri.parse('https://$_school.edupage.org/user/'),
@@ -94,10 +96,11 @@ class EduPageProvider with ChangeNotifier {
       );
       //dev.log(loggedInResponse.body);
       _parseEduJsonData(data: loggedInResponse.body);
-      return true;
+
+      setLoginStatus = LoginStatus.LoggedIn;
     } catch (e) {
       print(e.toString());
-      return false;
+      setLoginStatus = LoginStatus.LoginFailed;
     }
   }
 
