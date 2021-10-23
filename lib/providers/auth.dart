@@ -1,9 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class UserProvider with ChangeNotifier {
   late final String _uid;
   late final String _email;
+
+  String get getUID => _uid;
+  String get getEmail => _email;
 
   bool _isLoggingIn = true;
   void toggleIsLoggingIn() {
@@ -21,10 +25,23 @@ class UserProvider with ChangeNotifier {
 
   bool get getUdajeZhodne => _udajeZhodne;
 
-  String get getUID => _uid;
-  String get getEmail => _email;
-
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  Future<bool> firestoreDocExists() async {
+    bool _exist = false;
+    try {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(getUID)
+          .get()
+          .then((doc) {
+        _exist = doc.exists;
+      });
+      return _exist;
+    } catch (e) {
+      return false;
+    }
+  }
 
   Future<bool> registerEmail(String email, String password) async {
     bool uspesne = false;
@@ -54,5 +71,15 @@ class UserProvider with ChangeNotifier {
       print(e);
     }
     return uspesne;
+  }
+
+  Future<void> createDataAfterReg(String eduUser, String eduPass) async {
+    if (!await firestoreDocExists())
+      await FirebaseFirestore.instance.collection('users').doc(getUID).set({
+        'eduUsername': eduUser,
+        'eduPassword': eduPass,
+        'email': getEmail,
+        'language': 'SVK',
+      });
   }
 }

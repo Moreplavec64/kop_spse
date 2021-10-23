@@ -1,10 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:kop_spse/providers/auth.dart';
 import 'package:kop_spse/providers/edupage.dart';
 import 'package:kop_spse/widgets/login_screen_widgets/login_button.dart';
 import 'package:kop_spse/widgets/login_screen_widgets/login_button_google.dart';
 import 'package:kop_spse/widgets/login_screen_widgets/or_divider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class LoginFormBody extends StatefulWidget {
@@ -128,10 +128,13 @@ class _LoginFormState extends State<LoginFormBody> {
     required String email,
     required String password,
   }) async {
-    final UserProvider userProvider = Provider.of<UserProvider>(context);
+    final UserProvider userProvider =
+        Provider.of<UserProvider>(context, listen: false);
+
     await userProvider.loginEmail(email, password);
 
     CollectionReference users = FirebaseFirestore.instance.collection('users');
+
     final Map<String, dynamic> data = await users
         .doc(userProvider.getUID.toString())
         .get() as Map<String, dynamic>;
@@ -141,6 +144,30 @@ class _LoginFormState extends State<LoginFormBody> {
       data['eduPassword'],
     );
     await Provider.of<EduPageProvider>(context).login();
+  }
+
+  Future<void> register({
+    required BuildContext context,
+    required String email,
+    required String password,
+    required String eduUser,
+    required String eduPassword,
+  }) async {
+    final UserProvider userProvider =
+        Provider.of<UserProvider>(context, listen: false);
+    final UserProvider authProvider =
+        Provider.of<UserProvider>(context, listen: false);
+    final EduPageProvider eduProvider =
+        Provider.of<EduPageProvider>(context, listen: false);
+
+    await userProvider.registerEmail(email, password);
+
+    eduProvider.setAuthValues(eduUser, eduPassword);
+    //TODO verify edupage login data
+
+    authProvider.createDataAfterReg(eduUser, eduPassword);
+
+    login(context: context, email: email, password: password);
   }
 }
 

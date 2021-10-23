@@ -8,7 +8,6 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final size = MediaQuery.of(context).size;
     final provider = Provider.of<EduPageProvider>(context, listen: false);
 

@@ -23,25 +23,26 @@ class LoginGoogleButton extends StatelessWidget {
               : FittedBox(
                   fit: BoxFit.fitWidth,
                   child: TextButton(
-                      onPressed: () {},
-                      child: Row(
-                        children: [
-                          Image.asset(
-                            'assets\\images\\google_logo.png',
-                            height: (_height / 2).toDouble(),
+                    onPressed: () {},
+                    child: Row(
+                      children: [
+                        Image.asset(
+                          'assets\\images\\google_logo.png',
+                          height: (_height / 2).toDouble(),
+                        ),
+                        SizedBox(width: _size.width * .02),
+                        Text(
+                          'Continue with Google',
+                          softWrap: false,
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
                           ),
-                          SizedBox(width: _size.width * .02),
-                          Text(
-                            'Continue with Google',
-                            softWrap: false,
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      )),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
         ),
       ),
