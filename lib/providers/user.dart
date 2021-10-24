@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import 'edupage.dart';
 
@@ -28,6 +27,9 @@ class UserProvider with ChangeNotifier {
 
   bool get getUdajeZhodne => _udajeZhodne;
 
+  bool _loggedIn = false;
+  bool get getLoggedIn => _loggedIn;
+
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -53,6 +55,7 @@ class UserProvider with ChangeNotifier {
       print(userData.user!.uid);
       _uid = userData.user!.uid;
       _email = userData.user!.email!;
+      uspesne = true;
     } catch (e) {
       print(e);
     }
@@ -68,6 +71,7 @@ class UserProvider with ChangeNotifier {
       );
       if (_uid.isEmpty) _uid = userData.user!.uid;
       if (_email.isEmpty) _email = userData.user!.email!;
+      uspesne = true;
     } catch (e) {
       print(e);
     }
@@ -90,7 +94,7 @@ class UserProvider with ChangeNotifier {
     required String email,
     required String password,
   }) async {
-    await _firebaseLoginEmail(email, password);
+    _loggedIn = await _firebaseLoginEmail(email, password);
     CollectionReference users = _firestore.collection('users');
 
     final DocumentSnapshot docSnap = await users.doc(getUID.toString()).get();
@@ -113,7 +117,7 @@ class UserProvider with ChangeNotifier {
     required String eduUser,
     required String eduPassword,
   }) async {
-    await _firebaseRegisterEmail(email, password);
+    _loggedIn = await _firebaseRegisterEmail(email, password);
 
     eduProvider.setAuthValues(eduUser, eduPassword);
     await eduProvider.login().then(
@@ -124,6 +128,11 @@ class UserProvider with ChangeNotifier {
 
     await createDataAfterReg(eduUser, eduPassword);
 
-    // await login(context: context, email: email, password: password);
+    eduProvider.setAuthValues(
+      eduUser,
+      eduPassword,
+    );
+    if (eduProvider.getEduLoginStatus != LoginStatus.LoggedIn)
+      await eduProvider.login();
   }
 }

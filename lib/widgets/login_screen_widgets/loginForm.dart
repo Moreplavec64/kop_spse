@@ -125,19 +125,25 @@ class _LoginFormState extends State<LoginFormBody> {
                         email: _emailController.text,
                         password: _passwordController.text);
                   else
-                    await _userProv
-                        .register(
-                            eduProvider: provider,
-                            email: _emailController.text,
-                            password: _passwordController.text,
-                            eduUser: 'adamhadar',
-                            eduPassword: '5rdvudpspa')
-                        .then(
-                          (_) async => await _userProv.login(
-                              eduProvider: provider,
-                              email: _emailController.text,
-                              password: _passwordController.text),
-                        );
+                    await _userProv.register(
+                        eduProvider: provider,
+                        email: _emailController.text,
+                        password: _passwordController.text,
+                        eduUser: 'adamhadar',
+                        eduPassword: '5rdvudpspa');
+
+                  if (authProvider.getLoggedIn)
+                    Navigator.of(context).pushReplacementNamed('/home');
+                  else
+                    WidgetsBinding.instance?.addPostFrameCallback((_) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          duration: Duration(seconds: 2),
+                          content: const Text(
+                              'Neplatne prihlasovacie udaje do Edupage'),
+                        ),
+                      );
+                    });
                 }
               },
               authProvider.getLoggingIn ? 'Login' : 'Register',
