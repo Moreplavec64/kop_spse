@@ -20,7 +20,7 @@ class LoginButton extends StatelessWidget {
           width: _size.width * .55,
           color: Theme.of(context).primaryColor,
           child: TextButton(
-            onPressed: () => onPressedFunction(),
+            onPressed: () async => await onPressedFunction(),
             child: true == false
                 ? CircularProgressIndicator()
                 : Text(
