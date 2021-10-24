@@ -7,6 +7,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'input_widget.dart';
+
 class LoginFormBody extends StatefulWidget {
   const LoginFormBody({
     Key? key,
@@ -41,6 +43,8 @@ class _LoginFormState extends State<LoginFormBody> {
             content: const Text('Neplatne prihlasovacie udaje do Edupage'),
           ),
         );
+        Provider.of<EduPageProvider>(context, listen: false).setLoginStatus =
+            LoginStatus.LoggedOut;
       }
     });
   }
@@ -59,19 +63,25 @@ class _LoginFormState extends State<LoginFormBody> {
         key: _formKey,
         child: Column(
           children: [
-            _buildTextInputWidget(
+            TextInputWidget(
               size: MediaQuery.of(context).size,
               validator: (String? x) {
-                return null;
+                return RegExp(
+                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}")
+                        .hasMatch(x!)
+                    ? null
+                    : 'Email je v nesprávnom formáte';
               },
               controller: _userNameController,
-              labelText: 'Prihlasovacie meno alebo Email',
+              labelText: 'Email',
             ),
             const SizedBox(height: 12),
-            _buildTextInputWidget(
+            TextInputWidget(
               size: MediaQuery.of(context).size,
               validator: (String? x) {
-                return null;
+                return RegExp(r'(.){6,}').hasMatch(x!)
+                    ? null
+                    : 'Heslo musí obsahovať aspoň 6 znakov';
               },
               controller: _passwordController,
               labelText: 'Heslo',
@@ -180,43 +190,8 @@ class _LoginFormState extends State<LoginFormBody> {
     eduProvider.setAuthValues(eduUser, eduPassword);
     await eduProvider.login();
 
-    authProvider.createDataAfterReg(eduUser, eduPassword);
+    await authProvider.createDataAfterReg(eduUser, eduPassword);
 
     login(context: context, email: email, password: password);
   }
-}
-
-Container _buildTextInputWidget({
-  required Size size,
-  required validator,
-  required TextEditingController controller,
-  required String labelText,
-  TextInputType keyboardType = TextInputType.text,
-  bool isPassword = false,
-  bool isLast = false,
-}) {
-  return Container(
-    width: size.width * .8,
-    padding: const EdgeInsets.only(bottom: 8.0),
-    child: Material(
-      borderRadius: BorderRadius.circular(16),
-      elevation: 6,
-      child: TextFormField(
-        keyboardType: keyboardType,
-        controller: controller,
-        validator: validator,
-        decoration: InputDecoration(
-          contentPadding: const EdgeInsets.only(left: 12, right: 12),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.transparent),
-          ),
-          focusedBorder: InputBorder.none,
-          hintText: labelText,
-        ),
-        style: TextStyle(fontSize: 17),
-        obscureText: isPassword ? true : false,
-        textInputAction: isLast ? TextInputAction.done : TextInputAction.next,
-      ),
-    ),
-  );
 }
