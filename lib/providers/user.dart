@@ -69,8 +69,8 @@ class UserProvider with ChangeNotifier {
         email: email,
         password: password,
       );
-      if (_uid.isEmpty) _uid = userData.user!.uid;
-      if (_email.isEmpty) _email = userData.user!.email!;
+      _uid = userData.user!.uid;
+      _email = userData.user!.email!;
       uspesne = true;
     } catch (e) {
       print(e);
