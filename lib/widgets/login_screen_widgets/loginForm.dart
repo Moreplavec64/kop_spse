@@ -1,3 +1,4 @@
+import 'package:kop_spse/main.dart';
 import 'package:kop_spse/providers/user.dart';
 import 'package:kop_spse/providers/edupage.dart';
 import 'package:kop_spse/widgets/login_screen_widgets/login_button.dart';
@@ -21,13 +22,11 @@ class _LoginFormState extends State<LoginFormBody> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  bool shouldPushHome = false;
   @override
   void dispose() {
     super.dispose();
     _emailController.dispose();
     _passwordController.dispose();
-    print(shouldPushHome);
   }
 
   @override
@@ -47,10 +46,10 @@ class _LoginFormState extends State<LoginFormBody> {
             LoginStatus.LoggedOut;
       }
     });
-    if (Provider.of<UserProvider>(context).getLoggedIn)
-      WidgetsBinding.instance?.addPostFrameCallback((_) {
-        Navigator.pushReplacementNamed(context, '/home');
-      });
+    // if (Provider.of<UserProvider>(context).getLoggedIn)
+    //   WidgetsBinding.instance?.addPostFrameCallback((_) {
+    //     Navigator.pushReplacementNamed(context, '/home');
+    //   });
   }
 
   @override
@@ -65,10 +64,7 @@ class _LoginFormState extends State<LoginFormBody> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<EduPageProvider>(context, listen: false);
     final authProvider = Provider.of<UserProvider>(context);
-
-    if (shouldPushHome) Navigator.of(context).pushReplacementNamed('/home');
 
     return Container(
       padding: EdgeInsets.symmetric(
@@ -119,41 +115,7 @@ class _LoginFormState extends State<LoginFormBody> {
               ),
             const SizedBox(height: 24),
             LoginButton(
-              () async {
-                print('MOUNTEEDDDDDDDDDD');
-                print(this.mounted);
-                if (_formKey.currentState!.validate()) {
-                  final UserProvider _userProv =
-                      Provider.of<UserProvider>(context, listen: false);
-
-                  if (provider.getEduLoginStatus != LoginStatus.LoggingIn) {
-                    provider.setLoginStatus = LoginStatus.LoggingIn;
-                  }
-                  if (_userProv.getLoggingIn)
-                    await _userProv.login(
-                        eduProvider: provider,
-                        email: _emailController.text,
-                        password: _passwordController.text);
-                  else
-                    await _userProv.register(
-                        eduProvider: provider,
-                        email: _emailController.text,
-                        password: _passwordController.text,
-                        eduUser: 'adamhadar',
-                        eduPassword: '5rdvudpspa');
-
-                  if (!authProvider.getLoggedIn)
-                    WidgetsBinding.instance?.addPostFrameCallback((_) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          duration: Duration(seconds: 2),
-                          content: const Text(
-                              'Neplatne prihlasovacie udaje do Edupage'),
-                        ),
-                      );
-                    });
-                }
-              },
+              loginFunction,
               authProvider.getLoggingIn ? 'Login' : 'Register',
             ),
             OrDivider(label: 'OR', height: 24),
@@ -180,5 +142,46 @@ class _LoginFormState extends State<LoginFormBody> {
         ),
       ),
     );
+  }
+
+  Future<void> loginFunction() async {
+    final EduPageProvider eduProvider =
+        Provider.of<EduPageProvider>(context, listen: false);
+    final UserProvider authProvider =
+        Provider.of<UserProvider>(context, listen: false);
+
+    if (_formKey.currentState!.validate()) {
+      final UserProvider _userProv =
+          Provider.of<UserProvider>(context, listen: false);
+
+      if (eduProvider.getEduLoginStatus != LoginStatus.LoggingIn) {
+        eduProvider.setLoginStatus = LoginStatus.LoggingIn;
+      }
+      if (_userProv.getLoggingIn)
+        await _userProv.login(
+            eduProvider: eduProvider,
+            email: _emailController.text,
+            password: _passwordController.text);
+      else
+        await _userProv.register(
+            eduProvider: eduProvider,
+            email: _emailController.text,
+            password: _passwordController.text,
+            eduUser: 'adamhadar',
+            eduPassword: '5rdvudpspa');
+
+      if (authProvider.getLoggedIn)
+        navigationKey.currentState?.pushReplacementNamed('/home');
+
+      if (!authProvider.getLoggedIn)
+        WidgetsBinding.instance?.addPostFrameCallback((_) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              duration: Duration(seconds: 2),
+              content: const Text('Neplatne prihlasovacie udaje do Edupage'),
+            ),
+          );
+        });
+    }
   }
 }

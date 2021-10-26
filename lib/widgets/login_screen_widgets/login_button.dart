@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 class LoginButton extends StatelessWidget {
   LoginButton(this.onPressedFunction, this.labelText);
 
-  final Function onPressedFunction;
+  final Future<void> Function() onPressedFunction;
   final String labelText;
 
   @override
   Widget build(BuildContext context) {
-    // final _auth = Provider.of<Auth>(context, listen: false);
     final _size = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),

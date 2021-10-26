@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kop_spse/providers/edupage.dart';
+import 'package:kop_spse/providers/user.dart';
 import 'package:kop_spse/widgets/login_screen_widgets/loginForm.dart';
 import 'package:provider/provider.dart';
 
@@ -10,11 +11,13 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final eduProvider = Provider.of<EduPageProvider>(context);
+    final authProvider = Provider.of<UserProvider>(context);
 
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
-        body: (eduProvider.getEduLoginStatus == LoginStatus.LoggingIn)
+        body: (eduProvider.getEduLoginStatus == LoginStatus.LoggingIn ||
+                authProvider.getLoggedIn)
             ? Center(
                 child: const CircularProgressIndicator(),
               )
