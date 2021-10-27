@@ -45,7 +45,10 @@ class LoginScreen extends StatelessWidget {
                                   fontSize: 64,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white)),
-                          Text('Prihláste sa do svojho účtu',
+                          Text(
+                              authProvider.getLoggingIn
+                                  ? 'Prihláste sa do svojho účtu'
+                                  : 'Vyvorte si nový účet',
                               style:
                                   TextStyle(fontSize: 16, color: Colors.white))
                         ],

@@ -32,24 +32,17 @@ class _LoginFormState extends State<LoginFormBody> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
-      if (Provider.of<EduPageProvider>(context, listen: false)
-              .getEduLoginStatus ==
-          LoginStatus.LoginFailed) {
+    final eduProvider = Provider.of<EduPageProvider>(context, listen: false);
+    if (eduProvider.getEduLoginStatus == LoginStatus.LoginFailed)
+      WidgetsBinding.instance?.addPostFrameCallback((_) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             duration: Duration(seconds: 2),
-            content: const Text('Neplatne prihlasovacie udaje do Edupage'),
+            content: const Text('Neplatné prihlasovacie údaje do Edupage'),
           ),
         );
-        Provider.of<EduPageProvider>(context, listen: false).setLoginStatus =
-            LoginStatus.LoggedOut;
-      }
-    });
-    // if (Provider.of<UserProvider>(context).getLoggedIn)
-    //   WidgetsBinding.instance?.addPostFrameCallback((_) {
-    //     Navigator.pushReplacementNamed(context, '/home');
-    //   });
+        eduProvider.setLoginStatus = LoginStatus.LoggedOut;
+      });
   }
 
   @override
@@ -116,21 +109,25 @@ class _LoginFormState extends State<LoginFormBody> {
             const SizedBox(height: 24),
             LoginButton(
               loginFunction,
-              authProvider.getLoggingIn ? 'Login' : 'Register',
+              authProvider.getLoggingIn ? 'Login' : 'Pokračovať',
             ),
             OrDivider(label: 'OR', height: 24),
-            LoginGoogleButton(),
+            const LoginGoogleButton(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Dont have an account yet?'),
+                Text(authProvider.getLoggingIn
+                    ? 'Ešte nemáte účet?'
+                    : 'Už máte účet?'),
                 SizedBox(
                   width: 12,
                 ),
                 TextButton(
                   onPressed: authProvider.toggleIsLoggingIn,
                   child: Text(
-                    'Click here',
+                    authProvider.getLoggingIn
+                        ? 'Zaregistrujte sa'
+                        : 'Prihláste sa',
                     style: TextStyle(
                         decoration: TextDecoration.underline,
                         color: Theme.of(context).primaryColor),
@@ -151,37 +148,42 @@ class _LoginFormState extends State<LoginFormBody> {
         Provider.of<UserProvider>(context, listen: false);
 
     if (_formKey.currentState!.validate()) {
-      final UserProvider _userProv =
-          Provider.of<UserProvider>(context, listen: false);
-
-      if (eduProvider.getEduLoginStatus != LoginStatus.LoggingIn) {
+      if (eduProvider.getEduLoginStatus != LoginStatus.LoggingIn)
         eduProvider.setLoginStatus = LoginStatus.LoggingIn;
-      }
-      if (_userProv.getLoggingIn)
-        await _userProv.login(
+      //Prihlasenie
+      if (authProvider.getLoggingIn) {
+        await authProvider.login(
             eduProvider: eduProvider,
             email: _emailController.text,
             password: _passwordController.text);
-      else
-        await _userProv.register(
-            eduProvider: eduProvider,
-            email: _emailController.text,
-            password: _passwordController.text,
-            eduUser: 'adamhadar',
-            eduPassword: '5rdvudpspa');
 
-      if (authProvider.getLoggedIn)
-        navigationKey.currentState?.pushReplacementNamed('/home');
+        if (authProvider.getLoggedIn)
+          navigationKey.currentState?.pushReplacementNamed('/home');
 
-      if (!authProvider.getLoggedIn)
-        WidgetsBinding.instance?.addPostFrameCallback((_) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              duration: Duration(seconds: 2),
-              content: const Text('Neplatne prihlasovacie udaje do Edupage'),
-            ),
-          );
-        });
+        if (!authProvider.getLoggedIn)
+          WidgetsBinding.instance?.addPostFrameCallback((_) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                duration: Duration(seconds: 2),
+                content: const Text('Neplatne prihlasovacie udaje'),
+              ),
+            );
+          });
+      }
+      //registracia
+      else {
+        authProvider.setEmailAndPass(
+            _emailController.text, _passwordController.text);
+        navigationKey.currentState?.pushReplacementNamed('/login2');
+      }
+      // await authProvider.register(
+      //   eduProvider: eduProvider,
+      //   email: _emailController.text,
+      //   password: _passwordController.text,
+      //   eduUser: 'adamhadar',
+      //   eduPassword: '5rdvudpspa',
+      //   lang: 'SVK',
+      // );
     }
   }
 }

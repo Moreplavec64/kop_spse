@@ -7,9 +7,16 @@ import 'edupage.dart';
 class UserProvider with ChangeNotifier {
   late final String _uid;
   late final String _email;
+  late final String _password;
 
   String get getUID => _uid;
   String get getEmail => _email;
+  String get getPassword => _password;
+
+  void setEmailAndPass(String email, String password) {
+    _email = email;
+    _password = password;
+  }
 
   bool _isLoggingIn = true;
   void toggleIsLoggingIn() {
@@ -78,13 +85,14 @@ class UserProvider with ChangeNotifier {
     return uspesne;
   }
 
-  Future<void> createDataAfterReg(String eduUser, String eduPass) async {
+  Future<void> createDataAfterReg(
+      String eduUser, String eduPass, String lang) async {
     if (!await firestoreDocExists())
       await _firestore.collection('users').doc(getUID).set({
         'eduUsername': eduUser,
         'eduPassword': eduPass,
         'email': _email,
-        'language': 'SVK',
+        'language': lang,
       });
     print('created data');
   }
@@ -116,6 +124,7 @@ class UserProvider with ChangeNotifier {
     required String password,
     required String eduUser,
     required String eduPassword,
+    required String lang,
   }) async {
     _loggedIn = await _firebaseRegisterEmail(email, password);
 
@@ -126,7 +135,7 @@ class UserProvider with ChangeNotifier {
       },
     );
 
-    await createDataAfterReg(eduUser, eduPassword);
+    await createDataAfterReg(eduUser, eduPassword, lang);
 
     eduProvider.setAuthValues(
       eduUser,

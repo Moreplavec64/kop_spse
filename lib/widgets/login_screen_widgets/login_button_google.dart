@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class LoginGoogleButton extends StatelessWidget {
+  const LoginGoogleButton({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final _size = MediaQuery.of(context).size;
@@ -19,7 +20,7 @@ class LoginGoogleButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
           ),
           child: true == false
-              ? Center(child: CircularProgressIndicator())
+              ? Center(child: const CircularProgressIndicator())
               : FittedBox(
                   fit: BoxFit.fitWidth,
                   child: TextButton(

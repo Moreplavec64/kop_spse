@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:kop_spse/providers/user.dart';
 import 'package:kop_spse/providers/edupage.dart';
 import 'package:kop_spse/screens/home_screen.dart';
-import 'package:kop_spse/screens/login_screen_vzor.dart';
 import 'package:kop_spse/screens/login_screen.dart';
+import 'package:kop_spse/screens/second_login_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
 
@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (ctx) => const LoginScreen(),
           '/home': (ctx) => const HomeScreen(),
-          '/login': (ctx) => LoginScreenVzor(),
+          '/login2': (ctx) => const SecondLoginScreen(),
         },
       ),
     );
