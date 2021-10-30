@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'edupage.dart';
 
-class UserProvider with ChangeNotifier {
+class AuthProvider with ChangeNotifier {
   late final String _uid;
   late final String _email;
   late final String _password;

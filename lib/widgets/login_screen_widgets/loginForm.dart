@@ -57,7 +57,7 @@ class _LoginFormState extends State<LoginFormBody> {
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<UserProvider>(context);
+    final authProvider = Provider.of<AuthProvider>(context);
 
     return Container(
       padding: EdgeInsets.symmetric(
@@ -144,8 +144,8 @@ class _LoginFormState extends State<LoginFormBody> {
   Future<void> loginFunction() async {
     final EduPageProvider eduProvider =
         Provider.of<EduPageProvider>(context, listen: false);
-    final UserProvider authProvider =
-        Provider.of<UserProvider>(context, listen: false);
+    final AuthProvider authProvider =
+        Provider.of<AuthProvider>(context, listen: false);
 
     if (_formKey.currentState!.validate()) {
       if (eduProvider.getEduLoginStatus != LoginStatus.LoggingIn)

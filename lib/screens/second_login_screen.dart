@@ -98,15 +98,18 @@ class SecondLoginScreen extends StatelessWidget {
                         Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: Theme.of(context).primaryColor,
-                                        width: 5)),
-                                child: GestureDetector(
-                                  child: Image.asset(
-                                    'assets\\images\\svk_flag.png',
-                                    height: size.height * .05,
+                              GestureDetector(
+                                // onTap: ,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: Theme.of(context).primaryColor,
+                                          width: 5)),
+                                  child: GestureDetector(
+                                    child: Image.asset(
+                                      'assets\\images\\svk_flag.png',
+                                      height: size.height * .05,
+                                    ),
                                   ),
                                 ),
                               ),
