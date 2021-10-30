@@ -151,7 +151,7 @@ class AuthProvider with ChangeNotifier {
       await eduProvider.login();
   }
 
-  Future<void> LoginOrRegisterGoogle() async {
+  Future<void> loginOrRegisterGoogle() async {
     // login through google
     // open dialog with google accounts
     final authUser = await GoogleSignIn().signIn();
@@ -170,8 +170,6 @@ class AuthProvider with ChangeNotifier {
     print(userData.user);
 
     if (userData.additionalUserInfo!.isNewUser) {
-      print('New User');
-
       _uid = userData.user!.uid;
       _email = userData.user!.email as String;
     }

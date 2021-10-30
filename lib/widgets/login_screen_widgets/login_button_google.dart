@@ -29,7 +29,7 @@ class LoginGoogleButton extends StatelessWidget {
                   child: TextButton(
                     onPressed: () async {
                       await Provider.of<AuthProvider>(context, listen: false)
-                          .LoginOrRegisterGoogle();
+                          .loginOrRegisterGoogle();
                     },
                     child: Row(
                       children: [
