@@ -37,6 +37,13 @@ class AuthProvider with ChangeNotifier {
   bool _loggedIn = false;
   bool get getLoggedIn => _loggedIn;
 
+  String _currentLang = 'SVK';
+  String get getCurrentLang => _currentLang;
+  set setLang(String x) {
+    _currentLang = x;
+    notifyListeners();
+  }
+
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -120,13 +127,11 @@ class AuthProvider with ChangeNotifier {
 
   Future<void> register({
     required EduPageProvider eduProvider,
-    required String email,
-    required String password,
     required String eduUser,
     required String eduPassword,
     required String lang,
   }) async {
-    _loggedIn = await _firebaseRegisterEmail(email, password);
+    _loggedIn = await _firebaseRegisterEmail(getEmail, getPassword);
 
     eduProvider.setAuthValues(eduUser, eduPassword);
     await eduProvider.login().then(

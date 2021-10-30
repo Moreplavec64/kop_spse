@@ -1,5 +1,5 @@
 import 'package:kop_spse/main.dart';
-import 'package:kop_spse/providers/user.dart';
+import 'package:kop_spse/providers/auth.dart';
 import 'package:kop_spse/providers/edupage.dart';
 import 'package:kop_spse/widgets/login_screen_widgets/login_button.dart';
 import 'package:kop_spse/widgets/login_screen_widgets/login_button_google.dart';

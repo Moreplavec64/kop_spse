@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kop_spse/providers/user.dart';
+import 'package:kop_spse/providers/auth.dart';
 import 'package:kop_spse/providers/edupage.dart';
 import 'package:kop_spse/screens/home_screen.dart';
 import 'package:kop_spse/screens/login_screen.dart';
