@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import 'edupage.dart';
 
@@ -148,5 +149,33 @@ class AuthProvider with ChangeNotifier {
     );
     if (eduProvider.getEduLoginStatus != LoginStatus.LoggedIn)
       await eduProvider.login();
+  }
+
+  Future<void> LoginOrRegisterGoogle() async {
+    // login through google
+    // open dialog with google accounts
+    final authUser = await GoogleSignIn().signIn();
+
+    if (authUser == null) throw NullThrownError();
+
+    final googleAuth = await authUser.authentication;
+
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+
+    final userData = await _auth.signInWithCredential(credential);
+    print(userData.additionalUserInfo);
+    print(userData.user);
+
+    if (userData.additionalUserInfo!.isNewUser) {
+      print('New User');
+
+      _uid = userData.user!.uid;
+      _email = userData.user!.email as String;
+    }
+
+    return;
   }
 }

@@ -176,14 +176,6 @@ class _LoginFormState extends State<LoginFormBody> {
             _emailController.text, _passwordController.text);
         navigationKey.currentState?.pushReplacementNamed('/login2');
       }
-      // await authProvider.register(
-      //   eduProvider: eduProvider,
-      //   email: _emailController.text,
-      //   password: _passwordController.text,
-      //   eduUser: 'adamhadar',
-      //   eduPassword: '5rdvudpspa',
-      //   lang: 'SVK',
-      // );
     }
   }
 }

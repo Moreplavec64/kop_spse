@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:kop_spse/providers/auth.dart';
+import 'package:provider/provider.dart';
 
 class LoginGoogleButton extends StatelessWidget {
   const LoginGoogleButton({Key? key}) : super(key: key);
@@ -24,7 +27,10 @@ class LoginGoogleButton extends StatelessWidget {
               : FittedBox(
                   fit: BoxFit.fitWidth,
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      await Provider.of<AuthProvider>(context, listen: false)
+                          .LoginOrRegisterGoogle();
+                    },
                     child: Row(
                       children: [
                         Image.asset(
