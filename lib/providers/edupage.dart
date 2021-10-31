@@ -4,7 +4,6 @@ import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
-import 'package:kop_spse/models/edu_user.dart';
 import 'package:kop_spse/models/plan.dart';
 import 'package:kop_spse/utils/edu_get_utils.dart';
 
@@ -19,7 +18,6 @@ class EduPageProvider with ChangeNotifier {
   final String _school = 'spojenaskolanz';
   late String _username;
   late String _password;
-  late final EduUser _eduUser;
 
   LoginStatus _isLogin = LoginStatus.LoggedOut;
   set setLoginStatus(LoginStatus x) {

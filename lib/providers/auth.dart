@@ -45,6 +45,8 @@ class AuthProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  bool authentificatedGoogle = false;
+
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -113,10 +115,8 @@ class AuthProvider with ChangeNotifier {
     _loggedIn = await _firebaseLoginEmail(email, password);
     CollectionReference users = _firestore.collection('users');
 
-    final DocumentSnapshot docSnap = await users.doc(getUID.toString()).get();
+    final DocumentSnapshot docSnap = await users.doc(getUID).get();
     final Map<String, dynamic> data = docSnap.data() as Map<String, dynamic>;
-
-    print(docSnap);
 
     eduProvider.setAuthValues(
       data['eduUsername'],
@@ -132,7 +132,10 @@ class AuthProvider with ChangeNotifier {
     required String eduPassword,
     required String lang,
   }) async {
-    _loggedIn = await _firebaseRegisterEmail(getEmail, getPassword);
+    if (authentificatedGoogle)
+      _loggedIn = true;
+    else
+      _loggedIn = await _firebaseRegisterEmail(getEmail, getPassword);
 
     eduProvider.setAuthValues(eduUser, eduPassword);
     await eduProvider.login().then(
@@ -143,15 +146,12 @@ class AuthProvider with ChangeNotifier {
 
     await createDataAfterReg(eduUser, eduPassword, lang);
 
-    eduProvider.setAuthValues(
-      eduUser,
-      eduPassword,
-    );
     if (eduProvider.getEduLoginStatus != LoginStatus.LoggedIn)
       await eduProvider.login();
   }
 
-  Future<void> loginOrRegisterGoogle() async {
+  Future<bool> continueWithGoogle(
+      {required EduPageProvider eduProvider}) async {
     // login through google
     // open dialog with google accounts
     final authUser = await GoogleSignIn().signIn();
@@ -169,11 +169,24 @@ class AuthProvider with ChangeNotifier {
     print(userData.additionalUserInfo);
     print(userData.user);
 
-    if (userData.additionalUserInfo!.isNewUser) {
-      _uid = userData.user!.uid;
-      _email = userData.user!.email as String;
+    _uid = userData.user!.uid;
+    _email = userData.user!.email as String;
+    //if not new user, fetch data a push potom push home
+    if (!userData.additionalUserInfo!.isNewUser) {
+      CollectionReference users = _firestore.collection('users');
+
+      final DocumentSnapshot docSnap = await users.doc(getUID).get();
+      final Map<String, dynamic> data = docSnap.data() as Map<String, dynamic>;
+
+      eduProvider.setAuthValues(
+        data['eduUsername'],
+        data['eduPassword'],
+      );
+      if (eduProvider.getEduLoginStatus != LoginStatus.LoggedIn)
+        await eduProvider.login();
     }
 
-    return;
+    authentificatedGoogle = true;
+    return userData.additionalUserInfo!.isNewUser;
   }
 }

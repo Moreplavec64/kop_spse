@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:kop_spse/main.dart';
 import 'package:kop_spse/providers/auth.dart';
+import 'package:kop_spse/providers/edupage.dart';
 import 'package:provider/provider.dart';
 
 class LoginGoogleButton extends StatelessWidget {
@@ -28,8 +30,18 @@ class LoginGoogleButton extends StatelessWidget {
                   fit: BoxFit.fitWidth,
                   child: TextButton(
                     onPressed: () async {
-                      await Provider.of<AuthProvider>(context, listen: false)
-                          .loginOrRegisterGoogle();
+                      final isNew = await Provider.of<AuthProvider>(context,
+                              listen: false)
+                          .continueWithGoogle(
+                        eduProvider: Provider.of<EduPageProvider>(context,
+                            listen: false),
+                      );
+                      if (isNew)
+                        navigationKey.currentState!
+                            .pushReplacementNamed('/login2');
+                      else
+                        navigationKey.currentState!
+                            .pushReplacementNamed('/home');
                     },
                     child: Row(
                       children: [
