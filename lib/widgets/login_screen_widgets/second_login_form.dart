@@ -74,15 +74,18 @@ class _SecondLoginFormState extends State<SecondLoginForm> {
               child: Column(
                 children: [
                   TextInputWidget(
-                      size: widget.size,
-                      validator: (x) => null,
-                      controller: _emailController,
-                      labelText: 'Username alebo email z EduPage'),
+                    size: widget.size,
+                    validator: (x) => null,
+                    controller: _emailController,
+                    labelText: 'Username alebo email z EduPage',
+                  ),
                   TextInputWidget(
-                      size: widget.size,
-                      validator: (x) => null,
-                      controller: _passwordController,
-                      labelText: 'Heslo k EduPage')
+                    isPassword: true,
+                    size: widget.size,
+                    validator: (x) => null,
+                    controller: _passwordController,
+                    labelText: 'Heslo k EduPage',
+                  )
                 ],
               ),
             ),
