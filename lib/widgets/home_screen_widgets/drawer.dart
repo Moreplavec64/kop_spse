@@ -38,7 +38,6 @@ class CustomDrawer extends StatelessWidget {
                     icon: Icons.settings_outlined,
                     text: 'Nastavenia'),
                 DrawerButton(
-                  //TODO logout
                   onTap: () {
                     final auth =
                         Provider.of<AuthProvider>(context, listen: false);

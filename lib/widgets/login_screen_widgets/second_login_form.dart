@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kop_spse/providers/auth.dart';
 import 'package:kop_spse/providers/edupage.dart';
-import 'package:kop_spse/screens/home_screen.dart';
 import 'package:kop_spse/screens/second_login_screen.dart';
 import 'package:kop_spse/widgets/login_screen_widgets/input_widget.dart';
 import 'package:provider/provider.dart';

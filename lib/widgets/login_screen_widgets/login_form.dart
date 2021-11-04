@@ -52,7 +52,6 @@ class _LoginFormState extends State<LoginFormBody> {
       _emailController.clear();
       _passwordController.clear();
     });
-    print('BUILDDDDDD');
   }
 
   @override
