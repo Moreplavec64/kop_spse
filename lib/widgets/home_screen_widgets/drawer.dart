@@ -21,6 +21,14 @@ class CustomDrawer extends StatelessWidget {
           child: SafeArea(
             child: Column(
               children: [
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: IconButton(
+                    iconSize: 28,
+                    icon: Icon(Icons.keyboard_arrow_left),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                ),
                 SizedBox(height: size.height * .1),
                 DrawerButton(
                   text: 'Školská stránka',
