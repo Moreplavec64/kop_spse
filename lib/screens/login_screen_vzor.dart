@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 class LoginScreenVzor extends StatelessWidget {
   Widget build(BuildContext context) {
-    print("Redux: Login rebuild");
     final size = MediaQuery.of(context).size;
     return Scaffold(
       body: GestureDetector(

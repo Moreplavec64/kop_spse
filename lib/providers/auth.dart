@@ -70,12 +70,11 @@ class AuthProvider with ChangeNotifier {
         email: email,
         password: password,
       );
-      print(userData.user!.uid);
       _uid = userData.user!.uid;
       _email = userData.user!.email!;
       uspesne = true;
     } catch (e) {
-      print(e);
+      print('ERROR: $e');
     }
     return uspesne;
   }
@@ -91,7 +90,7 @@ class AuthProvider with ChangeNotifier {
       _email = userData.user!.email!;
       uspesne = true;
     } catch (e) {
-      print(e);
+      print('ERROR: $e');
     }
     return uspesne;
   }
@@ -105,7 +104,6 @@ class AuthProvider with ChangeNotifier {
         'email': _email,
         'language': lang,
       });
-    print('created data');
   }
 
   Future<void> login({

@@ -16,8 +16,6 @@ List<LessonPlan> getRozvrh(Map<String, dynamic> convJson, DateTime date) {
 
   if (todayPlan.isEmpty) return [];
 
-  print(todayPlan.last['uniperiod'].toString());
-
   int _getPeriod(String period) {
     if (!period.contains('-'))
       return int.parse(period);

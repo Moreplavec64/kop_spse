@@ -50,7 +50,6 @@ class EduPageProvider with ChangeNotifier {
       _parseEduJsonData();
       setLoginStatus = LoginStatus.LoggedIn;
     }
-    print('login');
     final String requestUrl = 'https://$_school.edupage.org/login/index.php';
     final String loginRequestUrl =
         'https://$_school.edupage.org/login/edubarLogin.php';
@@ -97,7 +96,7 @@ class EduPageProvider with ChangeNotifier {
 
       setLoginStatus = LoginStatus.LoggedIn;
     } catch (e) {
-      print(e.toString());
+      print('ERROR: $e');
       setLoginStatus = LoginStatus.LoginFailed;
     }
   }
@@ -156,7 +155,6 @@ class EduPageProvider with ChangeNotifier {
     // create data
     if (_parsedEdupageData.isEmpty) return;
     _dnesnyRozvrh = getRozvrh(_parsedEdupageData, date);
-    print(_dnesnyRozvrh);
   }
 
   final Map<String, Color> colorMap = {

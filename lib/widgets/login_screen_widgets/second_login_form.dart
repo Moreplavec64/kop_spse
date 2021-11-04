@@ -38,7 +38,6 @@ class _SecondLoginFormState extends State<SecondLoginForm> {
 
   @override
   Widget build(BuildContext context) {
-    print(MediaQuery.of(context).padding.vertical);
     return Container(
       // padding: const EdgeInsets.symmetric(vertical: 16),
       width: double.infinity,
