@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kop_spse/providers/edupage.dart';
 import 'package:kop_spse/providers/auth.dart';
-import 'package:kop_spse/widgets/login_screen_widgets/loginForm.dart';
+import 'package:kop_spse/widgets/login_screen_widgets/login_form.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {

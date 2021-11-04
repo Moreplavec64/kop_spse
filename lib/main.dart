@@ -4,6 +4,7 @@ import 'package:kop_spse/providers/edupage.dart';
 import 'package:kop_spse/screens/home_screen.dart';
 import 'package:kop_spse/screens/login_screen.dart';
 import 'package:kop_spse/screens/second_login_screen.dart';
+import 'package:kop_spse/screens/settings_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
 
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
           '/': (ctx) => const LoginScreen(),
           '/home': (ctx) => const HomeScreen(),
           '/login2': (ctx) => const SecondLoginScreen(),
+          '/home/settings': (ctx) => const SettingsScreen(),
         },
       ),
     );

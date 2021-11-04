@@ -6,9 +6,9 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'edupage.dart';
 
 class AuthProvider with ChangeNotifier {
-  late final String _uid;
-  late final String _email;
-  late final String _password;
+  late String _uid;
+  late String _email;
+  late String _password;
 
   String get getUID => _uid;
   String get getEmail => _email;
@@ -37,6 +37,7 @@ class AuthProvider with ChangeNotifier {
 
   bool _loggedIn = false;
   bool get getLoggedIn => _loggedIn;
+  set setLoggedIn(bool l) => _loggedIn = l;
 
   String _currentLang = 'SVK';
   String get getCurrentLang => _currentLang;

@@ -34,6 +34,7 @@ class SecondLoginScreen extends StatelessWidget {
                           width: double.infinity,
                           alignment: Alignment.topLeft,
                           child: IconButton(
+                            //TODO clear udaje a pop na prvy login screen
                             onPressed: () => Navigator.of(context).maybePop(),
                             icon: Icon(
                               Icons.arrow_back_ios,

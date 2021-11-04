@@ -174,7 +174,8 @@ class _LoginFormState extends State<LoginFormBody> {
       else {
         authProvider.setEmailAndPass(
             _emailController.text, _passwordController.text);
-        navigationKey.currentState?.pushReplacementNamed('/login2');
+        navigationKey.currentState?.pushNamed('/login2');
+        eduProvider.setLoginStatus = LoginStatus.LoggedOut;
       }
     }
   }
