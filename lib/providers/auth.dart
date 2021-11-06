@@ -137,11 +137,9 @@ class AuthProvider with ChangeNotifier {
       _loggedIn = await _firebaseRegisterEmail(getEmail, getPassword);
 
     eduProvider.setAuthValues(eduUser, eduPassword);
-    await eduProvider.login().then(
-      (_) {
-        if (eduProvider.getEduLoginStatus == LoginStatus.LoginFailed) return;
-      },
-    );
+    await eduProvider.login().then((_) {
+      if (eduProvider.getEduLoginStatus == LoginStatus.LoginFailed) return;
+    });
 
     await createDataAfterReg(eduUser, eduPassword, lang);
 
@@ -170,7 +168,7 @@ class AuthProvider with ChangeNotifier {
 
     _uid = userData.user!.uid;
     _email = userData.user!.email as String;
-    //if not new user, fetch data a push potom push home
+    //if not new user, fetch data a potom push home
     if (!userData.additionalUserInfo!.isNewUser) {
       CollectionReference users = _firestore.collection('users');
 

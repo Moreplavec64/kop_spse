@@ -1,6 +1,7 @@
 import 'package:kop_spse/main.dart';
 import 'package:kop_spse/providers/auth.dart';
 import 'package:kop_spse/providers/edupage.dart';
+import 'package:kop_spse/providers/jedalen.dart';
 import 'package:kop_spse/widgets/login_screen_widgets/login_button.dart';
 import 'package:kop_spse/widgets/login_screen_widgets/login_button_google.dart';
 import 'package:kop_spse/widgets/login_screen_widgets/or_divider.dart';
@@ -57,7 +58,6 @@ class _LoginFormState extends State<LoginFormBody> {
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
-
     return Container(
       padding: EdgeInsets.symmetric(
           vertical: MediaQuery.of(context).size.height * .05),
@@ -156,8 +156,12 @@ class _LoginFormState extends State<LoginFormBody> {
             email: _emailController.text,
             password: _passwordController.text);
 
-        if (authProvider.getLoggedIn)
+        await Provider.of<JedalenProvider>(context, listen: false)
+            .fetchJedalenData();
+
+        if (authProvider.getLoggedIn) {
           navigationKey.currentState?.pushReplacementNamed('/home');
+        }
 
         if (!authProvider.getLoggedIn)
           WidgetsBinding.instance?.addPostFrameCallback((_) {

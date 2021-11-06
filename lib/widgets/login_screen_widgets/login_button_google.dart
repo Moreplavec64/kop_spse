@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kop_spse/main.dart';
 import 'package:kop_spse/providers/auth.dart';
 import 'package:kop_spse/providers/edupage.dart';
+import 'package:kop_spse/providers/jedalen.dart';
 import 'package:provider/provider.dart';
 
 class LoginGoogleButton extends StatelessWidget {
@@ -35,6 +36,9 @@ class LoginGoogleButton extends StatelessWidget {
                         eduProvider: Provider.of<EduPageProvider>(context,
                             listen: false),
                       );
+                      //wait for jedalen data to be fetched
+                      await Provider.of<JedalenProvider>(context, listen: false)
+                          .fetchJedalenData();
                       if (isNew)
                         navigationKey.currentState!
                             .pushReplacementNamed('/login2');
