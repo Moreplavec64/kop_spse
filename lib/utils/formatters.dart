@@ -1,4 +1,19 @@
 class Formatters {
+  static Map<String, int> svkMesiacDoCislo = {
+    'január': 1,
+    'február': 2,
+    'marec': 3,
+    'apríl': 4,
+    'máj': 5,
+    'jún': 6,
+    'júl': 7,
+    'august': 8,
+    'september': 9,
+    'október': 10,
+    'november': 11,
+    'december': 12,
+  };
+
   static Map<int, String> _mesiaceKolkateho = {
     1: 'Januára',
     2: 'Februára',
