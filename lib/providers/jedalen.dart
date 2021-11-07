@@ -7,6 +7,13 @@ import 'package:intl/intl.dart';
 import 'package:kop_spse/utils/formatters.dart';
 
 class JedalenProvider with ChangeNotifier {
+  bool _expandedHomeScreenWidget = false;
+  bool get shouldBeExpanded => _expandedHomeScreenWidget;
+  void toggleShouldBeExpanded() {
+    _expandedHomeScreenWidget = !_expandedHomeScreenWidget;
+    notifyListeners();
+  }
+
   final String _jedalenURL =
       'https://www.jedalen.sk/Pages/EatMenu?Ident=rNT9rWnuqD';
   final Map<DateTime, List<String>> jedalenData = {};
@@ -36,6 +43,6 @@ class JedalenProvider with ChangeNotifier {
       String menu = tdList[1].getElementsByClassName('menu-tdmenu').first.text;
       jedalenData[dateTime] = menu.split('\n');
     }
-    print(jedalenData);
+    // print(jedalenData);
   }
 }

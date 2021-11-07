@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:kop_spse/providers/jedalen.dart';
 import 'package:kop_spse/widgets/appbar.dart';
 import 'package:kop_spse/widgets/home_screen_widgets/drawer.dart';
+import 'package:kop_spse/widgets/home_screen_widgets/jedalen_widget.dart';
 import 'package:kop_spse/widgets/home_screen_widgets/timetable.dart';
-import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   static String route = "/homeScreen";
@@ -28,15 +27,7 @@ class HomeScreen extends StatelessWidget {
         body: Column(
           children: [
             HomeScreenTimeTable(size: _size),
-            Container(
-              height: _size.height * (4 / 7),
-              color: Colors.grey[200],
-              child: TextButton(
-                  onPressed: () async =>
-                      await Provider.of<JedalenProvider>(context, listen: false)
-                          .fetchJedalenData(),
-                  child: Text('AAAAAAAAAA')),
-            ),
+            JedalenHomeScreenWidget(size: _size),
             Container(
               height: _size.height * (1 / 7),
               color: Colors.white,
