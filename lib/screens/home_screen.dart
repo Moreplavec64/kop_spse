@@ -24,6 +24,9 @@ class HomeScreen extends StatelessWidget {
           size: MediaQuery.of(context).size,
         ),
         drawer: CustomDrawer(),
+        onDrawerChanged: (wasClosed) {
+          //TODO sync lang data if changed
+        },
         body: Column(
           children: [
             //height 1.5/7

@@ -42,8 +42,7 @@ class CustomDrawer extends StatelessWidget {
                   icon: Icons.school_outlined,
                 ),
                 DrawerButton(
-                    onTap: () =>
-                        Navigator.of(context).pushNamed('/home/settings'),
+                    onTap: () => Navigator.of(context).pushNamed('/settings'),
                     icon: Icons.settings_outlined,
                     text: 'Nastavenia'),
                 DrawerButton(

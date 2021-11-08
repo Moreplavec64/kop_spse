@@ -14,12 +14,12 @@ class JedalenProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  final String _jedalenURL =
+  final String jedalenURL =
       'https://www.jedalen.sk/Pages/EatMenu?Ident=rNT9rWnuqD';
   final Map<DateTime, List<String>> jedalenData = {};
 
   Future<void> fetchJedalenData() async {
-    final response = await http.get(Uri.parse(_jedalenURL));
+    final response = await http.get(Uri.parse(jedalenURL));
     print(response.statusCode);
     final document = html.parse(response.body);
     List<h.Element> menu =

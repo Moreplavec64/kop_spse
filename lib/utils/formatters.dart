@@ -29,6 +29,19 @@ class Formatters {
     12: 'Decembra',
   };
 
+  static String getDenFromWeekday(int weekday) {
+    final days = [
+      'Pondelok',
+      'Utorok',
+      'Streda',
+      'Štvrtok',
+      'Piatok',
+      'Sobota',
+      'Nedeľa',
+    ];
+    return days[weekday - 1];
+  }
+
   static String ddMMMMyy(DateTime datetime) {
     return '${datetime.day}. ${_mesiaceKolkateho[datetime.month]} ${datetime.year}';
   }

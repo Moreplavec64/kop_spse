@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:kop_spse/providers/jedalen.dart';
 import 'package:provider/provider.dart';
@@ -68,7 +67,9 @@ class JedalenHomeScreenWidget extends StatelessWidget {
                       width: 140,
                       height: 30,
                       child: ElevatedButton(
-                          onPressed: () async =>
+                          onPressed: () => Navigator.of(context)
+                              .pushReplacementNamed('/menu'),
+                          onLongPress: () async =>
                               await Provider.of<JedalenProvider>(context,
                                       listen: false)
                                   .fetchJedalenData(),
