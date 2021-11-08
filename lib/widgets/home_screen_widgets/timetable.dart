@@ -20,7 +20,7 @@ class HomeScreenTimeTable extends StatelessWidget {
     final int subjNumber = provider.getDnesnyRozvrh.length;
     final double ttItemsize = (_size.width / subjNumber) - 10;
     return Container(
-      height: _size.height * (2 / 7),
+      height: _size.height * (1.5 / 7),
       width: _size.width,
       child: Stack(
         children: [

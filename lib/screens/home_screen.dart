@@ -26,8 +26,11 @@ class HomeScreen extends StatelessWidget {
         drawer: CustomDrawer(),
         body: Column(
           children: [
+            //height 1.5/7
             HomeScreenTimeTable(size: _size),
+            //height 1/7 - 3/7
             JedalenHomeScreenWidget(size: _size),
+            //fit rest
             Container(
               height: _size.height * (1 / 7),
               color: Colors.white,

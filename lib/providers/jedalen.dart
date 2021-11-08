@@ -40,8 +40,9 @@ class JedalenProvider with ChangeNotifier {
           '${date[0]} ${Formatters.svkMesiacDoCislo[date[1]].toString()} ${date[2]}');
       print(dateTime);
       // print(tdList[1].children.first.children.first.children);
-      String menu = tdList[1].getElementsByClassName('menu-tdmenu').first.text;
-      jedalenData[dateTime] = menu.split('\n');
+      List<h.Element> menu = tdList[1].getElementsByClassName('menu-tdmenu');
+      jedalenData[dateTime] =
+          menu.length != 0 ? menu.first.text.split('\n') : [];
     }
     // print(jedalenData);
   }

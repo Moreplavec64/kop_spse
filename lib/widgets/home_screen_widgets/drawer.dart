@@ -16,7 +16,7 @@ class CustomDrawer extends StatelessWidget {
     return Container(
       width: size.width * .66,
       child: Theme(
-        data: Theme.of(context).copyWith(canvasColor: Colors.grey[300]),
+        data: Theme.of(context).copyWith(canvasColor: Colors.grey[200]),
         child: Drawer(
           child: SafeArea(
             child: Column(
@@ -24,12 +24,13 @@ class CustomDrawer extends StatelessWidget {
                 Align(
                   alignment: Alignment.centerRight,
                   child: IconButton(
-                    iconSize: 28,
+                    iconSize: 40,
+                    color: Colors.grey[800],
                     icon: Icon(Icons.keyboard_arrow_left),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                 ),
-                SizedBox(height: size.height * .1),
+                SizedBox(height: size.height * .05),
                 DrawerButton(
                   text: 'Školská stránka',
                   onTap: () async {
@@ -68,11 +69,11 @@ class CustomDrawer extends StatelessWidget {
                       onTap: () => authProvider.setLang = 'SVK',
                       child: Container(
                         decoration: BoxDecoration(
-                            border: Border.all(
-                                color: Theme.of(context).primaryColor,
-                                width: authProvider.getCurrentLang == 'SVK'
-                                    ? 5
-                                    : 0)),
+                          border: Border.all(
+                            color: Theme.of(context).primaryColor,
+                            width: authProvider.getCurrentLang == 'SVK' ? 5 : 0,
+                          ),
+                        ),
                         child: Image.asset(
                           'assets\\images\\svk_flag.png',
                           height: size.height * .05,
