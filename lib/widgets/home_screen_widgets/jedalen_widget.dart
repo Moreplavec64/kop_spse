@@ -24,26 +24,24 @@ class JedalenHomeScreenWidget extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(16)),
         color: Colors.grey[200],
       ),
-      padding: EdgeInsets.all(8),
-      duration: Duration(milliseconds: 200),
+      padding: const EdgeInsets.all(8),
+      duration: const Duration(milliseconds: 200),
       height: _size.height *
           (jedalenProvider.shouldBeExpanded && dnesneMenu!.length > 2
               ? (3 / 7)
               : (1 / 7)),
-      width: _size.width * .8,
+      width: _size.width - 10,
       child: CustomScrollView(
         physics: const NeverScrollableScrollPhysics(),
         slivers: [
           SliverFillRemaining(
             hasScrollBody: false,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Row(children: [
                   const Icon(Icons.restaurant),
-                  SizedBox(
-                    width: _size.width * .025,
-                  ),
+                  SizedBox(width: _size.width * .025),
                   Text(
                     'Obedové menu',
                     style: Theme.of(context).textTheme.headline6,
@@ -58,7 +56,12 @@ class JedalenHomeScreenWidget extends StatelessWidget {
                               ? dnesneMenu.length - 1
                               : min(2, dnesneMenu.length),
                         )
-                    : [Text('Na dnes nieje vypisane ziadne menu')],
+                    : [
+                        Text(
+                          'Na dnes nieje vypísané žiadne menu',
+                          style: TextStyle(fontSize: 17),
+                        )
+                      ],
                 const Spacer(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,

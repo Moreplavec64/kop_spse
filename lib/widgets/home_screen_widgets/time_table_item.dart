@@ -79,7 +79,7 @@ Future<void> _showMyDialog({
                 textAlign: TextAlign.center,
               ),
               Text(
-                '${lessonData.period}. hodina  ${lessonData.startTime} - ${lessonData.endTime}',
+                '${lessonData.period}. hodina  ${lessonData.startTime.hour}:${lessonData.startTime.minute} - ${lessonData.endTime.hour}:${lessonData.endTime.minute}',
                 textAlign: TextAlign.center,
               ),
               if (lessonData.skupina.isNotEmpty)

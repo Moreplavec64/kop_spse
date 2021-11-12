@@ -30,18 +30,22 @@ List<LessonPlan> getRozvrh(Map<String, dynamic> convJson, DateTime date) {
       return 'Neexistuje';
   }
 
-  return todayPlan
-      .map(
-        (hodina) => LessonPlan(
-          period: _getPeriod(hodina['uniperiod']),
-          ucitelID: _verifyList(hodina["teacherids"]),
-          classroomID: _verifyList(hodina["classroomids"]),
-          classID: _verifyList(hodina["classids"]),
-          subjectID: hodina["subjectid"],
-          skupina: hodina['groupnames'][0],
-          startTime: hodina['starttime'],
-          endTime: hodina['endtime'],
-        ),
-      )
-      .toList();
+  return todayPlan.map((hodina) {
+    final List<String> startTime = hodina['starttime'].toString().split(':');
+    final List<String> endTime = hodina['endtime'].toString().split(':');
+    final d = DateTime.now();
+
+    return LessonPlan(
+      period: _getPeriod(hodina['uniperiod']),
+      ucitelID: _verifyList(hodina["teacherids"]),
+      classroomID: _verifyList(hodina["classroomids"]),
+      classID: _verifyList(hodina["classids"]),
+      subjectID: hodina["subjectid"],
+      skupina: hodina['groupnames'][0],
+      startTime: DateTime(d.year, d.month, d.day, int.parse(startTime[0]),
+          int.parse(startTime[1])),
+      endTime: DateTime(
+          d.year, d.month, d.day, int.parse(endTime[0]), int.parse(endTime[1])),
+    );
+  }).toList();
 }

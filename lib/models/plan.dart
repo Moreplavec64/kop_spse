@@ -6,8 +6,8 @@ class LessonPlan {
   final String classroomID;
   final String classID;
   final String subjectID;
-  final String startTime;
-  final String endTime;
+  final DateTime startTime;
+  final DateTime endTime;
 
   LessonPlan({
     required this.period,
