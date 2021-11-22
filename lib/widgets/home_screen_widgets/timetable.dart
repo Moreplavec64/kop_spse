@@ -20,21 +20,19 @@ class HomeScreenTimeTable extends StatelessWidget {
         Provider.of<EduPageProvider>(context, listen: false);
     final int subjNumber = provider.getDnesnyRozvrh.length;
     final double ttItemsize = (_size.width / subjNumber) - 10;
-    // final LessonPlan aktualnaHodina = provider.getDnesnyRozvrh.firstWhere(
-    //   (e) =>
-    //       e.startTime.isBefore(DateTime.now()) &&
-    //       e.endTime.isAfter(DateTime.now()),
-    // );
-    // final Duration zostavajuciCas =
-    //     aktualnaHodina.endTime.difference(DateTime.now());
+
+    final _date = DateTime.now().subtract(Duration(hours: 5));
+    final LessonPlan aktualnaHodina = provider.getDnesnyRozvrh.firstWhere(
+        (e) => _date.isAfter(e.startTime) && _date.isBefore(e.endTime));
+
+    final Duration zostavajuciCas = aktualnaHodina.endTime.difference(_date);
     return Container(
       height: _size.height * (1.5 / 7),
       width: _size.width,
       child: Column(
         children: [
           //TODO prestavka
-          // Text(
-          //     'Prave prebieha ${aktualnaHodina != null ? aktualnaHodina.period : 'Prestavka'}. hodina, do konca zostáva ${_printDuration(zostavajuciCas)}'),
+          Text(_printDuration(zostavajuciCas)),
           Container(
             margin: EdgeInsets.symmetric(horizontal: 5),
             width: _size.width,

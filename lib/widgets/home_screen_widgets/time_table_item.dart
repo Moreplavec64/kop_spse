@@ -5,6 +5,7 @@ import 'package:kop_spse/models/plan.dart';
 import 'package:kop_spse/providers/edupage.dart';
 import 'package:kop_spse/utils/edu_id_util.dart';
 import 'package:provider/provider.dart';
+import 'package:kop_spse/utils/formatters.dart';
 
 class TimeTableItem extends StatelessWidget {
   const TimeTableItem({
@@ -108,15 +109,15 @@ Future<void> _showMyDialog({
 }
 
 Color _getColor(String nazovHodiny, EduPageProvider provider) {
-  if (provider.colorMap.keys.contains(nazovHodiny)) {
-    return provider.colorMap[nazovHodiny]!;
+  if (Formatters.colorMap.keys.contains(nazovHodiny)) {
+    return Formatters.colorMap[nazovHodiny]!;
   } else {
     // ak sa nenachadza v liste farieb, vyberie sa random farba a priradi sa do listu
     // aby dalsie rovnake hodiny boli vyfarbene rovnakou farbou
-    final randColor = provider.colorMap.values.elementAt(
-      Random().nextInt(provider.colorMap.values.length),
+    final randColor = Formatters.colorMap.values.elementAt(
+      Random().nextInt(Formatters.colorMap.values.length),
     );
-    provider.colorMap.addAll({nazovHodiny: randColor});
+    Formatters.colorMap.addAll({nazovHodiny: randColor});
     return randColor;
   }
 }

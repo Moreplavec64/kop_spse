@@ -1,4 +1,23 @@
+import 'package:flutter/material.dart';
+
 class Formatters {
+  static final Map<String, Color> colorMap = {
+    'ROB': Color(0xffffff80),
+    'MAT': Color(0xff80b3b3),
+    'TSV': Color(0xffffccb3),
+    'EKO': Color(0xffe0ff80),
+    'SJL': Color(0xffe090ff),
+    'RPJ': Color(0xffc0e0ff),
+    'PRO': Color(0xff80ffc0),
+    'ELK': Color(0xffb3b3b3),
+    'SXT': Color(0xffffc0c0),
+    'CEC': Color(0xff80c0c0),
+    'SIE': Color(0xffffb3b3),
+    'DAA': Color(0xff99b380),
+    'ANJ': Color(0xffff8080),
+    'WIS': Color(0xff80b3cc),
+  };
+
   static Map<String, int> svkMesiacDoCislo = {
     'január': 1,
     'február': 2,
