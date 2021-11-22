@@ -20,30 +20,31 @@ class HomeScreenTimeTable extends StatelessWidget {
         Provider.of<EduPageProvider>(context, listen: false);
     final int subjNumber = provider.getDnesnyRozvrh.length;
     final double ttItemsize = (_size.width / subjNumber) - 10;
-    final LessonPlan aktualnaHodina = provider.getDnesnyRozvrh.firstWhere(
-      (e) =>
-          e.startTime.isBefore(DateTime.now()) &&
-          e.endTime.isAfter(DateTime.now()),
-    );
-    final Duration zostavajuciCas =
-        aktualnaHodina.endTime.difference(DateTime.now());
+    // final LessonPlan aktualnaHodina = provider.getDnesnyRozvrh.firstWhere(
+    //   (e) =>
+    //       e.startTime.isBefore(DateTime.now()) &&
+    //       e.endTime.isAfter(DateTime.now()),
+    // );
+    // final Duration zostavajuciCas =
+    //     aktualnaHodina.endTime.difference(DateTime.now());
     return Container(
       height: _size.height * (1.5 / 7),
       width: _size.width,
       child: Column(
         children: [
           //TODO prestavka
-          Text(
-              'Prave prebieha ${aktualnaHodina != null ? aktualnaHodina.period : 'Prestavka'}. hodina, do konca zostáva ${_printDuration(zostavajuciCas)}'),
-          SizedBox(
-            width: _size.width - 10,
+          // Text(
+          //     'Prave prebieha ${aktualnaHodina != null ? aktualnaHodina.period : 'Prestavka'}. hodina, do konca zostáva ${_printDuration(zostavajuciCas)}'),
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 5),
+            width: _size.width,
             child: Row(
               children: provider.getDnesnyRozvrh
                   .map((e) => Container(
                       width: ttItemsize + 8,
                       padding: const EdgeInsets.all(5),
                       child: Text(
-                        e.period.toString() + '.',
+                        (e.period != -1) ? e.period.toString() + '.' : '',
                         textAlign: TextAlign.center,
                       )))
                   .toList(),
@@ -64,15 +65,15 @@ class HomeScreenTimeTable extends StatelessWidget {
                   ))
                 : ListView.builder(
                     padding: EdgeInsets.symmetric(
-                      vertical: (_size.height / 7 - ttItemsize - 10) / 2,
+                      vertical:
+                          ((_size.height / 7 - ttItemsize - 10) / 2).abs(),
                     ),
                     physics: const BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
-                    itemCount:
-                        Provider.of<EduPageProvider>(context, listen: false)
-                            .getDnesnyRozvrh
-                            .length,
+                    itemCount: provider.getDnesnyRozvrh.length,
                     itemBuilder: (ctx, i) {
+                      print('AAAAAAAAAAA' + subjNumber.toString());
+                      print(provider.getDnesnyRozvrh[subjNumber - 1].isEvent);
                       return TimeTableItem(
                         index: i,
                         size: ttItemsize,

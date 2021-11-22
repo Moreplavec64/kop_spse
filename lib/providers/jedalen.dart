@@ -20,7 +20,6 @@ class JedalenProvider with ChangeNotifier {
 
   Future<void> fetchJedalenData() async {
     final response = await http.get(Uri.parse(jedalenURL));
-    print(response.statusCode);
     final document = html.parse(response.body);
     List<h.Element> menu =
         document.getElementsByClassName('menu-day-innertable');

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+// import 'dart:developer' as dev;
 
 import 'package:kop_spse/models/plan.dart';
 import 'package:kop_spse/utils/edu_get_utils.dart';
@@ -91,7 +92,7 @@ class EduPageProvider with ChangeNotifier {
         Uri.parse('https://$_school.edupage.org/user/'),
         headers: {'Cookie': _cookieList},
       );
-      //dev.log(loggedInResponse.body);
+      // dev.log(loggedInResponse.body);
       _parseEduJsonData(data: loggedInResponse.body);
 
       setLoginStatus = LoginStatus.LoggedIn;

@@ -19,7 +19,8 @@ class TimeTableItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = Provider.of<EduPageProvider>(context, listen: false);
     final String shortTitleHodiny = EduIdUtil.idToShortSubject(
-        provider.getEduData, provider.getDnesnyRozvrh[index].subjectID);
+            provider.getEduData, provider.getDnesnyRozvrh[index].subjectID) ??
+        'Sviatok';
 
     return GestureDetector(
       onTap: () {

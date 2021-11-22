@@ -8,6 +8,7 @@ class LessonPlan {
   final String subjectID;
   final DateTime startTime;
   final DateTime endTime;
+  final bool isEvent;
 
   LessonPlan({
     required this.period,
@@ -18,5 +19,6 @@ class LessonPlan {
     required this.skupina,
     required this.startTime,
     required this.endTime,
+    required this.isEvent,
   });
 }
