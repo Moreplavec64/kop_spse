@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:kop_spse/providers/edupage.dart';
 import 'package:kop_spse/utils/formatters.dart';
+import 'package:provider/provider.dart';
 
 class CustomAppBar extends StatefulWidget with PreferredSizeWidget {
   const CustomAppBar({
@@ -30,6 +32,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
   void initState() {
     super.initState();
     timer = Timer.periodic(Duration(seconds: 1), (_) {
+      Provider.of<EduPageProvider>(context, listen: false).updateAktualne();
       if (dtNow.minute != DateTime.now().minute && mounted)
         setState(() {
           dtNow = DateTime.now();

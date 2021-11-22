@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:kop_spse/models/plan.dart';
 import 'package:provider/provider.dart';
 
 import 'package:kop_spse/providers/edupage.dart';
@@ -11,7 +10,6 @@ class HomeScreenTimeTable extends StatelessWidget {
     required Size size,
   })  : _size = size,
         super(key: key);
-
   final Size _size;
 
   @override
@@ -21,18 +19,14 @@ class HomeScreenTimeTable extends StatelessWidget {
     final int subjNumber = provider.getDnesnyRozvrh.length;
     final double ttItemsize = (_size.width / subjNumber) - 10;
 
-    final _date = DateTime.now().subtract(Duration(hours: 5));
-    final LessonPlan aktualnaHodina = provider.getDnesnyRozvrh.firstWhere(
-        (e) => _date.isAfter(e.startTime) && _date.isBefore(e.endTime));
-
-    final Duration zostavajuciCas = aktualnaHodina.endTime.difference(_date);
     return Container(
       height: _size.height * (1.5 / 7),
       width: _size.width,
       child: Column(
         children: [
           //TODO prestavka
-          Text(_printDuration(zostavajuciCas)),
+          Consumer<EduPageProvider>(
+              builder: (_, v, __) => Text(_printDuration(v.zostavajuciCas))),
           Container(
             margin: EdgeInsets.symmetric(horizontal: 5),
             width: _size.width,

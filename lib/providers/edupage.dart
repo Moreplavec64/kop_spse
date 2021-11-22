@@ -35,6 +35,20 @@ class EduPageProvider with ChangeNotifier {
   List<LessonPlan> get getDnesnyRozvrh =>
       _dnesnyRozvrh.isNotEmpty ? _dnesnyRozvrh : [];
 
+  DateTime _date = DateTime.now().subtract(Duration(hours: 5));
+
+  void updateAktualne() {
+    _date = DateTime.now().subtract(Duration(hours: 5));
+    aktualnaHodina = getDnesnyRozvrh.firstWhere(
+        (e) => _date.isAfter(e.startTime) && _date.isBefore(e.endTime));
+    zostavajuciCas = aktualnaHodina.endTime.difference(_date);
+    notifyListeners();
+  }
+
+  late LessonPlan aktualnaHodina;
+  late Duration zostavajuciCas;
+
+  //?LOGIN FUNCTIONS:
   //headers = {cookie name = cookie value,...}
   //cookie list = hodnoty pre http header
   final Map<String, String> _headers = {};
@@ -94,6 +108,7 @@ class EduPageProvider with ChangeNotifier {
       );
       // dev.log(loggedInResponse.body);
       _parseEduJsonData(data: loggedInResponse.body);
+      updateAktualne();
 
       setLoginStatus = LoginStatus.LoggedIn;
     } catch (e) {
@@ -157,21 +172,4 @@ class EduPageProvider with ChangeNotifier {
     if (_parsedEdupageData.isEmpty) return;
     _dnesnyRozvrh = getRozvrh(_parsedEdupageData, date);
   }
-
-  final Map<String, Color> colorMap = {
-    'ROB': Color(0xffffff80),
-    'MAT': Color(0xff80b3b3),
-    'TSV': Color(0xffffccb3),
-    'EKO': Color(0xffe0ff80),
-    'SJL': Color(0xffe090ff),
-    'RPJ': Color(0xffc0e0ff),
-    'PRO': Color(0xff80ffc0),
-    'ELK': Color(0xffb3b3b3),
-    'SXT': Color(0xffffc0c0),
-    'CEC': Color(0xff80c0c0),
-    'SIE': Color(0xffffb3b3),
-    'DAA': Color(0xff99b380),
-    'ANJ': Color(0xffff8080),
-    'WIS': Color(0xff80b3cc),
-  };
 }
