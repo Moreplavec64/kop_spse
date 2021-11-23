@@ -35,18 +35,17 @@ class EduPageProvider with ChangeNotifier {
   List<LessonPlan> get getDnesnyRozvrh =>
       _dnesnyRozvrh.isNotEmpty ? _dnesnyRozvrh : [];
 
-  DateTime _date = DateTime.now().subtract(Duration(hours: 5));
+  DateTime _date = DateTime.now();
+  late LessonPlan aktualnaHodina;
+  late Duration zostavajuciCas;
 
   void updateAktualne() {
-    _date = DateTime.now().subtract(Duration(hours: 5));
+    _date = DateTime.now();
     aktualnaHodina = getDnesnyRozvrh.firstWhere(
         (e) => _date.isAfter(e.startTime) && _date.isBefore(e.endTime));
     zostavajuciCas = aktualnaHodina.endTime.difference(_date);
     notifyListeners();
   }
-
-  late LessonPlan aktualnaHodina;
-  late Duration zostavajuciCas;
 
   //?LOGIN FUNCTIONS:
   //headers = {cookie name = cookie value,...}
