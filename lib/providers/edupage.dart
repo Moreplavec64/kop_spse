@@ -38,12 +38,29 @@ class EduPageProvider with ChangeNotifier {
   DateTime _date = DateTime.now();
   late LessonPlan aktualnaHodina;
   late Duration zostavajuciCas;
+  bool isPrestavka = false;
 
   void updateAktualne() {
     _date = DateTime.now();
+    //TODO rozdelit updatovanie ak netreba
     aktualnaHodina = getDnesnyRozvrh.firstWhere(
-        (e) => _date.isAfter(e.startTime) && _date.isBefore(e.endTime));
-    zostavajuciCas = aktualnaHodina.endTime.difference(_date);
+      (e) {
+        isPrestavka = false;
+        return _date.isAfter(e.startTime) && _date.isBefore(e.endTime);
+      },
+      orElse: () {
+        //ak sa nenajde hodina, je prestavka
+        isPrestavka = true;
+        print(zostavajuciCas);
+        return getDnesnyRozvrh.firstWhere((e) => e.startTime.isAfter(_date));
+      },
+    );
+    //ak je prestavka, cas zostavajuci do dalsej hodiny
+    if (isPrestavka)
+      zostavajuciCas = aktualnaHodina.startTime.difference(_date);
+    //ak je hodina, cas do konca hodiny
+    else
+      zostavajuciCas = aktualnaHodina.endTime.difference(_date);
     notifyListeners();
   }
 
