@@ -68,19 +68,45 @@ class JedalenHomeScreenWidget extends StatelessWidget {
                     SizedBox(
                       width: 140,
                       height: 30,
-                      child: ElevatedButton(
+                      child: TextButton(
+                          style: ButtonStyle(
+                            overlayColor: MaterialStateProperty.all(
+                                Theme.of(context).primaryColor.withOpacity(.4)),
+                            foregroundColor:
+                                MaterialStateProperty.resolveWith<Color?>(
+                              (Set<MaterialState> states) {
+                                if (states.contains(MaterialState.focused) ||
+                                    states.contains(MaterialState.pressed))
+                                  return Theme.of(context).primaryColor;
+                                return null; // Defer to the widget's default.
+                              },
+                            ),
+                          ),
                           onPressed: () => Navigator.of(context)
                               .pushReplacementNamed('/menu'),
                           onLongPress: () async =>
                               await Provider.of<JedalenProvider>(context,
                                       listen: false)
                                   .fetchJedalenData(),
-                          child: Text('refetch data')),
+                          child: Text('Týždenné menu')),
                     ),
                     SizedBox(
                       width: 140,
                       height: 30,
-                      child: ElevatedButton(
+                      child: TextButton(
+                          style: ButtonStyle(
+                            overlayColor: MaterialStateProperty.all(
+                                Theme.of(context).primaryColor.withOpacity(.4)),
+                            foregroundColor:
+                                MaterialStateProperty.resolveWith<Color?>(
+                              (Set<MaterialState> states) {
+                                if (states.contains(MaterialState.focused) ||
+                                    states.contains(MaterialState.pressed))
+                                  return Theme.of(context).primaryColor;
+                                return null; // Defer to the widget's default.
+                              },
+                            ),
+                          ),
                           onPressed: () =>
                               jedalenProvider.toggleShouldBeExpanded(),
                           child: Text(
