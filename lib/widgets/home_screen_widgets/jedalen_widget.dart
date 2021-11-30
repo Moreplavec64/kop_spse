@@ -26,10 +26,9 @@ class JedalenHomeScreenWidget extends StatelessWidget {
       ),
       padding: const EdgeInsets.all(8),
       duration: const Duration(milliseconds: 200),
-      height: _size.height *
-          (jedalenProvider.shouldBeExpanded && dnesneMenu!.length > 2
-              ? (3 / 7)
-              : (1 / 7)),
+      height: (jedalenProvider.shouldBeExpanded && dnesneMenu!.length > 2
+          ? _size.height * 1 / 7 + 12 * (jedalenProvider.jedalenData.length - 2)
+          : _size.height * 1 / 7),
       width: _size.width - 10,
       child: CustomScrollView(
         physics: const NeverScrollableScrollPhysics(),

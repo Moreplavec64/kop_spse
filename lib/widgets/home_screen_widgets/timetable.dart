@@ -29,7 +29,7 @@ class HomeScreenTimeTable extends StatelessWidget {
             child: Consumer<EduPageProvider>(
                 builder: (_, v, __) => Text(
                       v.isPrestavka
-                          ? 'Aktualne je prestavka, do ${v.aktualnaHodina.period}. hodiny zostáva '
+                          ? 'Aktualne je prestavka, do ${v.aktualnaHodina.period}. hodiny zostáva ${_printDuration(v.zostavajuciCas)}'
                           : 'Prebieha ${v.aktualnaHodina.period}. hodina, do prestávky zostáva ' +
                               _printDuration(v.zostavajuciCas),
                       style: TextStyle(fontSize: 18),

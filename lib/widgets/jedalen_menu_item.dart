@@ -50,17 +50,13 @@ class JedalenMenuItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: menuData.value.isNotEmpty
                     ? menuData.value.map((e) {
-                        final int index = menuData.value.indexOf(e);
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              index == 0 ? e.substring(3) : e,
-                              softWrap: true,
-                            ),
-                            Divider(
+                            Text(e, softWrap: true),
+                            const Divider(
                               height: 2,
-                              thickness: .1,
+                              thickness: .05,
                               color: Colors.black,
                             )
                           ],

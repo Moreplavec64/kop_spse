@@ -96,6 +96,14 @@ Future<void> _showMyDialog({
                   'Skupina ' + lessonData.skupina,
                   textAlign: TextAlign.center,
                 ),
+              Text(
+                'Ucebna : ' +
+                    EduIdUtil.idToClassroom(
+                      provider.getEduData,
+                      lessonData.classroomID,
+                    ),
+                textAlign: TextAlign.center,
+              ),
             ],
           ),
         ),

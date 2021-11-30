@@ -42,6 +42,11 @@ class JedalenProvider with ChangeNotifier {
       List<h.Element> menu = tdList[1].getElementsByClassName('menu-tdmenu');
       jedalenData[dateTime] =
           menu.length != 0 ? menu.first.text.split('\n') : [];
+
+      if (menu.length != 0)
+        jedalenData[dateTime]!.first =
+            jedalenData[dateTime]!.first.substring(3);
+      print(jedalenData[dateTime]);
     }
     // print(jedalenData);
   }

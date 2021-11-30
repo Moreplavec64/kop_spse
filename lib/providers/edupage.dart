@@ -51,7 +51,6 @@ class EduPageProvider with ChangeNotifier {
       orElse: () {
         //ak sa nenajde hodina, je prestavka
         isPrestavka = true;
-        print(zostavajuciCas);
         return getDnesnyRozvrh.firstWhere((e) => e.startTime.isAfter(_date));
       },
     );
