@@ -64,7 +64,7 @@ class EduPageProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  //?LOGIN FUNCTIONS:
+  //*LOGIN FUNCTIONS:
   //headers = {cookie name = cookie value,...}
   //cookie list = hodnoty pre http header
   final Map<String, String> _headers = {};

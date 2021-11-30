@@ -19,6 +19,7 @@ class JedalenMenuItem extends StatelessWidget {
     //TODO outline na dnesny item
     return Container(
       height: _size.height * .15,
+      width: _size.width * .95,
       decoration: BoxDecoration(
         color: Colors.grey[300],
         borderRadius: BorderRadius.all(Radius.circular(16)),
@@ -41,23 +42,44 @@ class JedalenMenuItem extends StatelessWidget {
               Text(menuData.key.year.toString()),
             ],
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: menuData.value.isNotEmpty
-                ? menuData.value.map((e) => Text(e)).toList()
-                : [
-                    Container(
-                      width: _size.width * .7,
-                      child: Text(
-                        'Na tento deň neboli vypísané žiadne jedlá',
-                        textAlign: TextAlign.center,
-                        softWrap: true,
-                        maxLines: 7,
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    )
-                  ],
+          SizedBox(width: 16),
+          Expanded(
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: menuData.value.isNotEmpty
+                    ? menuData.value.map((e) {
+                        final int index = menuData.value.indexOf(e);
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              index == 0 ? e.substring(3) : e,
+                              softWrap: true,
+                            ),
+                            Divider(
+                              height: 2,
+                              thickness: .1,
+                              color: Colors.black,
+                            )
+                          ],
+                        );
+                      }).toList()
+                    : [
+                        Container(
+                          width: _size.width * .7,
+                          child: Text(
+                            'Na tento deň neboli vypísané žiadne jedlá',
+                            textAlign: TextAlign.center,
+                            softWrap: true,
+                            maxLines: 7,
+                            style: TextStyle(fontSize: 18),
+                          ),
+                        )
+                      ],
+              ),
+            ),
           ),
         ],
       ),
