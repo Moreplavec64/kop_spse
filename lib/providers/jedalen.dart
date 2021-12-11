@@ -38,11 +38,14 @@ class JedalenProvider with ChangeNotifier {
       DateTime dateTime = DateFormat('dd MM yyyy').parse(
           '${date[0]} ${Formatters.svkMesiacDoCislo[date[1]].toString()} ${date[2]}');
       print(dateTime);
-      // print(tdList[1].children.first.children.first.children);
       List<h.Element> menu = tdList[1].getElementsByClassName('menu-tdmenu');
       jedalenData[dateTime] =
           menu.length != 0 ? menu.first.text.split('\n') : [];
+
+      //vymazanie prvych znakov (1. ...) v prvom riadku
+      if (menu.length != 0)
+        jedalenData[dateTime]!.first =
+            jedalenData[dateTime]!.first.substring(3);
     }
-    // print(jedalenData);
   }
 }

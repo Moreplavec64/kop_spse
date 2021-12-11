@@ -30,19 +30,26 @@ class TimeTableItem extends StatelessWidget {
           lessonData: provider.getDnesnyRozvrh[index],
         );
       },
-      child: Container(
-        height: size,
-        width: size,
-        color: _getColor(shortTitleHodiny, provider),
-        margin: const EdgeInsets.all(4),
-        child: FittedBox(
-          fit: BoxFit.scaleDown,
-          child: Text(
-            shortTitleHodiny,
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 22,
+      child: Consumer<EduPageProvider>(
+        builder: (__, v, _) => Container(
+          decoration: BoxDecoration(
+            color: _getColor(shortTitleHodiny, provider),
+            border: v.aktualnaHodina.period == index
+                ? Border.all(color: Theme.of(context).primaryColor, width: 2)
+                : Border.all(color: Colors.transparent, width: 0),
+          ),
+          height: size,
+          width: size,
+          margin: const EdgeInsets.all(4),
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              shortTitleHodiny,
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 22,
+              ),
             ),
           ),
         ),
@@ -89,6 +96,14 @@ Future<void> _showMyDialog({
                   'Skupina ' + lessonData.skupina,
                   textAlign: TextAlign.center,
                 ),
+              Text(
+                'Ucebna : ' +
+                    EduIdUtil.idToClassroom(
+                      provider.getEduData,
+                      lessonData.classroomID,
+                    ),
+                textAlign: TextAlign.center,
+              ),
             ],
           ),
         ),

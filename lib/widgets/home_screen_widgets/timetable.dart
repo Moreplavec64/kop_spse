@@ -20,13 +20,21 @@ class HomeScreenTimeTable extends StatelessWidget {
     final double ttItemsize = (_size.width / subjNumber) - 10;
 
     return Container(
-      height: _size.height * (1.5 / 7),
+      height: _size.height * (2 / 7),
       width: _size.width,
       child: Column(
         children: [
-          //TODO prestavka
-          Consumer<EduPageProvider>(
-              builder: (_, v, __) => Text(_printDuration(v.zostavajuciCas))),
+          Padding(
+            padding: const EdgeInsets.all(8),
+            child: Consumer<EduPageProvider>(
+                builder: (_, v, __) => Text(
+                      v.isPrestavka
+                          ? 'Aktualne je prestavka, do ${v.aktualnaHodina.period}. hodiny zostáva ${_printDuration(v.zostavajuciCas)}'
+                          : 'Prebieha ${v.aktualnaHodina.period}. hodina, do prestávky zostáva ' +
+                              _printDuration(v.zostavajuciCas),
+                      style: TextStyle(fontSize: 18),
+                    )),
+          ),
           Container(
             margin: EdgeInsets.symmetric(horizontal: 5),
             width: _size.width,
@@ -64,8 +72,6 @@ class HomeScreenTimeTable extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     itemCount: provider.getDnesnyRozvrh.length,
                     itemBuilder: (ctx, i) {
-                      print('AAAAAAAAAAA' + subjNumber.toString());
-                      print(provider.getDnesnyRozvrh[subjNumber - 1].isEvent);
                       return TimeTableItem(
                         index: i,
                         size: ttItemsize,
