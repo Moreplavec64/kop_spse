@@ -31,13 +31,13 @@ class EduPageProvider with ChangeNotifier {
   Map<String, dynamic> _parsedEdupageData = Map();
   Map<String, dynamic> get getEduData => _parsedEdupageData;
 
-  late List<LessonPlan> _dnesnyRozvrh;
+  List<LessonPlan> _dnesnyRozvrh = [];
   List<LessonPlan> get getDnesnyRozvrh =>
       _dnesnyRozvrh.isNotEmpty ? _dnesnyRozvrh : [];
 
   DateTime _date = DateTime.now();
-  late LessonPlan aktualnaHodina;
-  late Duration zostavajuciCas;
+  LessonPlan? aktualnaHodina;
+  Duration? zostavajuciCas;
   bool isPrestavka = false;
 
   void updateAktualne() {
@@ -55,11 +55,13 @@ class EduPageProvider with ChangeNotifier {
       },
     );
     //ak je prestavka, cas zostavajuci do dalsej hodiny
-    if (isPrestavka)
-      zostavajuciCas = aktualnaHodina.startTime.difference(_date);
-    //ak je hodina, cas do konca hodiny
-    else
-      zostavajuciCas = aktualnaHodina.endTime.difference(_date);
+    if (aktualnaHodina != null) {
+      if (isPrestavka)
+        zostavajuciCas = aktualnaHodina!.startTime.difference(_date);
+      //ak je hodina, cas do konca hodiny
+      else
+        zostavajuciCas = aktualnaHodina!.endTime.difference(_date);
+    }
     notifyListeners();
   }
 

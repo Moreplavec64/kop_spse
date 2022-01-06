@@ -27,13 +27,16 @@ class HomeScreenTimeTable extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8),
             child: Consumer<EduPageProvider>(
-                builder: (_, v, __) => Text(
-                      v.isPrestavka
-                          ? 'Aktualne je prestavka, do ${v.aktualnaHodina.period}. hodiny zostáva ${_printDuration(v.zostavajuciCas)}'
-                          : 'Prebieha ${v.aktualnaHodina.period}. hodina, do prestávky zostáva ' +
-                              _printDuration(v.zostavajuciCas),
-                      style: TextStyle(fontSize: 18),
-                    )),
+                builder: (_, v, __) =>
+                    v.aktualnaHodina != null && v.zostavajuciCas != null
+                        ? Text(
+                            v.isPrestavka
+                                ? 'Aktualne je prestavka, do ${v.aktualnaHodina!.period}. hodiny zostáva ${_printDuration(v.zostavajuciCas)}'
+                                : 'Prebieha ${v.aktualnaHodina!.period}. hodina, do prestávky zostáva ' +
+                                    _printDuration(v.zostavajuciCas),
+                            style: TextStyle(fontSize: 18),
+                          )
+                        : SizedBox.shrink()),
           ),
           Container(
             margin: EdgeInsets.symmetric(horizontal: 5),
@@ -84,7 +87,8 @@ class HomeScreenTimeTable extends StatelessWidget {
     );
   }
 
-  String _printDuration(Duration duration) {
+  String _printDuration(Duration? duration) {
+    if (duration == null) return '';
     String twoDigits(int n) => n.toString().padLeft(2, "0");
     String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
     String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));

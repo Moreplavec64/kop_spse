@@ -4,6 +4,7 @@ import 'package:kop_spse/providers/edupage.dart';
 import 'package:kop_spse/providers/jedalen.dart';
 import 'package:kop_spse/screens/home_screen.dart';
 import 'package:kop_spse/screens/login_screen.dart';
+import 'package:kop_spse/screens/map_screen.dart';
 import 'package:kop_spse/screens/menu_screen.dart';
 import 'package:kop_spse/screens/second_login_screen.dart';
 import 'package:kop_spse/screens/settings_screen.dart';
@@ -45,6 +46,7 @@ class MyApp extends StatelessWidget {
           '/login2': (ctx) => const SecondLoginScreen(),
           '/settings': (ctx) => const SettingsScreen(),
           '/menu': (ctx) => const MenuScreen(),
+          '/map': (ctx) => const MapScreen(),
         },
       ),
     );

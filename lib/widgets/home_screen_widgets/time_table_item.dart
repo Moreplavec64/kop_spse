@@ -34,7 +34,7 @@ class TimeTableItem extends StatelessWidget {
         builder: (__, v, _) => Container(
           decoration: BoxDecoration(
             color: _getColor(shortTitleHodiny, provider),
-            border: v.aktualnaHodina.period == index
+            border: v.aktualnaHodina!.period == index
                 ? Border.all(color: Theme.of(context).primaryColor, width: 2)
                 : Border.all(color: Colors.transparent, width: 0),
           ),

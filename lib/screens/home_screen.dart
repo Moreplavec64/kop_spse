@@ -38,6 +38,12 @@ class HomeScreen extends StatelessWidget {
             Container(
               height: _size.height * (1 / 7),
               color: Colors.white,
+              child: Center(
+                child: TextButton(
+                  child: Text('xxx'),
+                  onPressed: () => Navigator.of(context).pushNamed('/map'),
+                ),
+              ),
             ),
           ],
         ));

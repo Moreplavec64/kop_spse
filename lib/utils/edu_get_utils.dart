@@ -37,7 +37,7 @@ List<LessonPlan> getRozvrh(Map<String, dynamic> convJson, DateTime date) {
         classroomID: _verifyList(hodina["classroomids"]),
         classID: _verifyList(hodina["classids"]),
         subjectID: hodina["subjectid"],
-        skupina: hodina['groupnames'][0],
+        skupina: _verifyList(hodina['groupnames']),
         startTime: DateTime(
           d.year,
           d.month,
