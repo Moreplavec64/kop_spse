@@ -1,5 +1,6 @@
 Map<String, Map<String, int>> edges = {
-  //!PRIZEMIE HLAVNEJ BUDOVY
+  //*PRIZEMIE HLAVNEJ BUDOVY
+
   'B0VYCHOD': {'TELOCVICNE': 11, 'B0TOPCHODBA': 5},
   'B0TOPCHODBA': {'TELOCVICNE': 12, 'B0VYCHOD': 5, 'B0WCZ': 12, 'B0WCM': 20},
   'TELOCVICNE': {'B0TOPCHODBA': 12, 'B0VYCHOD': 11},
@@ -47,7 +48,8 @@ Map<String, Map<String, int>> edges = {
   'JEDALEN_SCHODY_BOTTOM': {
     'JEDALEN_SCHODY_TOP': 33,
     'JEDALEN_CHODBA': 14,
-    'D0F_SCHODY': 11
+    'D0F_SCHODY': 11,
+    'ZB_SCHODY_DOLE_END': 1,
   },
   'D0KCH': {'D0HUB': 9, 'D0HC_SPOD': 6, 'D0WCM': 19, 'D010': 15},
   'D0WCM': {'D0KCH': 19, 'D0VYCHOD': 12},
@@ -79,7 +81,8 @@ Map<String, Map<String, int>> edges = {
   'ATRIUM_SCHODY_BOTTOM': {
     'C0KCH': 33,
     'ATRIUM_SCHODY_TOP': 37,
-    'C0CH_SCHODY': 10
+    'C0CH_SCHODY': 10,
+    '1ATRIUM_SCHODY_END': 1,
   },
   'C0CH_SCHODY': {
     'C0KCH': 33,
@@ -105,5 +108,174 @@ Map<String, Map<String, int>> edges = {
     'ZB_SCHODY_DOLE_START': 1
   },
   'ATRIUM_SCHODY_TOP': {'ATRIUM_SCHODY_BOTTOM': 33, '1ATRIUM_SCHODY_START': 1},
-  //!PRVE PODCHODIE HLAVNEJ BUDOVY
+
+  //*PRVE PODCHODIE HLAVNEJ BUDOVY
+
+  'B109/B110': {'B108': 13},
+  'B108': {'B109/B110': 13, 'B107': 8},
+  'B107': {'B106': 11, 'B108': 8},
+  'B106': {'B107': 11, 'B1_ZBOROVNA_ROH': 11},
+  'B1_ZBOROVNA_ROH': {
+    'B106': 11,
+    'B1_HUBCH': 12,
+    '1ZBOROVNA_CHODBA': 19,
+    'F105': 17,
+    '1F_CHODBA': 23,
+    'B1WCM': 16,
+    'B1HC_ROH': 29,
+  },
+  '1ZBOROVNA_CHODBA': {
+    '1ZBOROVNA_VCHOD2': 3,
+    'B1_ZBOROVNA_ROH': 19,
+    'ZB_SCHODY_DOLE_START': 5,
+    '1F_CHODBA': 12,
+    'B1_HUBCH': 24,
+    'F105': 14,
+  },
+  'B1_HUBCH': {
+    'B1_ZBOROVNA_ROH': 12,
+    'F105': 12,
+    'B1WCM': 9,
+    '1ZBOROVNA_CHODBA': 24
+  },
+  'F105': {
+    'B1_HUBCH': 12,
+    'B1_ZBOROVNA_ROH': 15,
+    '1F_CHODBA': 6,
+    '1ZBOROVNA_CHODBA': 14
+  },
+  'B1WCM': {'B1_ZBOROVNA_ROH': 16, 'B1_HUBCH': 9, 'B1HC_ROH': 16},
+  '1F_CHODBA': {'1ZBOROVNA_CHODBA': 12, 'F105': 6, 'F106': 6},
+  'B1HC_ROH': {'B1_ZBOROVNA_ROH': 28, 'B1WCM': 16, 'B1WCZ': 13},
+  'B1WCZ': {'B1HC_ROH': 16, 'B102': 7},
+  'B102': {'B101': 13, 'B1WCZ': 7},
+  'B101': {'B102': 13, 'A101': 16},
+  'A101': {'A102': 16, 'B101': 16},
+  'A102': {'A1KCH2': 13, 'A101': 16},
+  'A1KCH2': {'A102': 13, 'A1KCH': 10, 'A1WCM': 26, '1ATRIUM_SCHODY_START': 45},
+  'A1KCH': {'A1KCH2': 10, 'A1WCM': 23, 'A1WCZ': 12},
+  'A1WCZ': {'A1KCH': 12, 'A106': 8},
+  'A106': {'A107': 13, 'A1WCZ': 8},
+  'A107': {'A106': 13, 'A108/A109': 16},
+  'A108/A109': {'A107': 16},
+  'A1WCM': {
+    'A1KCH': 23,
+    'A1KCH2': 26,
+    '1ATRIUM_SCHODY_START': 26,
+    '1ATRIUM_SCHODY_CHODBA': 23
+  },
+  '1ATRIUM_SCHODY_START': {
+    'ATRIUM_SCHODY_TOP': 1,
+    '1ATRIUM_SCHODY_END': 37,
+    'A1WCM': 26,
+    'A1KCH2': 45,
+    '1ATRIUM_SCHODY_CHODBA': 10
+  },
+  '1ATRIUM_SCHODY_END': {'1ATRIUM_SCHODY_START': 37, 'ATRIUM_SCHODY_BOTTOM': 1},
+  '1ATRIUM_SCHODY_CHODBA': {
+    '1ATRIUM_SCHODY_START': 10,
+    'A1WCM': 23,
+    'C1032': 75
+  },
+  'C1032': {'1ATRIUM_SCHODY_CHODBA': 75, 'C1031': 10, 'C1WCM': 8},
+  'C1WCM': {'C1032': 8, 'C1WCZ': 4},
+  'C1WCZ': {'C106': 8, 'C1WCM': 4},
+  'C106': {'C1WCZ': 8, 'C107': 12},
+  'C107': {'C108/C109': 17, 'C106': 12},
+  'C108/C109': {'C107': 17},
+  'C1031': {'C1032': 10, 'C102': 12},
+  'C102': {'C101': 14, 'C1031': 12},
+  'C101': {'C102': 14, 'D101': 14},
+  'D101': {'D102': 13, 'C101': 14},
+  'D102': {'D101': 13, 'D1WCZ': 7},
+  'D1WCZ': {'D1WCM': 5, 'D102': 7},
+  'D1WCM': {'D1WCZ': 5, 'D1502': 8},
+  'D1502': {'D1WCM': 8, 'F101': 11, 'D1501': 10, 'D1UCITELSKEWC': 16},
+  'D1501': {
+    'F102': 26,
+    'F101': 15,
+    'D1502': 10,
+    'D1UCITELSKEWC': 12,
+    'D106': 13
+  },
+  'F101': {
+    'D1502': 11,
+    'D1501': 15,
+    'D1UCITELSKEWC': 11,
+    'D1SCHODY_ZBOROVNA': 22,
+    'F102': 13,
+    'ZB_SCHODY_HORE_START': 26
+  },
+  'F102': {
+    'F101': 13,
+    'D1501': 26,
+    'D1UCITELSKEWC': 16,
+    'D1SCHODY_ZBOROVNA': 12,
+    'ZB_SCHODY_HORE_START': 15,
+    'D1HC_0': 7,
+  },
+  'D1HC_0': {
+    'F102': 7,
+    'F103': 3,
+    'ZB_SCHODY_HORE_START': 9,
+    'D1SCHODY_ZBOROVNA': 10,
+    'D1UCITELSKEWC': 22,
+  },
+  'F103': {
+    'D1HC_0': 3,
+    'ZB_SCHODY_HORE_START': 8,
+    'D1SCHODY_ZBOROVNA': 11,
+    'ZB_SCHODY_DOLE_END': 13,
+    'F106': 34
+  },
+  'F106': {'F103': 34, '1F_CHODBA': 6},
+  'D1SCHODY_ZBOROVNA': {
+    '1ZBOROVNA_VCHOD1': 5,
+    'ZB_SCHODY_HORE_START': 7,
+    'F103': 11,
+    'D1HC_0': 10,
+    'F102': 12,
+    'F101': 22,
+    'D1UCITELSKEWC': 18
+  },
+  'D1UCITELSKEWC': {
+    'D1501': 12,
+    'D1502': 16,
+    'F101': 11,
+    'F102': 16,
+    'D1HC_0': 22,
+    'D1SCHODY_ZBOROVNA': 18
+  },
+  'D106': {'D1501': 13, 'D107/D108': 16},
+  'D107/D108': {'D106': 16},
+  '1ZBOROVNA_VCHOD1': {
+    'D1SCHODY_ZBOROVNA': 5,
+    'F108': 16,
+    'ZBOROVNA_STRED': 28,
+  },
+  'F108': {'1ZBOROVNA_VCHOD1': 16, 'ZBOROVNA_STRED': 32},
+  'ZBOROVNA_STRED': {
+    '1ZBOROVNA_VCHOD1': 28,
+    'F108': 32,
+    '1ZBOROVNA_VCHOD2': 20
+  },
+  '1ZBOROVNA_VCHOD2': {'1ZBOROVNA_CHODBA': 3, 'ZBOROVNA_STRED': 20},
+  'ZB_SCHODY_DOLE_START': {
+    '1ZBOROVNA_CHODBA': 5,
+    'JEDALEN_SCHODY_TOP': 1,
+    'ZB_SCHODY_DOLE_END': 32
+  },
+  'ZB_SCHODY_DOLE_END': {
+    'ZB_SCHODY_DOLE_START': 32,
+    'JEDALEN_SCHODY_BOTTOM': 1
+  },
+  'ZB_SCHODY_HORE_START': {
+    'ZB_SCHODY_HORE_END': 32,
+    'D1SCHODY_ZBOROVNA': 7,
+    'F101': 26,
+    'F102': 15,
+    'D1HC_0': 15,
+    'F103': 8
+  },
+  'ZB_SCHODY_HORE_END': {'ZB_SCHODY_HORE_START': 32},
 };
