@@ -1,4 +1,5 @@
 Map<String, Map<String, int>> edges = {
+  //!PRIZEMIE HLAVNEJ BUDOVY
   'B0VYCHOD': {'TELOCVICNE': 11, 'B0TOPCHODBA': 5},
   'B0TOPCHODBA': {'TELOCVICNE': 12, 'B0VYCHOD': 5, 'B0WCZ': 12, 'B0WCM': 20},
   'TELOCVICNE': {'B0TOPCHODBA': 12, 'B0VYCHOD': 11},
@@ -15,7 +16,7 @@ Map<String, Map<String, int>> edges = {
     'D0HUB': 30,
     'D0HC_SPOD': 37,
   },
-  'D0HC_SPOD': {'D0KCH': 6, 'D0WCZ': 12, 'D0HUB': 11},
+  'D0HC_SPOD': {'D0KCH': 6, 'D0WCZ': 12, 'D0HUB': 11, 'D0F_SCHODY': 37},
   'D0HUB': {
     'D0F_SCHODY': 30,
     'ZELSAL/JED': 15,
@@ -32,4 +33,77 @@ Map<String, Map<String, int>> edges = {
     'ZELSAL/JED': 18,
   },
   'ZELSAL/JED': {'D0HUB': 15, 'JEDALEN_CHODBA': 18, 'JEDALEN_VCHOD': 14},
+  'JEDALEN_VCHOD': {
+    'ZELSAL/JED': 14,
+    'JEDALEN_CHODBA': 10,
+    'D0HUB': 21,
+    'JEDALEN1': 61
+  },
+  'JEDALEN1': {'JEDALEN_VCHOD': 61, 'JEDALEN2': 30},
+  'JEDALEN2': {'JEDALEN1': 30, 'KUCHYNA1': 26},
+  'KUCHYNA1': {'JEDALEN2': 26, 'VJCHODBA': 10},
+  'VJCHODBA': {'KUCHYNA1': 10, 'VJ': 10},
+  'VJ': {'VJCHODBA': 10},
+  'JEDALEN_SCHODY_BOTTOM': {
+    'JEDALEN_SCHODY_TOP': 33,
+    'JEDALEN_CHODBA': 14,
+    'D0F_SCHODY': 11
+  },
+  'D0KCH': {'D0HUB': 9, 'D0HC_SPOD': 6, 'D0WCM': 19, 'D010': 15},
+  'D0WCM': {'D0KCH': 19, 'D0VYCHOD': 12},
+  'D0VYCHOD': {'D0WCM': 12},
+  'D010': {'D0KCH': 15, 'D011': 10},
+  'D011': {'D012': 10, 'D010': 10},
+  'D012': {'D013-14/Riaditel': 10, 'D011': 10},
+  'D013-14/Riaditel': {'D012': 10},
+  'D0WCZ': {'D0HC_SPOD': 12, 'D015': 4},
+  'D015': {'D002': 3, 'D0WCZ': 4},
+  'D002': {'D015': 3, 'D001': 13},
+  'D001': {'C001': 14, 'D002': 13},
+  'C001': {'D001': 14, 'C002': 14},
+  'C002': {'C0KCH': 18, 'C001': 14},
+  'C0KCH': {
+    'C002': 18,
+    'C0WCZ': 19,
+    'C0CH': 5,
+    'ATRIUM_SCHODY_BOTTOM': 33,
+    'C0CH_SCHODY': 33
+  },
+  'C0WCZ': {'C0KCH': 19, 'C0VYCHOD': 12},
+  'C0VYCHOD': {'C0WCZ': 12},
+  'C0WCM': {'C0CH': 13, 'C008': 8},
+  'C0CH': {'C0WCM': 13, 'C0KCH': 5, 'C0CH_SCHODY': 32},
+  'C008': {'C009': 14, 'C0WCM': 8},
+  'C009': {'C008': 14, 'C010/C011': 18},
+  'C010/C011': {'C009': 18},
+  'ATRIUM_SCHODY_BOTTOM': {
+    'C0KCH': 33,
+    'ATRIUM_SCHODY_TOP': 37,
+    'C0CH_SCHODY': 10
+  },
+  'C0CH_SCHODY': {
+    'C0KCH': 33,
+    'ATRIUM_SCHODY_BOTTOM': 10,
+    'C0CH': 32,
+    'A0WCM': 64
+  },
+  'A0WCM': {'C0CH_SCHODY': 64, 'A0KCH': 24, 'A0CH': 23},
+  'A0CH': {'A0WCZ': 12, 'A0KCH': 5, 'A0WCM': 23},
+  'A0WCZ': {'A0CH': 12, 'A008': 8},
+  'A008': {'A009': 18, 'A0WCZ': 8},
+  'A009': {'A008': 18, 'A010/A011': 12},
+  'A010/A011': {'A009': 12},
+  'A0KCH': {'A0CH': 5, 'A0WCM': 24, 'A0VYCHOD': 4, 'A002': 17},
+  'A0VYCHOD': {'A0KCH': 4},
+  'A002': {'A0KCH': 17, 'A001': 14},
+  'A001': {'B001': 14, 'A002': 14},
+  'B001': {'A001': 14, 'B002': 12},
+  'B002': {'B0WCZ': 7, 'B001': 12},
+  'B0WCZ': {'B002': 7, 'B0TOPCHODBA': 12},
+  'JEDALEN_SCHODY_TOP': {
+    'JEDALEN_SCHODY_BOTTOM': 33,
+    'ZB_SCHODY_DOLE_START': 1
+  },
+  'ATRIUM_SCHODY_TOP': {'ATRIUM_SCHODY_BOTTOM': 33, '1ATRIUM_SCHODY_START': 1},
+  //!PRVE PODCHODIE HLAVNEJ BUDOVY
 };
