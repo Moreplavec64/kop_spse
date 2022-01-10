@@ -43,17 +43,20 @@ class EduPageProvider with ChangeNotifier {
   void updateAktualne() {
     _date = DateTime.now();
     //TODO rozdelit updatovanie ak netreba
-    aktualnaHodina = getDnesnyRozvrh.firstWhere(
-      (e) {
-        isPrestavka = false;
-        return _date.isAfter(e.startTime) && _date.isBefore(e.endTime);
-      },
-      orElse: () {
-        //ak sa nenajde hodina, je prestavka
-        isPrestavka = true;
-        return getDnesnyRozvrh.firstWhere((e) => e.startTime.isAfter(_date));
-      },
-    );
+    aktualnaHodina = getDnesnyRozvrh.isNotEmpty
+        ? getDnesnyRozvrh.firstWhere(
+            (e) {
+              isPrestavka = false;
+              return _date.isAfter(e.startTime) && _date.isBefore(e.endTime);
+            },
+            orElse: () {
+              //ak sa nenajde hodina, je prestavka
+              isPrestavka = true;
+              return getDnesnyRozvrh
+                  .firstWhere((e) => e.startTime.isAfter(_date));
+            },
+          )
+        : null;
     //ak je prestavka, cas zostavajuci do dalsej hodiny
     if (aktualnaHodina != null) {
       if (isPrestavka)
