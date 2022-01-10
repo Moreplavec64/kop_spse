@@ -35,6 +35,7 @@ dependencies:
   url_launcher: ^6.0.12
   html: ^0.15.0
   flutter_svg: ^1.0.0
+  dijkstra: ^0.0.2
 
 dev_dependencies:
   flutter_test:
