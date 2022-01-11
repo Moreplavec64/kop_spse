@@ -42,5 +42,6 @@ class MapProvider with ChangeNotifier {
           .where((element) => suradniceWaypointov[x]!.containsKey(element))
           .toList();
     }
+    notifyListeners();
   }
 }

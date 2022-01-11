@@ -14,7 +14,6 @@ class MapWidget extends StatelessWidget {
   final Size size;
   @override
   Widget build(BuildContext context) {
-    final mapProvider = Provider.of<MapProvider>(context);
     return SizedBox(
       width: size.width,
       height: size.height * 9 / 10,
@@ -26,13 +25,17 @@ class MapWidget extends StatelessWidget {
               child: SizedBox(
                 width: 210,
                 height: 297,
-                child: CustomPaint(
-                  painter: MapCustomLinePaiter(mapProvider),
-                  child: SvgPicture.asset(
-                    'assets/images/${mapProvider.getZobrazenePodlazie}.svg',
-                    fit: BoxFit.fitWidth,
-                    semanticsLabel: 'mapa skoly',
-                  ),
+                child: Consumer<MapProvider>(
+                  builder: (ctx, prov, _) {
+                    return CustomPaint(
+                      foregroundPainter: MapCustomLinePaiter(prov),
+                      child: SvgPicture.asset(
+                        'assets/images/${prov.getZobrazenePodlazie}.svg',
+                        fit: BoxFit.fitWidth,
+                        semanticsLabel: 'mapa skoly',
+                      ),
+                    );
+                  },
                 ),
               ),
             ),
@@ -53,15 +56,26 @@ class MapWidget extends StatelessWidget {
 }
 
 class MapCustomLinePaiter extends CustomPainter {
-  final MapProvider provder;
-
-  MapCustomLinePaiter(this.provder);
+  final MapProvider provider;
+  MapCustomLinePaiter(this.provider);
 
   @override
-  void paint(Canvas canvas, Size size) {}
+  void paint(Canvas canvas, Size size) {
+    final List<String> toDrawPath =
+        provider.routy[provider.getZobrazenePodlazie] ?? [];
+    final suradnicePrePodlazie =
+        suradniceWaypointov[provider.getZobrazenePodlazie];
+    final Paint paint = Paint()
+      ..strokeWidth = 1
+      ..color = Colors.blue;
+    for (int i = 0; i < toDrawPath.length - 1; i++) {
+      canvas.drawLine(suradnicePrePodlazie![toDrawPath[i]] ?? Offset(0, 0),
+          suradnicePrePodlazie[toDrawPath[i + 1]] ?? Offset(0, 0), paint);
+    }
+  }
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
+    return true;
   }
 }
