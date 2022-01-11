@@ -42,7 +42,7 @@ class MapWidget extends StatelessWidget {
             TextButton(
                 onPressed: () {
                   List<dynamic> route = (Dijkstra.findPathFromGraph(
-                      edges, 'D013-14/Riaditel', 'C108/C109'));
+                      edges, 'D013-14/Riaditel', 'D106'));
                   var x = Provider.of<MapProvider>(context, listen: false);
                   x.rozdelRouty(route);
                   print(x.routy);
@@ -67,7 +67,7 @@ class MapCustomLinePaiter extends CustomPainter {
         suradniceWaypointov[provider.getZobrazenePodlazie];
     final Paint paint = Paint()
       ..strokeWidth = 1
-      ..color = Colors.blue;
+      ..color = Color.fromRGBO(3, 192, 60, 1);
     for (int i = 0; i < toDrawPath.length - 1; i++) {
       canvas.drawLine(suradnicePrePodlazie![toDrawPath[i]] ?? Offset(0, 0),
           suradnicePrePodlazie[toDrawPath[i + 1]] ?? Offset(0, 0), paint);
