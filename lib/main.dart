@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kop_spse/providers/auth.dart';
 import 'package:kop_spse/providers/edupage.dart';
 import 'package:kop_spse/providers/jedalen.dart';
+import 'package:kop_spse/providers/map.dart';
 import 'package:kop_spse/screens/home_screen.dart';
 import 'package:kop_spse/screens/login_screen.dart';
 import 'package:kop_spse/screens/map_screen.dart';
@@ -29,7 +30,8 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => EduPageProvider()),
         ChangeNotifierProvider(create: (_) => AuthProvider()),
-        ChangeNotifierProvider(create: (_) => JedalenProvider())
+        ChangeNotifierProvider(create: (_) => JedalenProvider()),
+        ChangeNotifierProvider(create: (_) => MapProvider())
       ],
       child: MaterialApp(
         navigatorKey: navigationKey,

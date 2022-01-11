@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kop_spse/providers/map.dart';
 import 'package:kop_spse/utils/map_constants.dart';
 import 'package:kop_spse/widgets/appbar.dart';
 import 'package:kop_spse/widgets/home_screen_widgets/drawer.dart';
 import 'package:dijkstra/dijkstra.dart';
+import 'package:provider/provider.dart';
 
 class MapScreen extends StatelessWidget {
   static String route = "/homeScreen";
@@ -27,15 +29,6 @@ class MapScreen extends StatelessWidget {
       drawer: const CustomDrawer(),
       body: Stack(
         children: [
-          Align(
-            alignment: Alignment.bottomRight,
-            child: Column(
-              children: [
-                MapPodlazieButton(title: 'HB1'),
-                MapPodlazieButton(title: 'HB2'),
-              ],
-            ),
-          ),
           Column(
             children: [
               SvgPicture.asset(
@@ -46,10 +39,28 @@ class MapScreen extends StatelessWidget {
               ),
               TextButton(
                   onPressed: () {
-                    print(Dijkstra.findPathFromGraph(
+                    List<dynamic> route = (Dijkstra.findPathFromGraph(
                         edges, 'D013-14/Riaditel', 'C108/C109'));
+                    var x = Provider.of<MapProvider>(context, listen: false);
+                    x.rozdelRouty(route);
+                    print(x.routy);
                   },
                   child: Text('Test ALG')),
+            ],
+          ),
+          Column(
+            children: [
+              Expanded(
+                child: Align(
+                    alignment: FractionalOffset.bottomRight,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        MapPodlazieButton(title: 'HB1'),
+                        MapPodlazieButton(title: 'HB2'),
+                      ],
+                    )),
+              ),
             ],
           ),
         ],
