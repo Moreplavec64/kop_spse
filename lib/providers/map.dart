@@ -10,6 +10,20 @@ class MapProvider with ChangeNotifier {
     }
   }
 
+  get getZobrazenePodlazie => _zobrazenePodlazie;
+
+  List<String> shouldDisplayButtons = [
+    'HBP0',
+    'HBP1',
+    'HBP2',
+    '6AP0',
+    '6AP1',
+    '6BP0',
+    '6BP1',
+    '6CP0',
+    '6CP1'
+  ];
+
   Map<String, List<String>> routy = {
     'HBP0': [],
     'HBP1': [],
