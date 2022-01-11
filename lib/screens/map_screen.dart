@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kop_spse/providers/map.dart';
-import 'package:kop_spse/utils/map_constants.dart';
 import 'package:kop_spse/widgets/appbar.dart';
 import 'package:kop_spse/widgets/home_screen_widgets/drawer.dart';
-import 'package:dijkstra/dijkstra.dart';
-import 'package:provider/provider.dart';
+import 'package:kop_spse/widgets/map_screen_widgets/map_widget.dart';
+import 'package:kop_spse/widgets/map_screen_widgets/podlazie_button.dart';
 
 class MapScreen extends StatelessWidget {
   static String route = "/homeScreen";
@@ -29,61 +26,46 @@ class MapScreen extends StatelessWidget {
       drawer: const CustomDrawer(),
       body: Stack(
         children: [
-          Column(
-            children: [
-              SvgPicture.asset(
-                'assets/images/HB0P.svg',
-                height: 600,
-                fit: BoxFit.cover,
-                semanticsLabel: 'mapa skoly',
-              ),
-              TextButton(
-                  onPressed: () {
-                    List<dynamic> route = (Dijkstra.findPathFromGraph(
-                        edges, 'D013-14/Riaditel', 'C108/C109'));
-                    var x = Provider.of<MapProvider>(context, listen: false);
-                    x.rozdelRouty(route);
-                    print(x.routy);
-                  },
-                  child: Text('Test ALG')),
-            ],
-          ),
+          MapWidget(),
           Column(
             children: [
               Expanded(
                 child: Align(
                     alignment: FractionalOffset.bottomRight,
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        MapPodlazieButton(title: 'HB1'),
-                        MapPodlazieButton(title: 'HB2'),
+                        MapPodlazieButton(title: 'HB0', value: 'HBP0'),
+                        MapPodlazieButton(title: 'HB1', value: 'HBP1'),
+                        MapPodlazieButton(title: 'HB2', value: 'HBP2'),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            MapPodlazieButton(title: '6A0', value: '6AP0'),
+                            MapPodlazieButton(title: '6A1', value: '6AP1'),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            MapPodlazieButton(title: '6B0', value: '6BP0'),
+                            MapPodlazieButton(title: '6B1', value: '6BP1'),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            MapPodlazieButton(title: '6C0', value: '6CP0'),
+                            MapPodlazieButton(title: '6C1', value: '6CP1'),
+                          ],
+                        )
                       ],
                     )),
               ),
             ],
           ),
         ],
-      ),
-    );
-  }
-}
-
-class MapPodlazieButton extends StatelessWidget {
-  final String title;
-  const MapPodlazieButton({
-    Key? key,
-    required this.title,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => 1,
-      child: Container(
-        width: 16,
-        height: 16,
-        child: Text(title),
       ),
     );
   }

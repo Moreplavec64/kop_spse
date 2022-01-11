@@ -2,7 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:kop_spse/utils/map_constants.dart';
 
 class MapProvider with ChangeNotifier {
-  String zobrazenePodlazie = 'HBP0';
+  String _zobrazenePodlazie = 'HBP0';
+  void setPodlazie(String podlazie) {
+    if (_zobrazenePodlazie != podlazie) {
+      _zobrazenePodlazie = podlazie;
+      notifyListeners();
+    }
+  }
+
   Map<String, List<String>> routy = {
     'HBP0': [],
     'HBP1': [],
