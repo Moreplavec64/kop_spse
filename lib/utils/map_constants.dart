@@ -51,7 +51,6 @@ Map<String, Map<String, int>> edges = {
     'JEDALEN_SCHODY_TOP': 33,
     'JEDALEN_CHODBA': 14,
     'D0F_SCHODY': 11,
-    'ZB_SCHODY_DOLE_END': 1,
   },
   'D0KCH': {'D0HUB': 9, 'D0HC_SPOD': 6, 'D0WCM': 19, 'D010': 15},
   'D0WCM': {'D0KCH': 19, 'D0VYCHOD': 12},
@@ -105,10 +104,7 @@ Map<String, Map<String, int>> edges = {
   'B001': {'A001': 14, 'B002': 12},
   'B002': {'B0WCZ': 7, 'B001': 12},
   'B0WCZ': {'B002': 7, 'B0TOPCHODBA': 12},
-  'JEDALEN_SCHODY_TOP': {
-    'JEDALEN_SCHODY_BOTTOM': 33,
-    'ZB_SCHODY_DOLE_START': 1
-  },
+  'JEDALEN_SCHODY_TOP': {'JEDALEN_SCHODY_BOTTOM': 33, 'ZB_SCHODY_DOLE_END': 1},
   'ATRIUM_SCHODY_TOP': {'ATRIUM_SCHODY_BOTTOM': 33, '1ATRIUM_SCHODY_START': 1},
 
   //*PRVE PODCHODIE HLAVNEJ BUDOVY
@@ -218,23 +214,22 @@ Map<String, Map<String, int>> edges = {
   },
   'D1HC_0': {
     'F102': 7,
-    'F103': 3,
+    'F103': 6,
     'ZB_SCHODY_HORE_START': 9,
     'D1SCHODY_ZBOROVNA': 10,
     'D1UCITELSKEWC': 22,
   },
   'F103': {
-    'D1HC_0': 3,
-    'ZB_SCHODY_HORE_START': 8,
-    'D1SCHODY_ZBOROVNA': 11,
-    'ZB_SCHODY_DOLE_END': 13,
-    'F106': 34
+    'D1HC_0': 6,
+    'ZB_SCHODY_HORE_START': 7,
+    'D1SCHODY_ZBOROVNA': 12,
+    'F106': 31
   },
-  'F106': {'F103': 34, '1F_CHODBA': 6},
+  'F106': {'F103': 31, '1F_CHODBA': 6},
   'D1SCHODY_ZBOROVNA': {
     '1ZBOROVNA_VCHOD1': 5,
     'ZB_SCHODY_HORE_START': 7,
-    'F103': 11,
+    'F103': 12,
     'D1HC_0': 10,
     'F102': 12,
     'F101': 22,
@@ -262,24 +257,28 @@ Map<String, Map<String, int>> edges = {
     '1ZBOROVNA_VCHOD2': 120
   },
   '1ZBOROVNA_VCHOD2': {'1ZBOROVNA_CHODBA': 3, 'ZBOROVNA_STRED': 120},
-  'ZB_SCHODY_DOLE_START': {
-    '1ZBOROVNA_CHODBA': 5,
-    'JEDALEN_SCHODY_TOP': 1,
-    'ZB_SCHODY_DOLE_END': 32
-  },
-  'ZB_SCHODY_DOLE_END': {
-    'ZB_SCHODY_DOLE_START': 32,
-    'JEDALEN_SCHODY_BOTTOM': 1
-  },
+  'ZB_SCHODY_DOLE_START': {'1ZBOROVNA_CHODBA': 5, 'ZB_SCHODY_DOLE_END': 32},
+  'ZB_SCHODY_DOLE_END': {'ZB_SCHODY_DOLE_START': 32, 'JEDALEN_SCHODY_TOP': 1},
   'ZB_SCHODY_HORE_START': {
     'ZB_SCHODY_HORE_END': 32,
     'D1SCHODY_ZBOROVNA': 7,
     'F101': 26,
     'F102': 15,
     'D1HC_0': 15,
-    'F103': 8
+    'F103': 7
   },
-  'ZB_SCHODY_HORE_END': {'ZB_SCHODY_HORE_START': 32},
+  'ZB_SCHODY_HORE_END': {'ZB_SCHODY_HORE_START': 32, 'DRUHE_SCHODY_BOTTOM': 1},
+  //TODO prerobit prepojenie schodov atrium
+  //TODO pridat waypoint HC pri rou zeleneho salonika a jedalne
+  //*DRUHE POSCHODIE HLAVNEJ BUDOVY
+  'DRUHE_SCHODY_BOTTOM': {'ZB_SCHODY_HORE_END': 1, 'DRUHE_SCHODY_TOP': 52},
+  'DRUHE_SCHODY_TOP': {'DRUHE_SCHODY_BOTTOM': 52, 'F201': 17},
+  'F201': {'F206': 11, 'DRUHE_SCHODY_TOP': 17},
+  'F206': {'F201': 11, 'F203': 8},
+  'F203': {'F204': 60, 'F206': 8},
+  'F204': {'F203': 60, 'F204_CHODBA': 24},
+  'F204_CHODBA': {'F205': 19, 'F204': 24},
+  'F205': {'F204_CHODBA': 19},
 };
 
 Map<String, Map<String, Offset>> suradniceWaypointov = {
@@ -392,7 +391,7 @@ Map<String, Map<String, Offset>> suradniceWaypointov = {
     'F101': Offset(63.5, 98),
     'F102': Offset(76.5, 98),
     'D1HC_0': Offset(83, 98),
-    'F103': Offset(87, 98),
+    'F103': Offset(89, 98),
     'F106': Offset(120, 98),
     'D1SCHODY_ZBOROVNA': Offset(83, 88),
     'D1UCITELSKEWC': Offset(64.17, 88),
@@ -406,5 +405,17 @@ Map<String, Map<String, Offset>> suradniceWaypointov = {
     'ZB_SCHODY_DOLE_END': Offset(89, 86),
     'ZB_SCHODY_HORE_START': Offset(89, 91),
     'ZB_SCHODY_HORE_END': Offset(122, 91),
+  }
+  //*DRUHE POSCHODIE HLAVNEJ BUDOVY
+  ,
+  'HBP2': {
+    'DRUHE_SCHODY_BOTTOM': Offset(77, 137),
+    'DRUHE_SCHODY_TOP': Offset(128.62, 137),
+    'F201': Offset(145, 137),
+    'F206': Offset(145, 148),
+    'F203': Offset(145, 156),
+    'F204': Offset(85, 156),
+    'F204_CHODBA': Offset(61, 156),
+    'F205': Offset(61, 137),
   }
 };
