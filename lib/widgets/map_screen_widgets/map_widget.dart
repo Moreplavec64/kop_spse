@@ -42,7 +42,7 @@ class MapWidget extends StatelessWidget {
             TextButton(
                 onPressed: () {
                   List<dynamic> route = (Dijkstra.findPathFromGraph(
-                      edges, 'D013-14/Riaditel', 'F205'));
+                      edges, 'C010/C011', 'A108/A109'));
                   var x = Provider.of<MapProvider>(context, listen: false);
                   x.rozdelRouty(route);
                   print(x.routy);
