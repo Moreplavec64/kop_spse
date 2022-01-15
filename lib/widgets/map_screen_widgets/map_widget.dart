@@ -41,17 +41,40 @@ class MapWidget extends StatelessWidget {
             ),
             TextButton(
                 onPressed: () {
-                  List<dynamic> route = (Dijkstra.findPathFromGraph(
-                      edges, '6B_VSTUP', '6B1_SCHODY_END'));
+                  List<dynamic> route =
+                      (Dijkstra.findPathFromGraph(edges, 'F106', 'F106'));
                   var x = Provider.of<MapProvider>(context, listen: false);
                   x.rozdelRouty(route);
-                  print(x.routy);
+                  // print(x.routy);
+                  print(route);
+                  // testAllRoutes();
                 },
                 child: Text('Test ALG')),
           ],
         ),
       ),
     );
+  }
+
+  void testAllRoutes() {
+    List<dynamic> route;
+    //Najdene : 43056
+    int najdene = 0;
+    int nenajdene = 0;
+
+    for (String z in edges.keys) {
+      for (String ciel in edges.keys) {
+        if (z == ciel) continue;
+        route = (Dijkstra.findPathFromGraph(edges, z, ciel));
+        if (route.isEmpty) {
+          nenajdene++;
+          print('Nenasla sa route z $z do $ciel');
+        } else
+          najdene++;
+      }
+    }
+    print('Najdene : $najdene');
+    print('Nenajdene : $nenajdene');
   }
 }
 
