@@ -279,7 +279,12 @@ Map<String, Map<String, int>> edges = {
 
   //*PRIZEMIE SESTKY A
 
-  '6A_VSTUP': {'D0VYCHOD': 1, '6A_VSTUP_CHODBA': 8},
+  '6A_VSTUP': {
+    'D0VYCHOD': 1,
+    '6A_VSTUP_CHODBA': 8,
+    '6C0_VSTUP': 1,
+    '6B_VSTUP': 1
+  },
   '6A_VSTUP_CHODBA': {'6A_VSTUP': 8, '6ASCHODY_CHODBA': 23},
   '6ASCHODY_CHODBA': {
     'A0SCHODY_START': 15,
@@ -339,8 +344,12 @@ Map<String, Map<String, int>> edges = {
   '6A104_WC': {'6A104_CHODBICKA_WC': 13},
 
   //*PRIZEMIE 6KA B
-  //TODO PREPOJENIA VCHODOV 6
-  '6B_VSTUP': {'D0VYCHOD': 1, '6B0_CHODBA_SCHODY': 18},
+  '6B_VSTUP': {
+    'D0VYCHOD': 1,
+    '6B0_CHODBA_SCHODY': 18,
+    '6C0_VSTUP': 1,
+    '6A_VSTUP': 1
+  },
   '6B0_CHODBA_SCHODY': {
     '6B0_SCHODY_START': 8,
     '6B_VSTUP': 18,
@@ -386,7 +395,12 @@ Map<String, Map<String, int>> edges = {
 
   //* 6C PRIZEMIE
 
-  '6C0_VSTUP': {'D0VYCHOD': 1, '6C0_VSTUP_CHODBA_1': 9},
+  '6C0_VSTUP': {
+    'D0VYCHOD': 1,
+    '6C0_VSTUP_CHODBA_1': 9,
+    '6B_VSTUP': 1,
+    '6A_VSTUP': 1
+  },
   '6C0_VSTUP_CHODBA_1': {
     '6C0_VSTUP_CHODBA_2': 17,
     '6C0_VSTUP': 9,
