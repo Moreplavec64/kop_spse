@@ -15,7 +15,7 @@ class MapPodlazieButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () =>
-          Provider.of<MapProvider>(context, listen: false).setPodlazie(value),
+          Provider.of<MapProvider>(context, listen: false).setPoschodie(value),
       child: Container(
         padding: const EdgeInsets.all(2),
         margin: const EdgeInsets.all(3),

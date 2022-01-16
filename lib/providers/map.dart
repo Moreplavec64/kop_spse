@@ -1,9 +1,10 @@
+import 'package:dijkstra/dijkstra.dart';
 import 'package:flutter/material.dart';
 import 'package:kop_spse/utils/map_constants.dart';
 
 class MapProvider with ChangeNotifier {
   String _zobrazenePodlazie = 'HBP0';
-  void setPodlazie(String podlazie) {
+  void setPoschodie(String podlazie) {
     if (_zobrazenePodlazie != podlazie) {
       _zobrazenePodlazie = podlazie;
       notifyListeners();
@@ -19,6 +20,9 @@ class MapProvider with ChangeNotifier {
   }
 
   List<String> get getVyznacene => _vyznacene;
+
+  //TODO tmp, vymazat
+  String odkial = 'D106', kam = 'C109';
 
   List<String> shouldDisplayButtons = [
     'HBP0',
@@ -43,6 +47,27 @@ class MapProvider with ChangeNotifier {
     '6CP0': [],
     '6CP1': [],
   };
+
+  void createRoute(String z, String ciel) {
+    //! po vyhladavani a vyznaceni convertovat
+    //! ucebnu na destinacny a source waypoint*/
+    setVyznacene([z, ciel]);
+    List<dynamic> route = (Dijkstra.findPathFromGraph(
+      edges,
+      ucebnaToWaypoint[z] ?? z,
+      ucebnaToWaypoint[ciel] ?? ciel,
+    ));
+    rozdelRouty(route);
+    print(routy);
+    //nastavenie zobrazeneho podlazia na to kde sa zacina routa
+    setPoschodie(
+      suradniceWaypointov.keys.firstWhere(
+        (e) => suradniceWaypointov[e]!.containsKey(route.first),
+      ),
+    );
+    // print(route);
+    // testAllRoutes();
+  }
 
   void rozdelRouty(List<dynamic> inputRoute) {
     var route = List<String>.from(inputRoute);
