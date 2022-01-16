@@ -3,9 +3,9 @@ import 'package:kop_spse/providers/map.dart';
 import 'package:kop_spse/utils/map_constants.dart';
 import 'package:patterns_canvas/patterns_canvas.dart';
 
-class MapCustomLinePaiter extends CustomPainter {
+class MapCustomLinePainter extends CustomPainter {
   final MapProvider provider;
-  MapCustomLinePaiter(this.provider);
+  MapCustomLinePainter(this.provider);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -39,7 +39,11 @@ class MapCustomLinePaiter extends CustomPainter {
       // Paint the pattern on the rectangle.
       pattern.paintOnRect(canvas, size, r);
 
-      canvas.drawPath(p, paint..style = PaintingStyle.stroke);
+      canvas.drawPath(
+          p,
+          paint
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = 1.5);
     }
   }
 

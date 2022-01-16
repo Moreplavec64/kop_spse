@@ -12,7 +12,7 @@ class MapProvider with ChangeNotifier {
 
   String get getZobrazenePodlazie => _zobrazenePodlazie;
 
-  List<String> _vyznacene = ['6C108'];
+  List<String> _vyznacene = [];
   void setVyznacene(List<String> ucebne) {
     _vyznacene = [...ucebne];
     notifyListeners();

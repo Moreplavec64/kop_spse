@@ -683,10 +683,26 @@ Map<String, Map<String, Rect>> suradniceUcebni = {
   'HBP2': {},
   '6AP0': {},
   '6AP1': {},
-  '6BP0': {},
-  '6BP1': {},
-  '6CP0': {},
-  '6CP1': {
-    '6C108': Rect.fromLTWH(28, 63.5, 58, 81.5),
+  '6BP0': {
+    '6B01': Rect.fromLTWH(25, 64, 60, 85),
+    '6B05': Rect.fromLTWH(85, 104, 100, 60),
   },
+  '6BP1': {
+    '6B106': Rect.fromLTWH(25, 64, 60, 85),
+    '6B107': Rect.fromLTWH(85, 104, 100, 60),
+    '6B101': Rect.fromLTWH(105, 164, 35, 70),
+  },
+  '6CP0': {
+    '6C01': Rect.fromLTWH(25, 48, 60, 85),
+    '6C02': Rect.fromLTWH(85, 88, 100, 60),
+    '6C0_WC': Rect.fromLTWH(140, 196, 13, 22),
+  },
+  '6CP1': {
+    '6C108': Rect.fromLTWH(25, 64, 60, 85),
+    '6C104': Rect.fromLTWH(85, 104, 100, 60),
+  },
+};
+Map<String, String> ucebnaToWaypoint = {
+  '6B01': '6B001_VSTUP',
+  '6B05': '6B005',
 };

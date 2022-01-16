@@ -29,7 +29,7 @@ class MapWidget extends StatelessWidget {
                 child: Consumer<MapProvider>(
                   builder: (ctx, prov, _) {
                     return CustomPaint(
-                      foregroundPainter: MapCustomLinePaiter(prov),
+                      foregroundPainter: MapCustomLinePainter(prov),
                       child: SvgPicture.asset(
                         'assets/images/${prov.getZobrazenePodlazie}.svg',
                         fit: BoxFit.fitWidth,
@@ -42,12 +42,20 @@ class MapWidget extends StatelessWidget {
             ),
             TextButton(
                 onPressed: () {
-                  List<dynamic> route =
-                      (Dijkstra.findPathFromGraph(edges, 'F106', '6A103'));
-                  var x = Provider.of<MapProvider>(context, listen: false);
+                  final x = Provider.of<MapProvider>(context, listen: false);
+                  //TODO po vyhladavani convertovat ucebnu na destinacny a source waypoint
+                  String z = 'F106';
+                  String ciel = '6B05';
+                  x.setVyznacene([z, ciel]);
+
+                  List<dynamic> route = (Dijkstra.findPathFromGraph(
+                    edges,
+                    ucebnaToWaypoint[z] ?? z,
+                    ucebnaToWaypoint[ciel] ?? ciel,
+                  ));
                   x.rozdelRouty(route);
-                  // print(x.routy);
-                  print(route);
+                  print(x.routy);
+                  // print(route);
                   // testAllRoutes();
                 },
                 child: Text('Test ALG')),
