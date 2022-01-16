@@ -10,7 +10,15 @@ class MapProvider with ChangeNotifier {
     }
   }
 
-  get getZobrazenePodlazie => _zobrazenePodlazie;
+  String get getZobrazenePodlazie => _zobrazenePodlazie;
+
+  List<String> _vyznacene = ['6C108'];
+  void setVyznacene(List<String> ucebne) {
+    _vyznacene = [...ucebne];
+    notifyListeners();
+  }
+
+  List<String> get getVyznacene => _vyznacene;
 
   List<String> shouldDisplayButtons = [
     'HBP0',
@@ -35,6 +43,7 @@ class MapProvider with ChangeNotifier {
     '6CP0': [],
     '6CP1': [],
   };
+
   void rozdelRouty(List<dynamic> inputRoute) {
     var route = List<String>.from(inputRoute);
     for (String x in suradniceWaypointov.keys) {

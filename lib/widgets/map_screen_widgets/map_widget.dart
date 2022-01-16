@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kop_spse/providers/map.dart';
 import 'package:kop_spse/utils/map_constants.dart';
+import 'package:kop_spse/widgets/map_screen_widgets/mapCustomPaiter.dart';
 import 'package:provider/provider.dart';
 
 class MapWidget extends StatelessWidget {
@@ -42,7 +43,7 @@ class MapWidget extends StatelessWidget {
             TextButton(
                 onPressed: () {
                   List<dynamic> route =
-                      (Dijkstra.findPathFromGraph(edges, 'F106', 'F106'));
+                      (Dijkstra.findPathFromGraph(edges, 'F106', '6A103'));
                   var x = Provider.of<MapProvider>(context, listen: false);
                   x.rozdelRouty(route);
                   // print(x.routy);
@@ -75,30 +76,5 @@ class MapWidget extends StatelessWidget {
     }
     print('Najdene : $najdene');
     print('Nenajdene : $nenajdene');
-  }
-}
-
-class MapCustomLinePaiter extends CustomPainter {
-  final MapProvider provider;
-  MapCustomLinePaiter(this.provider);
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final List<String> toDrawPath =
-        provider.routy[provider.getZobrazenePodlazie] ?? [];
-    final suradnicePrePodlazie =
-        suradniceWaypointov[provider.getZobrazenePodlazie];
-    final Paint paint = Paint()
-      ..strokeWidth = 1
-      ..color = Color.fromRGBO(3, 192, 60, 1);
-    for (int i = 0; i < toDrawPath.length - 1; i++) {
-      canvas.drawLine(suradnicePrePodlazie![toDrawPath[i]] ?? Offset(0, 0),
-          suradnicePrePodlazie[toDrawPath[i + 1]] ?? Offset(0, 0), paint);
-    }
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return true;
   }
 }

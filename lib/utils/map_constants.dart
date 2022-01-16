@@ -674,3 +674,19 @@ Map<String, Map<String, Offset>> suradniceWaypointov = {
     '6C104': Offset(84.5, 155),
   },
 };
+
+Map<String, Map<String, Rect>> suradniceUcebni = {
+  'HBP0': {},
+  //*PRVE PODCHODIE HLAVNEJ BUDOVY
+  'HBP1': {},
+  //*DRUHE POSCHODIE HLAVNEJ BUDOVY
+  'HBP2': {},
+  '6AP0': {},
+  '6AP1': {},
+  '6BP0': {},
+  '6BP1': {},
+  '6CP0': {},
+  '6CP1': {
+    '6C108': Rect.fromLTWH(28, 63.5, 58, 81.5),
+  },
+};

@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
           // primarySwatch: Colors.blue,
         ),
         routes: {
-          '/': (ctx) => const LoginScreen(),
+          '/': (ctx) => const MapScreen(),
           '/home': (ctx) => const HomeScreen(),
           '/login2': (ctx) => const SecondLoginScreen(),
           '/settings': (ctx) => const SettingsScreen(),

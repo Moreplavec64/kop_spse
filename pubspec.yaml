@@ -36,6 +36,7 @@ dependencies:
   html: ^0.15.0
   flutter_svg: ^1.0.0
   dijkstra: ^0.0.2
+  patterns_canvas: ^0.3.5
 
 dev_dependencies:
   flutter_test:
