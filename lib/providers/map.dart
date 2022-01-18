@@ -21,8 +21,21 @@ class MapProvider with ChangeNotifier {
 
   List<String> get getVyznacene => _vyznacene;
 
-  //TODO tmp, vymazat
-  String odkial = 'D106', kam = 'C109';
+  String _odkial = 'D106';
+  void setodkial(String ucebna) {
+    _odkial = ucebna;
+    notifyListeners();
+  }
+
+  String get getOdkial => _odkial;
+
+  String _kam = 'C109';
+  void setKam(String ucebna) {
+    _kam = ucebna;
+    notifyListeners();
+  }
+
+  String get getKam => _kam;
 
   List<String> shouldDisplayButtons = [
     'HBP0',

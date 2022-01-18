@@ -40,25 +40,24 @@ class MapWidget extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
-              margin: EdgeInsets.all(20),
-              child: Row(
-                children: [
-                  DropdownTlacitko(
-                    initialDropdownValue: 'D106',
-                    odkialKam: 'odkial',
-                  ),
-                  DropdownTlacitko(
-                    initialDropdownValue: 'C109',
-                    odkialKam: 'kam',
-                  )
-                ],
+            TextButton(
+              onPressed: () => showSearch(
+                context: context,
+                delegate: Vyhladavanie(true),
               ),
+              child:
+                  Text('Odkial ' + Provider.of<MapProvider>(context).getOdkial),
             ),
+            TextButton(
+                onPressed: () => showSearch(
+                      context: context,
+                      delegate: Vyhladavanie(false),
+                    ),
+                child: Text('Kam ' + Provider.of<MapProvider>(context).getKam)),
             TextButton(
                 onPressed: () {
                   final x = Provider.of<MapProvider>(context, listen: false);
-                  x.createRoute(x.odkial, x.kam);
+                  x.createRoute(x.getOdkial, x.getKam);
                 },
                 child: Text('Test ALG')),
           ],
@@ -89,50 +88,87 @@ class MapWidget extends StatelessWidget {
   }
 }
 
-class DropdownTlacitko extends StatefulWidget {
-  final String initialDropdownValue;
-  final String odkialKam;
-  const DropdownTlacitko({
-    Key? key,
-    required this.initialDropdownValue,
-    required this.odkialKam,
-  }) : super(key: key);
-
-  @override
-  State<DropdownTlacitko> createState() => _DropdownTlacitkoState();
+List<String> generateUcebne() {
+  final List<String> x = [];
+  for (String podlazie in suradniceUcebni.keys) {
+    x.addAll(suradniceUcebni[podlazie]!.keys);
+  }
+  return x;
 }
 
-class _DropdownTlacitkoState extends State<DropdownTlacitko> {
-  @override
-  Widget build(BuildContext context) {
-    final x = Provider.of<MapProvider>(context, listen: false);
+class Vyhladavanie extends SearchDelegate<String> {
+  final List<String> recent = [];
+  final List<String> ucebne = generateUcebne();
+  final bool isOdkial;
 
-    String dropdownValue = widget.odkialKam == 'kam' ? x.kam : x.odkial;
-    List<String> values = [];
-    for (String x in suradniceUcebni.keys) {
-      values.addAll(suradniceUcebni[x]!.keys);
-    }
-    return DropdownButton<String>(
-      value: dropdownValue,
-      icon: const Icon(Icons.arrow_downward),
-      elevation: 16,
-      style: const TextStyle(color: Colors.deepPurple),
-      underline: Container(
-        height: 2,
-        color: Colors.deepPurpleAccent,
+  Vyhladavanie(this.isOdkial);
+
+  @override
+  List<Widget>? buildActions(BuildContext context) {
+    return [IconButton(onPressed: () {}, icon: Icon(Icons.clear))];
+  }
+
+  @override
+  Widget? buildLeading(BuildContext context) {
+    return IconButton(
+      onPressed: () {},
+      icon: AnimatedIcon(
+        icon: AnimatedIcons.menu_arrow,
+        progress: transitionAnimation,
       ),
-      onChanged: (String? newValue) {
-        setState(() {
-          dropdownValue = newValue!;
-          widget.odkialKam == 'kam' ? x.kam = newValue : x.odkial = newValue;
-        });
-      },
-      items: values.map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    return Container();
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    final String tmpQuery = query.toUpperCase();
+    final suggestions = query.isEmpty
+        ? ucebne
+        : ucebne.where((element) => element.contains(tmpQuery)).toList();
+    return ListView.builder(
+      itemBuilder: (ctx, index) {
+        final String ucebna = suggestions[index];
+        return ListTile(
+          leading: Icon(Icons.class_),
+          onTap: () {
+            final provider = Provider.of<MapProvider>(context, listen: false);
+            isOdkial
+                ? provider.setodkial(ucebne[index])
+                : provider.setKam(ucebne[index]);
+            Navigator.of(context).pop();
+            showResults(context);
+          },
+          title: RichText(
+            text: TextSpan(
+              text: ucebna.substring(0, ucebna.indexOf(tmpQuery)),
+              style: TextStyle(
+                color: Colors.grey,
+              ),
+              children: [
+                TextSpan(
+                  text: tmpQuery,
+                  style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                      fontWeight: FontWeight.bold),
+                ),
+                TextSpan(
+                  text: ucebna
+                      .substring(ucebna.indexOf(tmpQuery) + tmpQuery.length),
+                  style: TextStyle(
+                    color: Colors.grey,
+                  ),
+                ),
+              ],
+            ),
+          ),
         );
-      }).toList(),
+      },
+      itemCount: suggestions.length,
     );
   }
 }
