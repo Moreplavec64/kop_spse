@@ -27,7 +27,7 @@ class JedalenHomeScreenWidget extends StatelessWidget {
       padding: const EdgeInsets.all(8),
       duration: const Duration(milliseconds: 200),
       height: (jedalenProvider.shouldBeExpanded && dnesneMenu!.length > 2
-          ? _size.height * 1 / 7 + 12 * (jedalenProvider.jedalenData.length - 2)
+          ? _size.height * 1 / 7 + 12 * (jedalenProvider.jedalenData.length)
           : _size.height * 1 / 7),
       width: _size.width - 10,
       child: CustomScrollView(
@@ -52,7 +52,7 @@ class JedalenHomeScreenWidget extends StatelessWidget {
                     ? dnesneMenu.map((e) => Text(e)).toList().sublist(
                           0,
                           jedalenProvider.shouldBeExpanded
-                              ? dnesneMenu.length - 1
+                              ? dnesneMenu.length
                               : min(2, dnesneMenu.length),
                         )
                     : [

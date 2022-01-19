@@ -46,13 +46,30 @@ class TimeTableItem extends StatelessWidget {
           margin: const EdgeInsets.all(4),
           child: FittedBox(
             fit: BoxFit.scaleDown,
-            child: Text(
-              shortTitleHodiny,
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 22,
-              ),
+            child: Stack(
+              children: [
+                Text(
+                  shortTitleHodiny,
+                  style: TextStyle(
+                    foreground: Paint()
+                      ..strokeWidth = 1
+                      ..color = Colors.black
+                      ..style = PaintingStyle.stroke,
+                    // color: Colors.white,
+
+                    fontWeight: FontWeight.bold,
+                    fontSize: 22,
+                  ),
+                ),
+                Text(
+                  shortTitleHodiny,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 22,
+                  ),
+                ),
+              ],
             ),
           ),
         ),

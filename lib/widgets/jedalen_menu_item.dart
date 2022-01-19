@@ -16,11 +16,13 @@ class JedalenMenuItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final mesiac =
         Formatters.svkMesiacDoCislo.keys.toList()[menuData.key.month - 1];
-    //TODO outline na dnesny item
     return Container(
       height: _size.height * .15,
       width: _size.width * .95,
       decoration: BoxDecoration(
+        border: DateTime.now().day == menuData.key.day
+            ? Border.all(color: Theme.of(context).primaryColor, width: 2)
+            : Border.all(color: Colors.transparent),
         color: Colors.grey[300],
         borderRadius: BorderRadius.all(Radius.circular(16)),
       ),
