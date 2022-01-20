@@ -20,13 +20,13 @@ class Vyhladavanie extends SearchDelegate<String> {
 
   @override
   List<Widget>? buildActions(BuildContext context) {
-    return [IconButton(onPressed: () {}, icon: Icon(Icons.clear))];
+    return [IconButton(onPressed: () => query = '', icon: Icon(Icons.clear))];
   }
 
   @override
   Widget? buildLeading(BuildContext context) {
     return IconButton(
-      onPressed: () {},
+      onPressed: Navigator.of(context).pop,
       icon: AnimatedIcon(
         icon: AnimatedIcons.menu_arrow,
         progress: transitionAnimation,
