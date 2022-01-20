@@ -1,6 +1,7 @@
 class EduIdUtil {
   static String idToClassroom(Map<String, dynamic> data, String id) =>
-      data['dbi']['classrooms'][id.toString()]['short'];
+      (data['dbi']['classrooms'][id.toString()] ??
+          {'short': 'Žiadna pridelená učebňa'})['short'];
   static String idToClass(Map<String, dynamic> data, String id) =>
       data['dbi']['classes'][id.toString()]['name'];
   static String? idToShortSubject(Map<String, dynamic> data, String id) =>
