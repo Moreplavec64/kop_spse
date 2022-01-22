@@ -13,17 +13,37 @@ class SearchFieldButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: () => showSearch(
-        context: context,
-        delegate: Vyhladavanie(isOdkial),
-      ).then((value) {
-        print('Odkial ' + provider.getOdkial);
-        print('Ciel ' + provider.getKam);
-      }),
-      child: Text(isOdkial
-          ? 'Odkial ' + provider.getOdkial
-          : 'Ciel ' + provider.getKam),
+    bool isDefault = true;
+    return GestureDetector(
+      onTap: () {
+        showSearch(
+          context: context,
+          delegate: Vyhladavanie(isOdkial),
+        );
+        isDefault = true;
+      },
+      child: Material(
+        elevation: 6,
+        borderRadius: BorderRadius.all(
+          Radius.circular(8),
+        ),
+        child: Container(
+          width: MediaQuery.of(context).size.width * .4,
+          margin: const EdgeInsets.all(6),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(
+              Radius.circular(8),
+            ),
+          ),
+          child: Text(
+            isOdkial
+                ? 'Odkial ' + provider.getOdkial
+                : 'Ciel ' + provider.getKam,
+            style: TextStyle(color: isDefault ? Colors.grey : Colors.black),
+          ),
+        ),
+      ),
     );
   }
 }

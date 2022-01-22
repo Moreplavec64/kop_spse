@@ -41,23 +41,9 @@ class MapWidget extends StatelessWidget {
                 ),
               ),
             ),
-            Consumer<MapProvider>(
-              builder: (_, value, __) {
-                print('REBUILD');
-                return SearchFieldButton(
-                  isOdkial: true,
-                  provider: value,
-                );
-              },
-            ),
-            Consumer<MapProvider>(
-              builder: (_, value, __) {
-                return SearchFieldButton(
-                  isOdkial: false,
-                  provider: value,
-                );
-              },
-            ),
+            Padding(
+                padding: EdgeInsets.only(right: size.width * .15),
+                child: NavigationSearchWidget()),
             TextButton(
                 onPressed: () {
                   final x = Provider.of<MapProvider>(context, listen: false);
@@ -89,5 +75,64 @@ class MapWidget extends StatelessWidget {
     }
     print('Najdene : $najdene');
     print('Nenajdene : $nenajdene');
+  }
+}
+
+class NavigationSearchWidget extends StatelessWidget {
+  const NavigationSearchWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Column(
+          children: [
+            CircleAvatar(
+              radius: 4,
+              backgroundColor: Theme.of(context).primaryColor,
+            ),
+            IconButton(onPressed: () {}, icon: Icon(Icons.swap_vert_outlined)),
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                CircleAvatar(
+                  radius: 4,
+                  backgroundColor: Theme.of(context).primaryColor,
+                ),
+                CircleAvatar(
+                  radius: 2.5,
+                  backgroundColor: Colors.white,
+                ),
+              ],
+            ),
+          ],
+        ),
+        Wrap(
+          direction: Axis.vertical,
+          spacing: 20,
+          children: [
+            Consumer<MapProvider>(
+              builder: (_, value, __) {
+                return SearchFieldButton(
+                  isOdkial: true,
+                  provider: value,
+                );
+              },
+            ),
+            // SizedBox.expand(),
+            Consumer<MapProvider>(
+              builder: (_, value, __) {
+                return SearchFieldButton(
+                  isOdkial: false,
+                  provider: value,
+                );
+              },
+            ),
+          ],
+        ),
+      ],
+    );
   }
 }

@@ -74,6 +74,7 @@ class MapProvider with ChangeNotifier {
     print(routy);
     //nastavenie zobrazeneho podlazia na to kde sa zacina routa
     setPoschodie(
+      //TODO fix ak je routa prazdna => nav z tej istej miestnosti do tej istej
       suradniceWaypointov.keys.firstWhere(
         (e) => suradniceWaypointov[e]!.containsKey(route.first),
       ),
