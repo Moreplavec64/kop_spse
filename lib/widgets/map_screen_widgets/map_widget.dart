@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kop_spse/providers/map.dart';
 import 'package:kop_spse/utils/map_constants.dart';
 import 'package:kop_spse/widgets/map_screen_widgets/mapCustomPaiter.dart';
-import 'package:kop_spse/widgets/map_screen_widgets/search_field_widget.dart';
+import 'package:kop_spse/widgets/map_screen_widgets/navigation_search_widget.dart';
 import 'package:provider/provider.dart';
 
 class MapWidget extends StatelessWidget {
@@ -75,64 +75,5 @@ class MapWidget extends StatelessWidget {
     }
     print('Najdene : $najdene');
     print('Nenajdene : $nenajdene');
-  }
-}
-
-class NavigationSearchWidget extends StatelessWidget {
-  const NavigationSearchWidget({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Column(
-          children: [
-            CircleAvatar(
-              radius: 4,
-              backgroundColor: Theme.of(context).primaryColor,
-            ),
-            IconButton(onPressed: () {}, icon: Icon(Icons.swap_vert_outlined)),
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                CircleAvatar(
-                  radius: 4,
-                  backgroundColor: Theme.of(context).primaryColor,
-                ),
-                CircleAvatar(
-                  radius: 2.5,
-                  backgroundColor: Colors.white,
-                ),
-              ],
-            ),
-          ],
-        ),
-        Wrap(
-          direction: Axis.vertical,
-          spacing: 20,
-          children: [
-            Consumer<MapProvider>(
-              builder: (_, value, __) {
-                return SearchFieldButton(
-                  isOdkial: true,
-                  provider: value,
-                );
-              },
-            ),
-            // SizedBox.expand(),
-            Consumer<MapProvider>(
-              builder: (_, value, __) {
-                return SearchFieldButton(
-                  isOdkial: false,
-                  provider: value,
-                );
-              },
-            ),
-          ],
-        ),
-      ],
-    );
   }
 }

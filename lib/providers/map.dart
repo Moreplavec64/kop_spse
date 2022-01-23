@@ -1,8 +1,11 @@
+import 'dart:ffi';
+
 import 'package:dijkstra/dijkstra.dart';
 import 'package:flutter/material.dart';
 import 'package:kop_spse/utils/map_constants.dart';
 
 class MapProvider with ChangeNotifier {
+  //*Zobrazene podlazia
   String _zobrazenePodlazie = 'HBP0';
   void setPoschodie(String podlazie) {
     if (_zobrazenePodlazie != podlazie) {
@@ -13,6 +16,7 @@ class MapProvider with ChangeNotifier {
 
   String get getZobrazenePodlazie => _zobrazenePodlazie;
 
+  //*podlazia ktore sa maju vyznacit na mape
   List<String> _vyznacene = [];
   void setVyznacene(List<String> ucebne) {
     _vyznacene = [...ucebne];
@@ -21,6 +25,7 @@ class MapProvider with ChangeNotifier {
 
   List<String> get getVyznacene => _vyznacene;
 
+  //*Odkial sa zacina navigovat
   String _odkial = 'D106';
   void setodkial(String ucebna) {
     _odkial = ucebna;
@@ -28,7 +33,23 @@ class MapProvider with ChangeNotifier {
   }
 
   String get getOdkial => _odkial;
+  //*boolean ci je v searchi odkial este defaultna hodnota
+  bool _odkialDefault = true;
+  bool get getOdkialDefault => _odkialDefault;
+  set setOdkialDefault(x) {
+    _odkialDefault = x;
+    notifyListeners();
+  }
 
+  //*boolean ci je v searchi kam este defaultna hodnota
+  bool _kamDefault = true;
+  bool get getKamDefault => _kamDefault;
+  set setKamDefault(x) {
+    _kamDefault = x;
+    notifyListeners();
+  }
+
+  //*Ciel navigacie
   String _kam = 'C109';
   void setKam(String ucebna) {
     _kam = ucebna;
@@ -63,7 +84,7 @@ class MapProvider with ChangeNotifier {
 
   void createRoute(String z, String ciel) {
     //! po vyhladavani a vyznaceni convertovat
-    //! ucebnu na destinacny a source waypoint*/
+    //! ucebnu na destinacny a source waypoint
     setVyznacene([z, ciel]);
     List<dynamic> route = (Dijkstra.findPathFromGraph(
       edges,
@@ -74,9 +95,9 @@ class MapProvider with ChangeNotifier {
     print(routy);
     //nastavenie zobrazeneho podlazia na to kde sa zacina routa
     setPoschodie(
-      //TODO fix ak je routa prazdna => nav z tej istej miestnosti do tej istej
       suradniceWaypointov.keys.firstWhere(
-        (e) => suradniceWaypointov[e]!.containsKey(route.first),
+        (e) => suradniceWaypointov[e]!
+            .containsKey(route.isNotEmpty ? route.first : _vyznacene.first),
       ),
     );
     // print(route);

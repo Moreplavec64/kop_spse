@@ -13,14 +13,15 @@ class SearchFieldButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isDefault = true;
     return GestureDetector(
       onTap: () {
         showSearch(
           context: context,
           delegate: Vyhladavanie(isOdkial),
         );
-        isDefault = true;
+        isOdkial
+            ? provider.setOdkialDefault = false
+            : provider.setKamDefault = false;
       },
       child: Material(
         elevation: 6,
@@ -40,7 +41,12 @@ class SearchFieldButton extends StatelessWidget {
             isOdkial
                 ? 'Odkial ' + provider.getOdkial
                 : 'Ciel ' + provider.getKam,
-            style: TextStyle(color: isDefault ? Colors.grey : Colors.black),
+            style: TextStyle(
+                color: (isOdkial
+                        ? provider.getOdkialDefault
+                        : provider.getKamDefault)
+                    ? Colors.grey
+                    : Colors.black),
           ),
         ),
       ),
