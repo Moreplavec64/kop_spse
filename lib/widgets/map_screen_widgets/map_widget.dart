@@ -18,7 +18,7 @@ class MapWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: size.width,
-      height: size.height * 9 / 10,
+      // height: size.height * .95,
       child: FittedBox(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -54,12 +54,34 @@ class MapWidget extends StatelessWidget {
             Padding(
                 padding: EdgeInsets.only(right: size.width * .15),
                 child: NavigationSearchWidget()),
-            TextButton(
-                onPressed: () {
-                  final x = Provider.of<MapProvider>(context, listen: false);
-                  x.createRoute(x.getOdkial, x.getKam);
-                },
-                child: Text('Test ALG')),
+            Padding(
+              padding: EdgeInsets.only(right: size.width * .5, top: 8),
+              child: Tooltip(
+                message: 'Vyhľadať trasu',
+                child: InkWell(
+                  borderRadius: BorderRadius.all(Radius.circular(16)),
+                  splashColor: Theme.of(context).primaryColor.withOpacity(.65),
+                  onTap: () {
+                    final x = Provider.of<MapProvider>(context, listen: false);
+                    x.createRoute(x.getOdkial, x.getKam);
+                  },
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: Theme.of(context).primaryColor,
+                        radius: 19,
+                      ),
+                      Icon(
+                        Icons.search,
+                        size: 36,
+                        color: Colors.white,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),

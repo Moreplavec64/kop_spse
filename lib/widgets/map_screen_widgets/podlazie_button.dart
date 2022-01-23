@@ -33,6 +33,7 @@ class MapPodlazieButton extends StatelessWidget {
         child: Text(
           title,
           textAlign: TextAlign.center,
+          style: TextStyle(color: Colors.white),
         ),
       ),
     );

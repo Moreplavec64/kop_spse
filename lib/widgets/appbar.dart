@@ -1,11 +1,10 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:kop_spse/main.dart';
+import 'package:provider/provider.dart';
+
 import 'package:kop_spse/providers/edupage.dart';
 import 'package:kop_spse/utils/formatters.dart';
-import 'package:provider/provider.dart';
 
 class CustomAppBar extends StatefulWidget with PreferredSizeWidget {
   const CustomAppBar({
