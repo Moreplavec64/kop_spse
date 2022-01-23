@@ -32,7 +32,7 @@ class MapWidget extends StatelessWidget {
                     return CustomPaint(
                       foregroundPainter: MapCustomLinePainter(prov),
                       child: SvgPicture.asset(
-                        'assets/images/${prov.getZobrazenePodlazie}.svg',
+                        'assets/images/map_images/${prov.getZobrazenePodlazie}.svg',
                         fit: BoxFit.fitWidth,
                         semanticsLabel: 'mapa skoly',
                       ),

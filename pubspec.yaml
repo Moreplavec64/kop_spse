@@ -53,23 +53,13 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
-    - assets\images\6AP0.svg
-    - assets\images\6AP1.svg
-    - assets\images\6BP0.svg
-    - assets\images\6BP1.svg
-    - assets\images\6CP0.svg
-    - assets\images\6CP1.svg
-    - assets\images\HBP1.svg
-    - assets\images\HBP0.svg
+    - assets/images/map_images/
     - assets\images\google_logo.png
     - assets\images\logo.png
     - assets\images\svk_flag.png
     - assets\images\uk_flag.png
-    # - assets\images\google_logo.png
-    # - assets\images\logo.png
-    # - assets\images\svk_flag.png
-    # - assets\images\uk_flag.png
-    # - assets\test_reponse\edu_response.html
+    - assets\test_reponse\edu_response.html
+
   fonts:
     - family: Sen
       fonts:
