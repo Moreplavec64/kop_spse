@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:kop_spse/main.dart';
 import 'package:kop_spse/providers/edupage.dart';
 import 'package:kop_spse/utils/formatters.dart';
 import 'package:provider/provider.dart';
@@ -53,9 +54,13 @@ class _CustomAppBarState extends State<CustomAppBar> {
       backgroundColor: Theme.of(context).primaryColor,
       leading: IconButton(
         onPressed: () {
-          widget._scaffoldKey.currentState!.openDrawer();
+          ModalRoute.of(context)!.canPop
+              ? Navigator.of(context).pop()
+              : widget._scaffoldKey.currentState!.openDrawer();
         },
-        icon: Icon(Icons.menu),
+        icon: ModalRoute.of(context)!.canPop
+            ? Icon(Icons.arrow_back)
+            : Icon(Icons.menu),
       ),
       title: Text(Formatters.ddMMMMyy(dtNow) +
           '  ${DateFormat('HH:mm').format(dtNow)}'),

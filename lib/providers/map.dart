@@ -119,4 +119,34 @@ class MapProvider with ChangeNotifier {
     }
     notifyListeners();
   }
+
+  void resetMapDefaults() {
+    _zobrazenePodlazie = 'HBP0';
+    _odkial = 'D106';
+    _odkialDefault = true;
+    _kam = 'C109';
+    _kamDefault = true;
+    shouldDisplayButtons = [
+      'HBP0',
+      'HBP1',
+      'HBP2',
+      '6AP0',
+      '6AP1',
+      '6BP0',
+      '6BP1',
+      '6CP0',
+      '6CP1'
+    ];
+    _zobrazNazvy = false;
+
+    clearRoute();
+  }
+
+  void clearRoute() {
+    for (var x in routy.keys) {
+      routy[x] = [];
+    }
+    _vyznacene = [];
+    notifyListeners();
+  }
 }
