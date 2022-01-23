@@ -54,6 +54,7 @@ flutter:
   assets:
     - assets/images/
     - assets/images/map_images/
+    - assets/images/map_nazvy_overlays/
     - assets\images\google_logo.png
     - assets\images\logo.png
     - assets\images\svk_flag.png

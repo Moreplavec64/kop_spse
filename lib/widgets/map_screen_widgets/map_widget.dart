@@ -31,10 +31,19 @@ class MapWidget extends StatelessWidget {
                   builder: (ctx, prov, _) {
                     return CustomPaint(
                       foregroundPainter: MapCustomLinePainter(prov),
-                      child: SvgPicture.asset(
-                        'assets/images/map_images/${prov.getZobrazenePodlazie}.svg',
-                        fit: BoxFit.fitWidth,
-                        semanticsLabel: 'mapa skoly',
+                      child: Stack(
+                        children: [
+                          SvgPicture.asset(
+                            'assets/images/map_images/${prov.getZobrazenePodlazie}.svg',
+                            fit: BoxFit.fitWidth,
+                            semanticsLabel: 'mapa skoly',
+                          ),
+                          SvgPicture.asset(
+                            'assets/images/map_nazvy_overlays/${prov.getZobrazenePodlazie}_nazvy.svg',
+                            fit: BoxFit.fitWidth,
+                            semanticsLabel: 'mapa skoly',
+                          ),
+                        ],
                       ),
                     );
                   },
