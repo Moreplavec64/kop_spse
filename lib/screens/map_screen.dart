@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:kop_spse/providers/map.dart';
 import 'package:kop_spse/widgets/appbar.dart';
 import 'package:kop_spse/widgets/home_screen_widgets/drawer.dart';
+import 'package:kop_spse/widgets/map_screen_widgets/map_button_column.dart';
 import 'package:kop_spse/widgets/map_screen_widgets/map_widget.dart';
 import 'package:kop_spse/widgets/map_screen_widgets/podlazie_button.dart';
-import 'package:provider/provider.dart';
 
 class MapScreen extends StatelessWidget {
-  static String route = "/homeScreen";
   const MapScreen({Key? key}) : super(key: key);
 
   @override
@@ -30,6 +31,10 @@ class MapScreen extends StatelessWidget {
         children: [
           MapWidget(
             size: _size,
+          ),
+          Align(
+            alignment: Alignment.topRight,
+            child: MapIconButtonsColumn(),
           ),
           Column(
             children: [

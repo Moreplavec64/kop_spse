@@ -13,7 +13,9 @@ class MapPodlazieButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
+      borderRadius: BorderRadius.all(Radius.circular(34)),
+      splashColor: Theme.of(context).primaryColor.withOpacity(.6),
       onTap: () =>
           Provider.of<MapProvider>(context, listen: false).setPoschodie(value),
       child: Container(
@@ -21,11 +23,13 @@ class MapPodlazieButton extends StatelessWidget {
         margin: const EdgeInsets.all(3),
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(2)),
-          color: Theme.of(context).primaryColor,
+          shape: BoxShape.circle,
+          color: Provider.of<MapProvider>(context).getZobrazenePodlazie == value
+              ? Colors.yellowAccent[700]
+              : Theme.of(context).primaryColor,
         ),
-        width: 32,
-        height: 24,
+        width: 34,
+        height: 34,
         child: Text(
           title,
           textAlign: TextAlign.center,

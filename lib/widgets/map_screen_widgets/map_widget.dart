@@ -38,11 +38,12 @@ class MapWidget extends StatelessWidget {
                             fit: BoxFit.fitWidth,
                             semanticsLabel: 'mapa skoly',
                           ),
-                          SvgPicture.asset(
-                            'assets/images/map_nazvy_overlays/${prov.getZobrazenePodlazie}_nazvy.svg',
-                            fit: BoxFit.fitWidth,
-                            semanticsLabel: 'mapa skoly',
-                          ),
+                          if (prov.getZobrazNazvy)
+                            SvgPicture.asset(
+                              'assets/images/map_nazvy_overlays/${prov.getZobrazenePodlazie}_nazvy.svg',
+                              fit: BoxFit.fitWidth,
+                              semanticsLabel: 'mapa skoly',
+                            ),
                         ],
                       ),
                     );

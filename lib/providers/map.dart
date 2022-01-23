@@ -55,6 +55,14 @@ class MapProvider with ChangeNotifier {
   }
 
   String get getKam => _kam;
+//*Ciel navigacie
+  bool _zobrazNazvy = false;
+  void toggleZobrazNazvy() {
+    _zobrazNazvy = !_zobrazNazvy;
+    notifyListeners();
+  }
+
+  bool get getZobrazNazvy => _zobrazNazvy;
 
   List<String> shouldDisplayButtons = [
     'HBP0',
