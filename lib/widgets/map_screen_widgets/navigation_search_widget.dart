@@ -16,9 +16,18 @@ class NavigationSearchWidget extends StatelessWidget {
         Row(
           children: [
             const SizedBox(width: 8),
-            CircleAvatar(
-              radius: 4,
-              backgroundColor: Theme.of(context).primaryColor,
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                CircleAvatar(
+                  radius: 4,
+                  backgroundColor: Theme.of(context).primaryColor,
+                ),
+                const CircleAvatar(
+                  radius: 2.5,
+                  backgroundColor: Colors.white,
+                ),
+              ],
             ),
             const SizedBox(width: 8),
             Consumer<MapProvider>(
@@ -46,18 +55,9 @@ class NavigationSearchWidget extends StatelessWidget {
         Row(
           children: [
             const SizedBox(width: 8),
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                CircleAvatar(
-                  radius: 4,
-                  backgroundColor: Theme.of(context).primaryColor,
-                ),
-                const CircleAvatar(
-                  radius: 2.5,
-                  backgroundColor: Colors.white,
-                ),
-              ],
+            CircleAvatar(
+              radius: 4,
+              backgroundColor: Theme.of(context).primaryColor,
             ),
             const SizedBox(width: 8),
             Consumer<MapProvider>(

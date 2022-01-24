@@ -16,13 +16,37 @@ class MapWidget extends StatelessWidget {
   final Size size;
   @override
   Widget build(BuildContext context) {
+    final mapprovider = Provider.of<MapProvider>(context, listen: false);
     return SizedBox(
       width: size.width,
-      // height: size.height * .95,
+      height: size.height,
       child: FittedBox(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            DropdownButton<String>(
+              items: [
+                ...List.generate(
+                  mapprovider.routy.keys.length,
+                  (index) {
+                    final String value =
+                        mapprovider.routy.keys.elementAt(index);
+                    return DropdownMenuItem(
+                      value: value,
+                      child: Text(
+                        value,
+                        style: TextStyle(
+                            color: mapprovider.routy[value]!.isNotEmpty
+                                ? Theme.of(context).primaryColor
+                                : Colors.black),
+                      ),
+                    );
+                  },
+                ),
+              ],
+              onChanged: (value) => mapprovider.setPoschodie(value ?? ''),
+              value: Provider.of<MapProvider>(context).getZobrazenePodlazie,
+            ),
             InteractiveViewer(
               child: SizedBox(
                 width: 210,
@@ -55,29 +79,55 @@ class MapWidget extends StatelessWidget {
                 padding: EdgeInsets.only(right: size.width * .15),
                 child: NavigationSearchWidget()),
             Padding(
-              padding: EdgeInsets.only(right: size.width * .5, top: 8),
+              padding: EdgeInsets.only(top: 16, bottom: size.height * .025),
               child: Tooltip(
                 message: 'Vyhľadať trasu',
-                child: InkWell(
-                  borderRadius: BorderRadius.all(Radius.circular(16)),
-                  splashColor: Theme.of(context).primaryColor.withOpacity(.65),
-                  onTap: () {
-                    final x = Provider.of<MapProvider>(context, listen: false);
-                    x.createRoute(x.getOdkial, x.getKam);
-                  },
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      CircleAvatar(
-                        backgroundColor: Theme.of(context).primaryColor,
-                        radius: 19,
+                child: Material(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(16))),
+                  color: Theme.of(context).primaryColor,
+                  child: InkWell(
+                    borderRadius: BorderRadius.all(Radius.circular(16)),
+                    splashColor: Colors.white,
+                    onTap: () {
+                      mapprovider.setKamDefault = false;
+                      mapprovider.setOdkialDefault = false;
+                      mapprovider.createRoute(
+                          mapprovider.getOdkial, mapprovider.getKam);
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
                       ),
-                      Icon(
-                        Icons.search,
-                        size: 36,
-                        color: Colors.white,
+                      child: Row(
+                        children: [
+                          Text(
+                            'Vyhľadať',
+                            style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                color: Colors.white),
+                          ),
+                          SizedBox(
+                            width: 4,
+                          ),
+                          Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              CircleAvatar(
+                                backgroundColor: Theme.of(context).primaryColor,
+                                radius: 19 / 2,
+                              ),
+                              Icon(
+                                Icons.search,
+                                size: 16,
+                                color: Colors.white,
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
               ),

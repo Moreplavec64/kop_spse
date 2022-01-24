@@ -41,61 +41,61 @@ class MapScreen extends StatelessWidget {
               alignment: Alignment.topRight,
               child: MapIconButtonsColumn(),
             ),
-            Column(
-              children: [
-                Expanded(
-                  child: Align(
-                      alignment: FractionalOffset.bottomRight,
-                      child: Consumer<MapProvider>(
-                        builder: (ctx, mp, _) => Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            if (mp.shouldDisplayButtons.contains('HBP0'))
-                              MapPodlazieButton(title: 'HB0', value: 'HBP0'),
-                            if (mp.shouldDisplayButtons.contains('HBP1'))
-                              MapPodlazieButton(title: 'HB1', value: 'HBP1'),
-                            if (mp.shouldDisplayButtons.contains('HBP2'))
-                              MapPodlazieButton(title: 'HB2', value: 'HBP2'),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                if (mp.shouldDisplayButtons.contains('6AP0'))
-                                  MapPodlazieButton(
-                                      title: '6A0', value: '6AP0'),
-                                if (mp.shouldDisplayButtons.contains('6AP1'))
-                                  MapPodlazieButton(
-                                      title: '6A1', value: '6AP1'),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                if (mp.shouldDisplayButtons.contains('6BP0'))
-                                  MapPodlazieButton(
-                                      title: '6B0', value: '6BP0'),
-                                if (mp.shouldDisplayButtons.contains('6BP1'))
-                                  MapPodlazieButton(
-                                      title: '6B1', value: '6BP1'),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                if (mp.shouldDisplayButtons.contains('6CP0'))
-                                  MapPodlazieButton(
-                                      title: '6C0', value: '6CP0'),
-                                if (mp.shouldDisplayButtons.contains('6CP1'))
-                                  MapPodlazieButton(
-                                      title: '6C1', value: '6CP1'),
-                              ],
-                            )
-                          ],
-                        ),
-                      )),
-                ),
-              ],
-            ),
+            // Column(
+            //   children: [
+            //     Expanded(
+            //       child: Align(
+            //           alignment: FractionalOffset.bottomRight,
+            //           child: Consumer<MapProvider>(
+            //             builder: (ctx, mp, _) => Column(
+            //               crossAxisAlignment: CrossAxisAlignment.end,
+            //               mainAxisAlignment: MainAxisAlignment.end,
+            //               children: [
+            //                 if (mp.shouldDisplayButtons.contains('HBP0'))
+            //                   MapPodlazieButton(title: 'HB0', value: 'HBP0'),
+            //                 if (mp.shouldDisplayButtons.contains('HBP1'))
+            //                   MapPodlazieButton(title: 'HB1', value: 'HBP1'),
+            //                 if (mp.shouldDisplayButtons.contains('HBP2'))
+            //                   MapPodlazieButton(title: 'HB2', value: 'HBP2'),
+            //                 Row(
+            //                   mainAxisAlignment: MainAxisAlignment.end,
+            //                   children: [
+            //                     if (mp.shouldDisplayButtons.contains('6AP0'))
+            //                       MapPodlazieButton(
+            //                           title: '6A0', value: '6AP0'),
+            //                     if (mp.shouldDisplayButtons.contains('6AP1'))
+            //                       MapPodlazieButton(
+            //                           title: '6A1', value: '6AP1'),
+            //                   ],
+            //                 ),
+            //                 Row(
+            //                   mainAxisAlignment: MainAxisAlignment.end,
+            //                   children: [
+            //                     if (mp.shouldDisplayButtons.contains('6BP0'))
+            //                       MapPodlazieButton(
+            //                           title: '6B0', value: '6BP0'),
+            //                     if (mp.shouldDisplayButtons.contains('6BP1'))
+            //                       MapPodlazieButton(
+            //                           title: '6B1', value: '6BP1'),
+            //                   ],
+            //                 ),
+            //                 Row(
+            //                   mainAxisAlignment: MainAxisAlignment.end,
+            //                   children: [
+            //                     if (mp.shouldDisplayButtons.contains('6CP0'))
+            //                       MapPodlazieButton(
+            //                           title: '6C0', value: '6CP0'),
+            //                     if (mp.shouldDisplayButtons.contains('6CP1'))
+            //                       MapPodlazieButton(
+            //                           title: '6C1', value: '6CP1'),
+            //                   ],
+            //                 )
+            //               ],
+            //             ),
+            //           )),
+            //     ),
+            //   ],
+            // ),
           ],
         ),
       ),
