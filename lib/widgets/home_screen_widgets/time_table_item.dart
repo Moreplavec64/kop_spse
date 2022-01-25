@@ -3,7 +3,9 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:kop_spse/models/plan.dart';
 import 'package:kop_spse/providers/edupage.dart';
+import 'package:kop_spse/providers/map.dart';
 import 'package:kop_spse/utils/edu_id_util.dart';
+import 'package:kop_spse/utils/map_constants.dart';
 import 'package:provider/provider.dart';
 import 'package:kop_spse/utils/formatters.dart';
 
@@ -106,6 +108,7 @@ Future<void> _showMyDialog({
               Text(
                 longNazov.replaceRange(0, 1, longNazov[0].toUpperCase()),
                 textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 24),
               ),
               Text(
                 '${lessonData.period}. hodina  ${lessonData.startTime.hour}:${lessonData.startTime.minute} - ${lessonData.endTime.hour}:${lessonData.endTime.minute}',
@@ -123,6 +126,44 @@ Future<void> _showMyDialog({
                       lessonData.classroomID,
                     ),
                 textAlign: TextAlign.center,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.directions),
+                    onPressed: () {
+                      final MapProvider mapprov =
+                          Provider.of(context, listen: false);
+                      mapprov.setodkial(
+                        EduIdUtil.idToClassroom(
+                          provider.getEduData,
+                          lessonData.classroomID,
+                        ).split('-').last.substring(2),
+                      );
+                      Navigator.of(context).pushNamed('/map');
+                    },
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.map_outlined),
+                    onPressed: () {
+                      final MapProvider mapprov =
+                          Provider.of(context, listen: false);
+                      final String ucebna = EduIdUtil.idToClassroom(
+                        provider.getEduData,
+                        lessonData.classroomID,
+                      ).split('-').last.substring(2);
+                      mapprov.setVyznacene([ucebna]);
+                      Navigator.of(context).pushNamed('/map');
+                      mapprov.setPoschodie(
+                        suradniceWaypointov.keys.firstWhere(
+                          (e) => suradniceWaypointov[e]!
+                              .containsKey(ucebnaToWaypoint[ucebna] ?? ucebna),
+                        ),
+                      );
+                    },
+                  ),
+                ],
               ),
             ],
           ),

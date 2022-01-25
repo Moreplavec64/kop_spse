@@ -54,7 +54,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
       leading: IconButton(
         onPressed: () {
           ModalRoute.of(context)!.canPop
-              ? Navigator.of(context).pop()
+              ? Navigator.of(context).maybePop()
               : widget._scaffoldKey.currentState!.openDrawer();
         },
         icon: ModalRoute.of(context)!.canPop
