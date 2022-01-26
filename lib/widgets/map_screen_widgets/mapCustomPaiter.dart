@@ -18,10 +18,20 @@ class MapCustomLinePainter extends CustomPainter {
     final Paint paint = Paint()
       ..strokeWidth = 1
       ..color = primaryColor;
+
     for (int i = 0; i < toDrawPath.length - 1; i++) {
       canvas.drawLine(suradnicePrePodlazie![toDrawPath[i]] ?? Offset(0, 0),
           suradnicePrePodlazie[toDrawPath[i + 1]] ?? Offset(0, 0), paint);
     }
+    //*Vykreslenie jednotlivych waypointov
+    // canvas.drawPoints(
+    //     PointMode.points,
+    //     toDrawPath.map((e) => suradnicePrePodlazie![e]!).toList(),
+    //     Paint()
+    //       ..strokeWidth = 2.5
+    //       ..color = Colors.green[800]!
+    //       ..strokeCap = StrokeCap.round);
+
     //*Vyznacenie miestnosti
     List<String> vyznac = provider.getVyznacene
         .where(
