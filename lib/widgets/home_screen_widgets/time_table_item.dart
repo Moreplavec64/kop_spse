@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:kop_spse/models/plan.dart';
 import 'package:kop_spse/providers/edupage.dart';
 import 'package:kop_spse/providers/map.dart';
+import 'package:kop_spse/utils/edu_get_utils.dart';
 import 'package:kop_spse/utils/edu_id_util.dart';
 import 'package:kop_spse/utils/map_constants.dart';
 import 'package:provider/provider.dart';
@@ -92,6 +93,7 @@ Future<void> _showMyDialog({
         provider.getEduData,
         lessonData.subjectID,
       );
+      print(getAllClassrooms(provider.getEduData));
       return AlertDialog(
         contentPadding: const EdgeInsets.all(0),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -127,44 +129,41 @@ Future<void> _showMyDialog({
                     ),
                 textAlign: TextAlign.center,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.directions),
-                    onPressed: () {
-                      final MapProvider mapprov =
-                          Provider.of(context, listen: false);
-                      mapprov.setodkial(
-                        EduIdUtil.idToClassroom(
-                          provider.getEduData,
-                          lessonData.classroomID,
-                        ).split('-').last.substring(2),
-                      );
-                      Navigator.of(context).pushNamed('/map');
-                    },
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.map_outlined),
-                    onPressed: () {
-                      final MapProvider mapprov =
-                          Provider.of(context, listen: false);
-                      final String ucebna = EduIdUtil.idToClassroom(
-                        provider.getEduData,
-                        lessonData.classroomID,
-                      ).split('-').last.substring(2);
-                      mapprov.setVyznacene([ucebna]);
-                      Navigator.of(context).pushNamed('/map');
-                      mapprov.setPoschodie(
-                        suradniceWaypointov.keys.firstWhere(
-                          (e) => suradniceWaypointov[e]!
-                              .containsKey(ucebnaToWaypoint[ucebna] ?? ucebna),
-                        ),
-                      );
-                    },
-                  ),
-                ],
-              ),
+              Builder(builder: (context) {
+                final MapProvider mapprov = Provider.of(context, listen: false);
+                String ucebna = EduIdUtil.idToClassroom(
+                  provider.getEduData,
+                  lessonData.classroomID,
+                ).split('-').last.trim();
+                //ak sa nenachadza na 6, zmaze leading poschodie 1D106 => D106
+                ucebna = ucebna.startsWith('6') ? ucebna : ucebna.substring(1);
+
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.directions),
+                      onPressed: () {
+                        mapprov.setodkial(ucebna);
+                        Navigator.of(context).pushNamed('/map');
+                      },
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.map_outlined),
+                      onPressed: () {
+                        mapprov.setVyznacene([ucebna]);
+                        Navigator.of(context).pushNamed('/map');
+                        mapprov.setPoschodie(
+                          suradniceWaypointov.keys.firstWhere(
+                            (e) => suradniceWaypointov[e]!.containsKey(
+                                ucebnaToWaypoint[ucebna] ?? ucebna),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                );
+              }),
             ],
           ),
         ),

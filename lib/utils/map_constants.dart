@@ -185,18 +185,18 @@ Map<String, Map<String, int>> edges = {
   'D101': {'D102': 13, 'C101': 14},
   'D102': {'D101': 13, 'D1WCZ': 7},
   'D1WCZ': {'D1WCM': 5, 'D102': 7},
-  'D1WCM': {'D1WCZ': 5, 'D1502': 8},
-  'D1502': {'D1WCM': 8, 'F101': 11, 'D1501': 10, 'D1UCITELSKEWC': 16},
-  'D1501': {
+  'D1WCM': {'D1WCZ': 5, 'D1052': 8},
+  'D1052': {'D1WCM': 8, 'F101': 11, 'D1051': 10, 'D1UCITELSKEWC': 16},
+  'D1051': {
     'F102': 26,
     'F101': 15,
-    'D1502': 10,
+    'D1052': 10,
     'D1UCITELSKEWC': 12,
     'D106': 13
   },
   'F101': {
-    'D1502': 11,
-    'D1501': 15,
+    'D1052': 11,
+    'D1051': 15,
     'D1UCITELSKEWC': 11,
     'D1SCHODY_ZBOROVNA': 22,
     'F102': 13,
@@ -204,7 +204,7 @@ Map<String, Map<String, int>> edges = {
   },
   'F102': {
     'F101': 13,
-    'D1501': 26,
+    'D1051': 26,
     'D1UCITELSKEWC': 16,
     'D1SCHODY_ZBOROVNA': 12,
     'ZB_SCHODY_HORE_START': 15,
@@ -234,14 +234,14 @@ Map<String, Map<String, int>> edges = {
     'D1UCITELSKEWC': 18
   },
   'D1UCITELSKEWC': {
-    'D1501': 12,
-    'D1502': 16,
+    'D1051': 12,
+    'D1052': 16,
     'F101': 11,
     'F102': 16,
     'D1HC_0': 22,
     'D1SCHODY_ZBOROVNA': 18
   },
-  'D106': {'D1501': 13, 'D107/D108': 16},
+  'D106': {'D1051': 13, 'D107/D108': 16},
   'D107/D108': {'D106': 16},
   '1ZBOROVNA_VCHOD1': {
     'D1SCHODY_ZBOROVNA': 5,
@@ -441,6 +441,16 @@ Map<String, Map<String, int>> edges = {
   '6C108': {'6C1_CHODBICKA_3': 6},
   '6C104': {'6C1_CHODBICKA_3': 10},
 };
+/* 
+ TODO fix waypoints 
+ I/flutter ( 8876): DELI - 6B08 :
+I/flutter ( 8876): DPOA - 1RUO :
+I/flutter ( 8876): S1- D1051 : DONE
+I/flutter ( 8876): S2 - 1D1052 : DONE
+I/flutter ( 8876): TELM - 1TV2 :
+I/flutter ( 8876): TELV - 1TV1 :
+
+ */
 
 Map<String, Map<String, Offset>> suradniceWaypointov = {
   //*PRIZEMIE HLAVNEJ BUDOVY
@@ -547,8 +557,8 @@ Map<String, Map<String, Offset>> suradniceWaypointov = {
     'D102': Offset(52.5, 118),
     'D1WCZ': Offset(52.5, 110.5),
     'D1WCM': Offset(52.5, 105.5),
-    'D1502': Offset(52.5, 98),
-    'D1501': Offset(52.5, 88),
+    'D1052': Offset(52.5, 98),
+    'D1051': Offset(52.5, 88),
     'F101': Offset(63.5, 98),
     'F102': Offset(76.5, 98),
     'D1HC_0': Offset(83, 98),
@@ -762,8 +772,8 @@ Map<String, Map<String, Rect>> suradniceUcebni = {
     'D102': Rect.fromLTWH(21, 113, 27, 10),
     'D1WCZ': Rect.fromLTWH(21, 108, 27, 5),
     'D1WCM': Rect.fromLTWH(21, 103, 27, 5),
-    'D1502': Rect.fromLTWH(21, 93, 27, 10),
-    'D1501': Rect.fromLTWH(21, 83, 27, 10),
+    'D1052': Rect.fromLTWH(21, 93, 27, 10),
+    'D1051': Rect.fromLTWH(21, 83, 27, 10),
     'D106': Rect.fromLTWH(21, 66, 27, 17),
     'D107': Rect.fromLTWH(21, 49, 27, 17),
     'D108': Rect.fromLTWH(21, 34, 37, 15),

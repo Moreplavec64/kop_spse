@@ -1,6 +1,11 @@
 import 'package:intl/intl.dart';
 import 'package:kop_spse/models/plan.dart';
 
+List<String> getAllClassrooms(Map<String, dynamic> data) {
+  final r = data['dbi']['classrooms'] as Map<String, dynamic>;
+  return r.values.map((e) => (e['short'] as String)).toList();
+}
+
 List<LessonPlan> getRozvrh(Map<String, dynamic> convJson, DateTime date) {
   //date format - yyyy-MM-dd
   final String formattedDate = DateFormat('yyyy-MM-dd').format(date);

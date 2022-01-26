@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:kop_spse/providers/edupage.dart';
 import 'package:kop_spse/providers/map.dart';
+import 'package:kop_spse/utils/edu_get_utils.dart';
 import 'package:kop_spse/widgets/map_screen_widgets/vyhladavanie_delegate.dart';
+import 'package:provider/provider.dart';
 
 class SearchFieldButton extends StatelessWidget {
   final bool isOdkial;
@@ -17,7 +20,12 @@ class SearchFieldButton extends StatelessWidget {
       onTap: () {
         showSearch(
           context: context,
-          delegate: Vyhladavanie(isOdkial),
+          delegate: Vyhladavanie(
+            isOdkial,
+            getAllClassrooms(
+                Provider.of<EduPageProvider>(context, listen: false)
+                    .getEduData),
+          ),
         );
         isOdkial
             ? provider.setOdkialDefault = false

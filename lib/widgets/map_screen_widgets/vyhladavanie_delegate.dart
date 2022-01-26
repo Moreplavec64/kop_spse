@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kop_spse/providers/map.dart';
+import 'package:kop_spse/utils/edu_get_utils.dart';
 import 'package:kop_spse/utils/map_constants.dart';
 import 'package:provider/provider.dart';
 
@@ -15,8 +16,12 @@ class Vyhladavanie extends SearchDelegate<String> {
   final List<String> recent = [];
   final List<String> ucebne = generateUcebne();
   final bool isOdkial;
+  final List<String> vsetkyUcebne;
 
-  Vyhladavanie(this.isOdkial);
+  Vyhladavanie(
+    this.isOdkial,
+    this.vsetkyUcebne,
+  );
 
   @override
   List<Widget>? buildActions(BuildContext context) {
@@ -45,6 +50,11 @@ class Vyhladavanie extends SearchDelegate<String> {
     final suggestions = query.isEmpty
         ? ucebne
         : ucebne.where((element) => element.contains(tmpQuery)).toList();
+    for (String ucebna in vsetkyUcebne) {
+      var x = ucebne.firstWhere((element) => ucebna.contains(element),
+          orElse: () => '');
+      if (x == '') print(ucebna + " : " + (x.isNotEmpty ? x : ''));
+    }
     return ListView.builder(
       itemBuilder: (ctx, index) {
         final String ucebna = suggestions[index];
