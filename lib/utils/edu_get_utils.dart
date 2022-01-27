@@ -3,7 +3,8 @@ import 'package:kop_spse/models/plan.dart';
 
 List<String> getAllClassrooms(Map<String, dynamic> data) {
   final r = data['dbi']['classrooms'] as Map<String, dynamic>;
-  return r.values.map((e) => (e['short'] as String)).toList();
+  //vrati vsetky unikatne ucebne s aktualnim nazvom "trieda/nazov ucebne - cislo ucebne"
+  return r.values.map((e) => (e['short'] as String)).toSet().toList();
 }
 
 List<LessonPlan> getRozvrh(Map<String, dynamic> convJson, DateTime date) {

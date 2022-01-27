@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:kop_spse/providers/map.dart';
-import 'package:kop_spse/utils/edu_get_utils.dart';
 import 'package:kop_spse/utils/map_constants.dart';
 import 'package:provider/provider.dart';
 
@@ -16,7 +15,7 @@ class Vyhladavanie extends SearchDelegate<String> {
   final List<String> recent = [];
   final List<String> ucebne = generateUcebne();
   final bool isOdkial;
-  final List<String> vsetkyUcebne;
+  List<String> vsetkyUcebne;
 
   Vyhladavanie(
     this.isOdkial,
@@ -58,6 +57,10 @@ class Vyhladavanie extends SearchDelegate<String> {
     return ListView.builder(
       itemBuilder: (ctx, index) {
         final String ucebna = suggestions[index];
+        final String celyNazov = vsetkyUcebne.firstWhere(
+          (element) => element.contains(ucebna),
+          orElse: () => ucebna,
+        );
         return ListTile(
           leading: Icon(Icons.class_),
           onTap: () {
@@ -66,28 +69,41 @@ class Vyhladavanie extends SearchDelegate<String> {
             showResults(context);
             isOdkial ? provider.setodkial(ucebna) : provider.setKam(ucebna);
           },
-          title: RichText(
-            text: TextSpan(
-              text: ucebna.substring(0, ucebna.indexOf(tmpQuery)),
-              style: TextStyle(
-                color: Colors.grey,
-              ),
-              children: [
-                TextSpan(
-                  text: tmpQuery,
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              RichText(
+                text: TextSpan(
+                  text: celyNazov.substring(0, celyNazov.indexOf(tmpQuery)),
                   style: TextStyle(
-                      color: Theme.of(context).primaryColor,
-                      fontWeight: FontWeight.bold),
-                ),
-                TextSpan(
-                  text: ucebna
-                      .substring(ucebna.indexOf(tmpQuery) + tmpQuery.length),
-                  style: TextStyle(
-                    color: Colors.grey,
+                    color: Colors.black87,
                   ),
+                  children: [
+                    TextSpan(
+                      text: tmpQuery,
+                      style: TextStyle(
+                          color: Theme.of(context).primaryColor,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    TextSpan(
+                      text: celyNazov.substring(
+                          celyNazov.indexOf(tmpQuery) + tmpQuery.length),
+                      style: TextStyle(
+                        color: Colors.black87,
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+              if (celyNazov != ucebna)
+                Text(
+                  ucebne.firstWhere(
+                    (element) => ucebna.contains(element),
+                    orElse: () => 'Neexistuje na mape',
+                  ),
+                  style: TextStyle(color: Colors.grey),
+                )
+            ],
           ),
         );
       },
