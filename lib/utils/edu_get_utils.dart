@@ -1,5 +1,10 @@
+import 'dart:math';
 import 'package:intl/intl.dart';
+import 'package:flutter/material.dart';
+
 import 'package:kop_spse/models/plan.dart';
+import 'package:kop_spse/providers/edupage.dart';
+import 'package:kop_spse/utils/formatters.dart';
 
 List<String> getAllClassrooms(Map<String, dynamic> data) {
   final r = data['dbi']['classrooms'] as Map<String, dynamic>;
@@ -60,4 +65,18 @@ List<LessonPlan> getRozvrh(Map<String, dynamic> convJson, DateTime date) {
         ),
         isEvent: hodina['type'] == 'event');
   }).toList();
+}
+
+Color getColor(String nazovHodiny, EduPageProvider provider) {
+  if (Formatters.colorMap.keys.contains(nazovHodiny)) {
+    return Formatters.colorMap[nazovHodiny]!;
+  } else {
+    // ak sa nenachadza v liste farieb, vyberie sa random farba a priradi sa do listu
+    // aby dalsie rovnake hodiny boli vyfarbene rovnakou farbou
+    final randColor = Formatters.colorMap.values.elementAt(
+      Random().nextInt(Formatters.colorMap.values.length),
+    );
+    Formatters.colorMap.addAll({nazovHodiny: randColor});
+    return randColor;
+  }
 }

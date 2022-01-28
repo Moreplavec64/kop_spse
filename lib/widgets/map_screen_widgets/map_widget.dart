@@ -57,10 +57,13 @@ class MapWidget extends StatelessWidget {
                       foregroundPainter: MapCustomLinePainter(prov),
                       child: Stack(
                         children: [
-                          SvgPicture.asset(
-                            'assets/images/map_images/${prov.getZobrazenePodlazie}.svg',
-                            fit: BoxFit.fitWidth,
-                            semanticsLabel: 'mapa skoly',
+                          Hero(
+                            tag: 'mapImage',
+                            child: SvgPicture.asset(
+                              'assets/images/map_images/${prov.getZobrazenePodlazie}.svg',
+                              fit: BoxFit.fitHeight,
+                              semanticsLabel: 'mapa skoly',
+                            ),
                           ),
                           if (prov.getZobrazNazvy)
                             SvgPicture.asset(
