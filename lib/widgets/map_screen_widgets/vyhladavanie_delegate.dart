@@ -46,21 +46,44 @@ class Vyhladavanie extends SearchDelegate<String> {
   @override
   Widget buildSuggestions(BuildContext context) {
     final String tmpQuery = query.toUpperCase();
+    //vsetky waypointy, prelozi tie co sa da na dlhe nazvy ucebni
+    //a tie co nemaju dlhy nazov z edu tak sa vypisu ako nazov waypointu
     final suggestions = query.isEmpty
         ? ucebne
-        : ucebne.where((element) => element.contains(tmpQuery)).toList();
+            .map((e) => vsetkyUcebne.firstWhere(
+                  (element) => element.contains(e),
+                  orElse: () => e,
+                ))
+            .toList()
+        : ucebne
+            .map((e) => vsetkyUcebne.firstWhere(
+                  (element) => element.contains(e),
+                  orElse: () => e,
+                ))
+            .where((element) => element.toUpperCase().contains(tmpQuery))
+            .toList();
+
+    print(suggestions);
+
+    print(suggestions);
     for (String ucebna in vsetkyUcebne) {
       var x = ucebne.firstWhere((element) => ucebna.contains(element),
           orElse: () => '');
       if (x == '') print(ucebna + " : " + (x.isNotEmpty ? x : ''));
     }
     return ListView.builder(
+      itemCount: suggestions.length,
       itemBuilder: (ctx, index) {
         final String ucebna = suggestions[index];
         final String celyNazov = vsetkyUcebne.firstWhere(
           (element) => element.contains(ucebna),
           orElse: () => ucebna,
         );
+        // print(ucebna != celyNazov);
+        // print(ucebna);
+        // print(celyNazov);
+        // print(suggestions);
+
         return ListTile(
           leading: Icon(Icons.class_),
           onTap: () {
@@ -74,20 +97,25 @@ class Vyhladavanie extends SearchDelegate<String> {
             children: [
               RichText(
                 text: TextSpan(
-                  text: celyNazov.substring(0, celyNazov.indexOf(tmpQuery)),
+                  text: celyNazov.substring(
+                      0, celyNazov.toUpperCase().indexOf(tmpQuery)),
                   style: TextStyle(
                     color: Colors.black87,
                   ),
                   children: [
                     TextSpan(
-                      text: tmpQuery,
+                      text: celyNazov.substring(
+                          celyNazov.toUpperCase().indexOf(tmpQuery),
+                          celyNazov.toUpperCase().indexOf(tmpQuery) +
+                              tmpQuery.length),
                       style: TextStyle(
                           color: Theme.of(context).primaryColor,
                           fontWeight: FontWeight.bold),
                     ),
                     TextSpan(
                       text: celyNazov.substring(
-                          celyNazov.indexOf(tmpQuery) + tmpQuery.length),
+                          celyNazov.toUpperCase().indexOf(tmpQuery) +
+                              tmpQuery.length),
                       style: TextStyle(
                         color: Colors.black87,
                       ),
@@ -95,7 +123,7 @@ class Vyhladavanie extends SearchDelegate<String> {
                   ],
                 ),
               ),
-              if (celyNazov != ucebna)
+              if (!ucebne.contains(ucebna))
                 Text(
                   ucebne.firstWhere(
                     (element) => ucebna.contains(element),
@@ -107,7 +135,6 @@ class Vyhladavanie extends SearchDelegate<String> {
           ),
         );
       },
-      itemCount: suggestions.length,
     );
   }
 }
