@@ -75,14 +75,7 @@ class Vyhladavanie extends SearchDelegate<String> {
       itemCount: suggestions.length,
       itemBuilder: (ctx, index) {
         final String ucebna = suggestions[index];
-        final String celyNazov = vsetkyUcebne.firstWhere(
-          (element) => element.contains(ucebna),
-          orElse: () => ucebna,
-        );
-        // print(ucebna != celyNazov);
-        // print(ucebna);
-        // print(celyNazov);
-        // print(suggestions);
+        final String value = ucebne.firstWhere((e) => ucebna.contains(e));
 
         return ListTile(
           leading: Icon(Icons.class_),
@@ -90,31 +83,31 @@ class Vyhladavanie extends SearchDelegate<String> {
             final provider = Provider.of<MapProvider>(context, listen: false);
             Navigator.of(context).pop();
             showResults(context);
-            isOdkial ? provider.setodkial(ucebna) : provider.setKam(ucebna);
+            isOdkial ? provider.setodkial(value) : provider.setKam(value);
           },
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               RichText(
                 text: TextSpan(
-                  text: celyNazov.substring(
-                      0, celyNazov.toUpperCase().indexOf(tmpQuery)),
+                  text: ucebna.substring(
+                      0, ucebna.toUpperCase().indexOf(tmpQuery)),
                   style: TextStyle(
                     color: Colors.black87,
                   ),
                   children: [
                     TextSpan(
-                      text: celyNazov.substring(
-                          celyNazov.toUpperCase().indexOf(tmpQuery),
-                          celyNazov.toUpperCase().indexOf(tmpQuery) +
+                      text: ucebna.substring(
+                          ucebna.toUpperCase().indexOf(tmpQuery),
+                          ucebna.toUpperCase().indexOf(tmpQuery) +
                               tmpQuery.length),
                       style: TextStyle(
                           color: Theme.of(context).primaryColor,
                           fontWeight: FontWeight.bold),
                     ),
                     TextSpan(
-                      text: celyNazov.substring(
-                          celyNazov.toUpperCase().indexOf(tmpQuery) +
+                      text: ucebna.substring(
+                          ucebna.toUpperCase().indexOf(tmpQuery) +
                               tmpQuery.length),
                       style: TextStyle(
                         color: Colors.black87,
