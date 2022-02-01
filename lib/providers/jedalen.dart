@@ -37,7 +37,6 @@ class JedalenProvider with ChangeNotifier {
         ..removeAt(0);
       DateTime dateTime = DateFormat('dd MM yyyy').parse(
           '${date[0]} ${Formatters.svkMesiacDoCislo[date[1]].toString()} ${date[2]}');
-      print(dateTime);
       List<h.Element> menu = tdList[1].getElementsByClassName('menu-tdmenu');
       jedalenData[dateTime] =
           menu.length != 0 ? menu.first.text.split('\n') : [];

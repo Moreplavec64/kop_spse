@@ -98,16 +98,16 @@ class MapProvider with ChangeNotifier {
       ucebnaToWaypoint[ciel] ?? ciel,
     ));
     rozdelRouty(route);
-    print(routy);
-    //nastavenie zobrazeneho podlazia na to kde sa zacina routa
+    // nastavenie zobrazeneho podlazia na to kde sa zacina routa
     setPoschodie(
       suradniceWaypointov.keys.firstWhere(
-        (e) => suradniceWaypointov[e]!
-            .containsKey(route.isNotEmpty ? route.first : _vyznacene.first),
+        (e) {
+          return suradniceWaypointov[e]!
+              .containsKey(route.isNotEmpty ? route.first : _vyznacene.first);
+        },
       ),
     );
-    // print(route);
-    // testAllRoutes();
+    print(route);
   }
 
   void rozdelRouty(List<dynamic> inputRoute) {

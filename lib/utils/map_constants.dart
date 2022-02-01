@@ -195,6 +195,7 @@ Map<String, Map<String, int>> edges = {
     'D106': 13
   },
   'F101': {
+    'F108': 15,
     'D1052': 11,
     'D1051': 15,
     'D1UCITELSKEWC': 11,
@@ -203,6 +204,7 @@ Map<String, Map<String, int>> edges = {
     'ZB_SCHODY_HORE_START': 26
   },
   'F102': {
+    'F108': 11,
     'F101': 13,
     'D1051': 26,
     'D1UCITELSKEWC': 16,
@@ -211,6 +213,7 @@ Map<String, Map<String, int>> edges = {
     'D1HC_0': 7,
   },
   'D1HC_0': {
+    'F108': 14,
     'F102': 7,
     'F103': 6,
     'ZB_SCHODY_HORE_START': 9,
@@ -225,6 +228,7 @@ Map<String, Map<String, int>> edges = {
   },
   'F106': {'F103': 31, '1F_CHODBA': 6},
   'D1SCHODY_ZBOROVNA': {
+    'F108': 9,
     '1ZBOROVNA_VCHOD1': 5,
     'ZB_SCHODY_HORE_START': 7,
     'F103': 12,
@@ -234,6 +238,7 @@ Map<String, Map<String, int>> edges = {
     'D1UCITELSKEWC': 18
   },
   'D1UCITELSKEWC': {
+    'F108': 9,
     'D1051': 12,
     'D1052': 16,
     'F101': 11,
@@ -245,16 +250,16 @@ Map<String, Map<String, int>> edges = {
   'D107/D108': {'D106': 16},
   '1ZBOROVNA_VCHOD1': {
     'D1SCHODY_ZBOROVNA': 5,
-    'F108': 116,
     'ZBOROVNA_STRED': 128,
   },
-  //TODO premiestnin vstup na chodbu pri ucitelske wc a prepisat adjecent waypointy
-  'F108': {'1ZBOROVNA_VCHOD1': 116, 'ZBOROVNA_STRED': 132},
-  'ZBOROVNA_STRED': {
-    '1ZBOROVNA_VCHOD1': 128,
-    'F108': 132,
-    '1ZBOROVNA_VCHOD2': 120
+  'F108': {
+    'D1UCITELSKEWC': 9,
+    'F101': 15,
+    'F102': 11,
+    'D1HC_0': 14,
+    'D1SCHODY_ZBOROVNA': 9
   },
+  'ZBOROVNA_STRED': {'1ZBOROVNA_VCHOD1': 128, '1ZBOROVNA_VCHOD2': 120},
   '1ZBOROVNA_VCHOD2': {'1ZBOROVNA_CHODBA': 3, 'ZBOROVNA_STRED': 120},
   'ZB_SCHODY_DOLE_START': {'1ZBOROVNA_CHODBA': 5, 'ZB_SCHODY_DOLE_END': 32},
   'ZB_SCHODY_DOLE_END': {'ZB_SCHODY_DOLE_START': 32, 'JEDALEN_SCHODY_TOP': 1},
@@ -443,12 +448,12 @@ Map<String, Map<String, int>> edges = {
 };
 /* 
  TODO fix waypoints 
- I/flutter ( 8876): DELI - 6B08 :
+ I/flutter ( 8876): DELI - 6B08 : DONE
 I/flutter ( 8876): DPOA - 1RUO :
 I/flutter ( 8876): S1- D1051 : DONE
 I/flutter ( 8876): S2 - 1D1052 : DONE
-I/flutter ( 8876): TELM - 1TV2 :
-I/flutter ( 8876): TELV - 1TV1 :
+I/flutter ( 8876): TELM - TV2 : DONE
+I/flutter ( 8876): TELV - TV1 : DONE
 
  */
 
@@ -569,7 +574,7 @@ Map<String, Map<String, Offset>> suradniceWaypointov = {
     'D106': Offset(52.5, 74.5),
     'D107/D108': Offset(52.5, 57.5),
     '1ZBOROVNA_VCHOD1': Offset(83, 83),
-    'F108': Offset(78, 69),
+    'F108': Offset(74, 88),
     'ZBOROVNA_STRED': Offset(109.5, 75),
     '1ZBOROVNA_VCHOD2': Offset(127, 83),
     'ZB_SCHODY_DOLE_START': Offset(122, 86),
@@ -689,7 +694,9 @@ Map<String, Map<String, Offset>> suradniceWaypointov = {
 Map<String, Map<String, Rect>> suradniceUcebni = {
   'HBP0': {
     //B0
-    'TELOCVICNE': Rect.fromLTWH(178, 83, 20, 10),
+    // 'TELOCVICNE': Rect.fromLTWH(178, 83, 20, 10),
+    'TV2': Rect.fromLTWH(178, 83, 20, 10),
+    'TV1': Rect.fromLTWH(178, 83, 20, 10),
     'B0WCM': Rect.fromLTWH(142, 103, 16, 5),
     'B0WCZ': Rect.fromLTWH(142, 108, 26, 5),
     'B002': Rect.fromLTWH(142, 113, 26, 10),
@@ -785,6 +792,7 @@ Map<String, Map<String, Rect>> suradniceUcebni = {
     'F101': Rect.fromLTWH(58, 103, 13, 20),
     'D1UCITELSKEWC': Rect.fromLTWH(58, 66, 13.5, 17),
     'ZBOROVNA': Rect.fromLTWH(78, 66, 64, 17),
+    'F108': Rect.fromLTWH(71.5, 66, 6.5, 17)
   },
   //*DRUHE POSCHODIE HLAVNEJ BUDOVY
   'HBP2': {
@@ -805,7 +813,7 @@ Map<String, Map<String, Rect>> suradniceUcebni = {
     '6A103': Rect.fromLTWH(28, 104, 100, 60),
   },
   '6BP0': {
-    '6B01': Rect.fromLTWH(25, 64, 60, 85),
+    '6B08': Rect.fromLTWH(25, 64, 60, 85),
     '6B05': Rect.fromLTWH(85, 104, 100, 60),
     '6B011': Rect.fromLTWH(25, 149, 25, 40),
     '6B001_WC': Rect.fromLTWH(50, 149, 15, 25),
@@ -827,7 +835,7 @@ Map<String, Map<String, Rect>> suradniceUcebni = {
   },
 };
 Map<String, String> ucebnaToWaypoint = {
-  '6B01': '6B001_VSTUP',
+  '6B08': '6B001_VSTUP',
   '6B05': '6B005',
   '6A05_WC': '6A05_CHODBICKA_WC_VCHOD',
   'C109': 'C108/C109',
@@ -851,5 +859,6 @@ Map<String, String> ucebnaToWaypoint = {
   'A011': 'A010/A011',
   'F006': 'F006/F004',
   'F004': 'F006/F004',
-  //TODO nazvy telocvicni : TELOCVICNE
+  'TV2': 'TELOCVICNE',
+  'TV1': 'TELOCVICNE',
 };

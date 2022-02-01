@@ -63,9 +63,7 @@ class Vyhladavanie extends SearchDelegate<String> {
             .where((element) => element.toUpperCase().contains(tmpQuery))
             .toList();
 
-    print(suggestions);
-
-    print(suggestions);
+    // print(suggestions);
     for (String ucebna in vsetkyUcebne) {
       var x = ucebne.firstWhere((element) => ucebna.contains(element),
           orElse: () => '');
@@ -83,6 +81,7 @@ class Vyhladavanie extends SearchDelegate<String> {
             final provider = Provider.of<MapProvider>(context, listen: false);
             Navigator.of(context).pop();
             showResults(context);
+            print(value);
             isOdkial ? provider.setodkial(value) : provider.setKam(value);
           },
           title: Column(

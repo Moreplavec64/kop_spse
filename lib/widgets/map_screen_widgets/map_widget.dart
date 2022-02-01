@@ -93,6 +93,7 @@ class MapWidget extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(16)),
                     splashColor: Colors.white,
                     onTap: () {
+                      // testAllRoutes();
                       mapprovider.setKamDefault = false;
                       mapprovider.setOdkialDefault = false;
                       mapprovider.createRoute(
