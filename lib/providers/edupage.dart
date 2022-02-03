@@ -48,7 +48,7 @@ class EduPageProvider with ChangeNotifier {
     _date = DateTime.now();
     if (shouldCheckHodina) {
       aktualnaHodina = getDnesnyRozvrh.isNotEmpty &&
-              !_date.isAfter(getDnesnyRozvrh.last.endTime)
+              _date.isBefore(getDnesnyRozvrh.last.endTime)
           ? getDnesnyRozvrh.firstWhere(
               (e) {
                 isPrestavka = false;
@@ -177,6 +177,7 @@ class EduPageProvider with ChangeNotifier {
     //TODO errors
     late final DateTime date;
     // dev.log(data);
+    // data = '';
     if (data == '') {
       data = await rootBundle
           .loadString('assets\\test_reponse\\edu_response.html');

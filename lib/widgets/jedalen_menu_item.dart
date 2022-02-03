@@ -17,7 +17,6 @@ class JedalenMenuItem extends StatelessWidget {
     final mesiac =
         Formatters.svkMesiacDoCislo.keys.toList()[menuData.key.month - 1];
     return Container(
-      height: _size.height * .15,
       width: _size.width * .95,
       decoration: BoxDecoration(
         border: DateTime.now().day == menuData.key.day
@@ -46,37 +45,34 @@ class JedalenMenuItem extends StatelessWidget {
           ),
           SizedBox(width: 16),
           Expanded(
-            child: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: menuData.value.isNotEmpty
-                    ? menuData.value.map((e) {
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(e, softWrap: true),
-                            const Divider(
-                              height: 2,
-                              thickness: .05,
-                              color: Colors.black,
-                            )
-                          ],
-                        );
-                      }).toList()
-                    : [
-                        Container(
-                          width: _size.width * .7,
-                          child: Text(
-                            'Na tento deň neboli vypísané žiadne jedlá',
-                            textAlign: TextAlign.center,
-                            softWrap: true,
-                            maxLines: 7,
-                            style: TextStyle(fontSize: 18),
-                          ),
-                        )
-                      ],
-              ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: menuData.value.isNotEmpty
+                  ? menuData.value.map((e) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(e, softWrap: true),
+                          const Divider(
+                            height: 2,
+                            thickness: .05,
+                            color: Colors.black,
+                          )
+                        ],
+                      );
+                    }).toList()
+                  : [
+                      Container(
+                        width: _size.width * .7,
+                        child: Text(
+                          'Na tento deň neboli vypísané žiadne jedlá',
+                          textAlign: TextAlign.center,
+                          softWrap: true,
+                          maxLines: 7,
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      )
+                    ],
             ),
           ),
         ],

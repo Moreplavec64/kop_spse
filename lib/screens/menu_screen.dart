@@ -22,32 +22,33 @@ class MenuScreen extends StatelessWidget {
       key: _scaffoldKey,
       appBar: CustomAppBar(scaffoldKey: _scaffoldKey, size: _size),
       drawer: const CustomDrawer(),
-      body: Column(
-        children: [
-          ...jedalenProvider.jedalenData.entries.map((e) {
-            return JedalenMenuItem(
-              size: _size,
-              menuData: e,
-            );
-          }).toList(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              IconButton(
-                icon: Icon(Icons.arrow_back),
-                onPressed: () =>
-                    Navigator.of(context).pushReplacementNamed('/home'),
-              ),
-              TextButton(
-                child: Text(
-                  'Zobrazenie stránky jedálne',
-                  style: TextStyle(decoration: TextDecoration.underline),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            ...jedalenProvider.jedalenData.entries.map((e) {
+              return JedalenMenuItem(
+                size: _size,
+                menuData: e,
+              );
+            }).toList(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: Navigator.of(context).pop,
                 ),
-                onPressed: () => url.launch(jedalenProvider.jedalenURL),
-              ),
-            ],
-          ),
-        ],
+                TextButton(
+                  child: Text(
+                    'Zobrazenie stránky jedálne',
+                    style: TextStyle(decoration: TextDecoration.underline),
+                  ),
+                  onPressed: () => url.launch(jedalenProvider.jedalenURL),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
