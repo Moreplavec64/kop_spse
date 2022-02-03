@@ -40,6 +40,8 @@ class EduPageProvider with ChangeNotifier {
   Duration? zostavajuciCas;
   bool isPrestavka = false;
 
+  bool comparePass(String val) => _password == val;
+
   void updateAktualne({bool forceCheckHodiny = false}) {
     //checkne ci je nova hodina iba kazdu minutu alebo ak sa posle do argumentu true
     // to sa vyuziva iba pri logine

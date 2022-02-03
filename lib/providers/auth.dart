@@ -63,6 +63,18 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
+  void changePassword(String password) async {
+    //Create an instance of the current user.
+    User? user = _auth.currentUser;
+
+    //Pass in the password to updatePassword.
+    user!.updatePassword(password).then((_) {
+      print("Successfully changed password");
+    }).catchError((error) {
+      print("Password can't be changed" + error.toString());
+    });
+  }
+
   Future<bool> _firebaseRegisterEmail(String email, String password) async {
     bool uspesne = false;
     try {

@@ -37,10 +37,16 @@ dependencies:
   flutter_svg: ^1.0.0
   dijkstra: ^0.0.2
   patterns_canvas: ^0.3.5
+  hive: ^2.0.5
+  hive_flutter: ^1.1.0
+  path_provider: ^2.0.8
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  hive_generator: ^1.1.2
+  build_runner: ^2.1.7
 
 # The following section is specific to Flutter.
 flutter:
