@@ -64,17 +64,23 @@ class Vyhladavanie extends SearchDelegate<String> {
             .toList();
 
     // print(suggestions);
-    for (String ucebna in vsetkyUcebne) {
-      var x = ucebne.firstWhere((element) => ucebna.contains(element),
-          orElse: () => '');
-      if (x == '') print(ucebna + " : " + (x.isNotEmpty ? x : ''));
-    }
+    //*Vypisanie ucebni pre ktore sa nenasiel korespondujuci waypoint
+    // for (String ucebna in vsetkyUcebne) {
+    //   var x = ucebne.firstWhere((element) => ucebna.contains(element),
+    //       orElse: () => '');
+    //   if (x == '') print(ucebna + " : " + (x.isNotEmpty ? x : ''));
+    // }
     return ListView.builder(
       itemCount: suggestions.length,
       itemBuilder: (ctx, index) {
         final String ucebna = suggestions[index];
-        final String value = ucebne.firstWhere((e) => ucebna.contains(e));
+        //.where.reduce namiesto firstwhere
+        //zaruci najdlhsi match string z vsetkych ucebni
+        final String value = ucebne
+            .where((e) => ucebna.contains(e))
+            .reduce((r, e) => r.length < e.length ? e : r);
 
+        print({ucebna, value});
         return ListTile(
           leading: Icon(Icons.class_),
           onTap: () {
