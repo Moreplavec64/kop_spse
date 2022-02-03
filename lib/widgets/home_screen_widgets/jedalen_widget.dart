@@ -82,8 +82,8 @@ class JedalenHomeScreenWidget extends StatelessWidget {
                               },
                             ),
                           ),
-                          onPressed: () => Navigator.of(context)
-                              .pushReplacementNamed('/menu'),
+                          onPressed: () =>
+                              Navigator.of(context).pushNamed('/menu'),
                           onLongPress: () async =>
                               await Provider.of<JedalenProvider>(context,
                                       listen: false)

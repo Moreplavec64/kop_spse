@@ -40,25 +40,29 @@ class EduPageProvider with ChangeNotifier {
   Duration? zostavajuciCas;
   bool isPrestavka = false;
 
-  void updateAktualne() {
+  void updateAktualne({bool forceCheckHodiny = false}) {
+    //checkne ci je nova hodina iba kazdu minutu alebo ak sa posle do argumentu true
+    // to sa vyuziva iba pri logine
+    bool shouldCheckHodina =
+        _date.minute != DateTime.now().minute || forceCheckHodiny;
     _date = DateTime.now();
-    //TODO rozdelit updatovanie ak netreba
-
-    aktualnaHodina = getDnesnyRozvrh.isNotEmpty &&
-            !_date.isAfter(getDnesnyRozvrh.last.endTime)
-        ? getDnesnyRozvrh.firstWhere(
-            (e) {
-              isPrestavka = false;
-              return _date.isAfter(e.startTime) && _date.isBefore(e.endTime);
-            },
-            orElse: () {
-              //ak sa nenajde hodina, je prestavka
-              isPrestavka = true;
-              return getDnesnyRozvrh
-                  .firstWhere((e) => e.startTime.isAfter(_date));
-            },
-          )
-        : null;
+    if (shouldCheckHodina) {
+      aktualnaHodina = getDnesnyRozvrh.isNotEmpty &&
+              !_date.isAfter(getDnesnyRozvrh.last.endTime)
+          ? getDnesnyRozvrh.firstWhere(
+              (e) {
+                isPrestavka = false;
+                return _date.isAfter(e.startTime) && _date.isBefore(e.endTime);
+              },
+              orElse: () {
+                //ak sa nenajde hodina, je prestavka
+                isPrestavka = true;
+                return getDnesnyRozvrh
+                    .firstWhere((e) => e.startTime.isAfter(_date));
+              },
+            )
+          : null;
+    }
     //ak je prestavka, cas zostavajuci do dalsej hodiny
     if (aktualnaHodina != null) {
       if (isPrestavka)
@@ -130,7 +134,7 @@ class EduPageProvider with ChangeNotifier {
       );
       // dev.log(loggedInResponse.body);
       _parseEduJsonData(data: loggedInResponse.body);
-      updateAktualne();
+      updateAktualne(forceCheckHodiny: true);
 
       setLoginStatus = LoginStatus.LoggedIn;
     } catch (e) {
