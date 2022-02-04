@@ -25,19 +25,10 @@ class HomeScreenTimeTable extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(8),
-            child: Consumer<EduPageProvider>(
-                builder: (_, v, __) =>
-                    v.aktualnaHodina != null && v.zostavajuciCas != null
-                        ? Text(
-                            v.isPrestavka
-                                ? 'Aktualne je prestavka, do ${v.aktualnaHodina!.period}. hodiny zostáva ${_printDuration(v.zostavajuciCas)}'
-                                : 'Prebieha ${v.aktualnaHodina!.period}. hodina, do prestávky zostáva ' +
-                                    _printDuration(v.zostavajuciCas),
-                            style: TextStyle(fontSize: 18),
-                          )
-                        : SizedBox.shrink()),
-          ),
+              padding: const EdgeInsets.all(8),
+              child: Consumer<EduPageProvider>(
+                  builder: (_, v, __) => getZostavajuciCasWidget(v))),
+          //* INDEX HODIN ROW
           Container(
             // margin: EdgeInsets.symmetric(horizontal: 5),
             // width: _size.width,
@@ -60,27 +51,7 @@ class HomeScreenTimeTable extends StatelessWidget {
             ),
             width: _size.width - 10,
             height: _size.height / 7,
-            child: subjNumber == 0
-                ? Center(
-                    child: Text(
-                    'Na dnes sa nenašiel žiadny rozvrh',
-                    style: TextStyle(fontSize: 16),
-                  ))
-                : ListView.builder(
-                    padding: EdgeInsets.symmetric(
-                      vertical:
-                          ((_size.height / 7 - ttItemsize - 10) / 2).abs(),
-                    ),
-                    physics: const BouncingScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
-                    itemCount: provider.getDnesnyRozvrh.length,
-                    itemBuilder: (ctx, i) {
-                      return TimeTableItem(
-                        index: i,
-                        size: ttItemsize,
-                      );
-                    },
-                  ),
+            child: ttItemsWidget(provider),
           ),
         ],
       ),
@@ -94,5 +65,54 @@ class HomeScreenTimeTable extends StatelessWidget {
     String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
     String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
     return "$twoDigitHours${twoDigitHours.length == 0 ? '' : ':'}$twoDigitMinutes:$twoDigitSeconds";
+  }
+
+  Widget getZostavajuciCasWidget(EduPageProvider v) {
+    SizedBox nd = SizedBox.shrink();
+    if (v.aktualnaHodina == null) return nd;
+    if (v.zostavajuciCas == null) return nd;
+    if (v.getDnesnyRozvrh.length == 1) {
+      if (v.getDnesnyRozvrh.first.isEvent) return nd;
+    }
+
+    return Text(
+      v.isPrestavka
+          ? 'Aktualne je prestavka, do ${v.aktualnaHodina!.period}. hodiny zostáva ${_printDuration(v.zostavajuciCas)}'
+          : 'Prebieha ${v.aktualnaHodina!.period}. hodina, do prestávky zostáva ' +
+              _printDuration(v.zostavajuciCas),
+      style: TextStyle(fontSize: 18),
+    );
+  }
+
+  Widget ttItemsWidget(EduPageProvider v) {
+    final int subjNumber = v.getDnesnyRozvrh.length;
+    final double ttItemsize = (_size.width / subjNumber) - 10;
+    if (subjNumber == 0)
+      return Center(
+          child: Text(
+        'Na dnes sa nenašiel žiadny rozvrh',
+        style: TextStyle(fontSize: 16),
+      ));
+    if (subjNumber == 1 && v.getDnesnyRozvrh.first.isEvent)
+      return Center(
+          child: Text(
+        v.getDnesnyRozvrh.first.eventName ?? '',
+        style: TextStyle(fontSize: 16),
+      ));
+
+    return ListView.builder(
+      padding: EdgeInsets.symmetric(
+        vertical: ((_size.height / 7 - ttItemsize - 10) / 2).abs(),
+      ),
+      physics: const BouncingScrollPhysics(),
+      scrollDirection: Axis.horizontal,
+      itemCount: v.getDnesnyRozvrh.length,
+      itemBuilder: (ctx, i) {
+        return TimeTableItem(
+          index: i,
+          size: ttItemsize,
+        );
+      },
+    );
   }
 }

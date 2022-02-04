@@ -9,6 +9,7 @@ class LessonPlan {
   final DateTime startTime;
   final DateTime endTime;
   final bool isEvent;
+  final String? eventName;
 
   LessonPlan({
     required this.period,
@@ -20,5 +21,6 @@ class LessonPlan {
     required this.startTime,
     required this.endTime,
     required this.isEvent,
+    this.eventName,
   });
 }

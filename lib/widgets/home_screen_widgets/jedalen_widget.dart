@@ -19,7 +19,6 @@ class JedalenHomeScreenWidget extends StatelessWidget {
     final List<String>? dnesneMenu =
         jedalenProvider.jedalenData[DateTime(d.year, d.month, d.day)];
     // jedalenProvider.jedalenData[DateTime(2021, 11, 2)];
-    print(dnesneMenu);
     return AnimatedContainer(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(16)),

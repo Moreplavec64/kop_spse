@@ -63,7 +63,10 @@ List<LessonPlan> getRozvrh(Map<String, dynamic> convJson, DateTime date) {
           int.parse(endTime[0]),
           int.parse(endTime[1]),
         ),
-        isEvent: hodina['type'] == 'event');
+        isEvent: hodina['type'] == 'event',
+        eventName: hodina['type'] == 'event'
+            ? hodina['flags']['event']['name']
+            : null);
   }).toList();
 }
 
