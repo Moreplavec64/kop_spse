@@ -138,10 +138,6 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
   final TextEditingController noveHeslo2 = TextEditingController();
   final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
   bool oldAccPassCorrect = false;
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   void dispose() {

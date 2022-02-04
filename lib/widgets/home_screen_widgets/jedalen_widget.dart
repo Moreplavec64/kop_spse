@@ -19,6 +19,7 @@ class JedalenHomeScreenWidget extends StatelessWidget {
     final List<String>? dnesneMenu =
         jedalenProvider.jedalenData[DateTime(d.year, d.month, d.day)];
     // jedalenProvider.jedalenData[DateTime(2021, 11, 2)];
+    print(dnesneMenu);
     return AnimatedContainer(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(16)),
@@ -47,20 +48,10 @@ class JedalenHomeScreenWidget extends StatelessWidget {
                   )
                 ]),
                 //zobraz error ak je vikend, inak pre kazdy element v menu vytvori text widget,
-                // ak je widget expandnuty zobrazi vsetky, inak prve dve
-                ...dnesneMenu != null && dnesneMenu.length != 0
-                    ? dnesneMenu.map((e) => Text(e)).toList().sublist(
-                          0,
-                          jedalenProvider.shouldBeExpanded
-                              ? dnesneMenu.length
-                              : min(2, dnesneMenu.length),
-                        )
-                    : [
-                        Text(
-                          'Na dnes nieje vypísané žiadne menu',
-                          style: TextStyle(fontSize: 17),
-                        )
-                      ],
+                // ak je widget expandnuty zobrazi vsetky, inak prve dve'
+                ...createJedalenListContents(
+                    dnesneMenu, jedalenProvider.shouldBeExpanded),
+
                 const Spacer(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -120,5 +111,23 @@ class JedalenHomeScreenWidget extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  List<Widget> createJedalenListContents(
+      List<String>? dnesneMenu, bool shouldBeExpanded) {
+    List<Widget> noData = [
+      Text(
+        'Na dnes nieje vypísané žiadne menu',
+        style: TextStyle(fontSize: 17),
+      )
+    ];
+    if (dnesneMenu == null) return noData;
+    if (dnesneMenu.isEmpty) return noData;
+    if (dnesneMenu.length == 1) {
+      if (dnesneMenu.first.trim().length == 0) return noData;
+    }
+
+    return dnesneMenu.map((e) => Text(e)).toList().sublist(
+        0, shouldBeExpanded ? dnesneMenu.length : min(2, dnesneMenu.length));
   }
 }

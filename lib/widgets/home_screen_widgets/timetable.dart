@@ -39,8 +39,8 @@ class HomeScreenTimeTable extends StatelessWidget {
                         : SizedBox.shrink()),
           ),
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 5),
-            width: _size.width,
+            // margin: EdgeInsets.symmetric(horizontal: 5),
+            // width: _size.width,
             child: Row(
               children: provider.getDnesnyRozvrh
                   .map((e) => Container(
