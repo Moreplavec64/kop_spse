@@ -21,7 +21,6 @@ class MapScreen extends StatelessWidget {
 
     return WillPopScope(
       onWillPop: () async {
-        print('POPPED');
         Provider.of<MapProvider>(context, listen: false).resetMapDefaults();
         return Future.value(true);
       },
