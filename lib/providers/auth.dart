@@ -51,6 +51,15 @@ class AuthProvider with ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
+  User? get getCurrentUser => _auth.currentUser;
+
+  bool isGoogleUser() {
+    User? currUser = _auth.currentUser;
+    List<UserInfo> provData = currUser!.providerData;
+    if (provData.length < 1) return false;
+    return provData.first.providerId == 'google.com';
+  }
+
   Future<bool> firestoreDocExists() async {
     bool _exist = false;
     try {

@@ -146,6 +146,10 @@ class _LoginFormState extends State<LoginFormBody> {
         Provider.of<EduPageProvider>(context, listen: false);
     final AuthProvider authProvider =
         Provider.of<AuthProvider>(context, listen: false);
+    final JedalenProvider jedalenProvider =
+        Provider.of<JedalenProvider>(context, listen: false);
+    final SettingsProvider settingsProvider =
+        Provider.of<SettingsProvider>(context, listen: false);
 
     if (_formKey.currentState!.validate()) {
       if (eduProvider.getEduLoginStatus != LoginStatus.LoggingIn)
@@ -157,10 +161,8 @@ class _LoginFormState extends State<LoginFormBody> {
             email: _emailController.text,
             password: _passwordController.text);
 
-        await Provider.of<JedalenProvider>(context, listen: false)
-            .fetchJedalenData();
-        await Provider.of<SettingsProvider>(context, listen: false)
-            .loadValues();
+        await jedalenProvider.fetchJedalenData();
+        await settingsProvider.loadValues();
 
         if (authProvider.getLoggedIn) {
           navigationKey.currentState?.pushReplacementNamed('/home');

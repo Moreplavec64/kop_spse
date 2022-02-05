@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'dart:developer' as dev;
+// import 'dart:developer' as dev;
 
 import 'package:kop_spse/models/plan.dart';
 import 'package:kop_spse/utils/edu_get_utils.dart';

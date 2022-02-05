@@ -26,9 +26,7 @@ class JedalenHomeScreenWidget extends StatelessWidget {
       ),
       padding: const EdgeInsets.all(8),
       duration: const Duration(milliseconds: 200),
-      height: (jedalenProvider.shouldBeExpanded && dnesneMenu!.length > 2
-          ? _size.height * 1 / 7 + 12 * (jedalenProvider.jedalenData.length)
-          : _size.height * 1 / 7),
+      height: getWidgetHeight(jedalenProvider, dnesneMenu),
       width: _size.width - 10,
       child: CustomScrollView(
         physics: const NeverScrollableScrollPhysics(),
@@ -110,6 +108,20 @@ class JedalenHomeScreenWidget extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  double getWidgetHeight(
+    JedalenProvider jedalenProvider,
+    List<String>? dnesneMenu,
+  ) {
+    final double notExpanded = _size.height * 1 / 7;
+    final double expanded =
+        notExpanded + 12 * jedalenProvider.jedalenData.length;
+    if (dnesneMenu == null) return notExpanded;
+    if (!jedalenProvider.shouldBeExpanded || dnesneMenu.length < 2)
+      return notExpanded;
+
+    return expanded;
   }
 
   List<Widget> createJedalenListContents(
