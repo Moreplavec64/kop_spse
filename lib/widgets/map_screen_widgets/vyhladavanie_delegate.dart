@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kop_spse/providers/map.dart';
+import 'package:kop_spse/providers/settings.dart';
 import 'package:kop_spse/utils/map_constants.dart';
 import 'package:provider/provider.dart';
 
@@ -45,24 +46,28 @@ class Vyhladavanie extends SearchDelegate<String> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
+    final SettingsProvider sp = Provider.of<SettingsProvider>(context);
     final String tmpQuery = query.toUpperCase();
+    final Iterable<String> tmpDlheNazvy =
+        ucebne.map((e) => vsetkyUcebne.firstWhere(
+              (element) => element.contains(e),
+              orElse: () => e,
+            ));
     //vsetky waypointy, prelozi tie co sa da na dlhe nazvy ucebni
     //a tie co nemaju dlhy nazov z edu tak sa vypisu ako nazov waypointu
-    final suggestions = query.isEmpty
-        ? ucebne
-            .map((e) => vsetkyUcebne.firstWhere(
-                  (element) => element.contains(e),
-                  orElse: () => e,
-                ))
-            .toList()
-        : ucebne
-            .map((e) => vsetkyUcebne.firstWhere(
-                  (element) => element.contains(e),
-                  orElse: () => e,
-                ))
+    List<String> suggestions = query.isEmpty
+        ? tmpDlheNazvy.toList()
+        : tmpDlheNazvy
             .where((element) => element.toUpperCase().contains(tmpQuery))
             .toList();
 
+    print(sp.recentSearch);
+
+    final List<String> recent = [
+      ...sp.recentSearch.where((e) => suggestions.contains(e))
+    ];
+    suggestions =
+        recent + suggestions.where((e) => !recent.contains(e)).toList();
     // print(suggestions);
     //*Vypisanie ucebni pre ktore sa nenasiel korespondujuci waypoint
     // for (String ucebna in vsetkyUcebne) {
@@ -71,24 +76,37 @@ class Vyhladavanie extends SearchDelegate<String> {
     //   if (x == '') print(ucebna + " : " + (x.isNotEmpty ? x : ''));
     // }
     return ListView.builder(
-      itemCount: suggestions.length,
+      physics: const BouncingScrollPhysics(),
+      itemCount: suggestions.length + (recent.length > 0 ? 1 : 0),
       itemBuilder: (ctx, index) {
-        final String ucebna = suggestions[index];
+        final String ucebna = suggestions[
+            index - (index >= recent.length && recent.length > 0 ? 1 : 0)];
         //.where.reduce namiesto firstwhere
         //zaruci najdlhsi match string z vsetkych ucebni
         final String value = ucebne
             .where((e) => ucebna.contains(e))
             .reduce((r, e) => r.length < e.length ? e : r);
 
-        print({ucebna, value});
+        // print({ucebna, value});
+        if (recent.isNotEmpty &&
+            recent.length == index &&
+            recent.length != suggestions.length) {
+          return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: const Divider(
+                thickness: .9,
+                color: Color.fromARGB(150, 0, 0, 0),
+              ));
+        }
         return ListTile(
           leading: Icon(Icons.class_),
           onTap: () {
             final provider = Provider.of<MapProvider>(context, listen: false);
+            isOdkial ? provider.setodkial(value) : provider.setKam(value);
             Navigator.of(context).pop();
             showResults(context);
             print(value);
-            isOdkial ? provider.setodkial(value) : provider.setKam(value);
+            sp.addRecentSearch(ucebna);
           },
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -121,6 +139,7 @@ class Vyhladavanie extends SearchDelegate<String> {
                   ],
                 ),
               ),
+              //ak v ucebniach neexistuje nazov ucebne, tzn nieje v datach aplikacie ale existuje v edupagi
               if (!ucebne.contains(ucebna))
                 Text(
                   ucebne.firstWhere(
@@ -128,7 +147,7 @@ class Vyhladavanie extends SearchDelegate<String> {
                     orElse: () => 'Neexistuje na mape',
                   ),
                   style: TextStyle(color: Colors.grey),
-                )
+                ),
             ],
           ),
         );

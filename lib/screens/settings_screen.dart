@@ -73,7 +73,15 @@ class SettingsScreen extends StatelessWidget {
                                     const BorderRadius.all(Radius.circular(6))),
                             clipBehavior: Clip.antiAlias,
                             child: InkWell(
-                              onTap: () {},
+                              onTap: () async {
+                                bool should = await showVerifyDialog(
+                                      context,
+                                      'Chcete pokračovať s vymazaním histórie vyhľadávania?',
+                                    ) ??
+                                    false;
+                                if (should) provider.recentSearch = [];
+                                print(should);
+                              },
                               child: const Icon(
                                 Icons.delete,
                                 color: Colors.red,
@@ -123,4 +131,48 @@ class SettingsScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+Future<bool?> showVerifyDialog(BuildContext context, String title) {
+  return showDialog<bool>(
+    context: context,
+    builder: (ctx) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        content: Container(
+          height: MediaQuery.of(context).size.height / 5,
+          decoration: BoxDecoration(
+            color: Colors.white,
+          ),
+          child: Column(
+            children: [
+              Text(
+                title,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+              const Spacer(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                              Theme.of(context).primaryColor)),
+                      onPressed: () => Navigator.of(context).pop(true),
+                      child: Text('Áno')),
+                  ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                              Theme.of(context).errorColor)),
+                      onPressed: () => Navigator.of(context).pop(false),
+                      child: Text('Nie')),
+                ],
+              )
+            ],
+          ),
+        )),
+  );
 }
