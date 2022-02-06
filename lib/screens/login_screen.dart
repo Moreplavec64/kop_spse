@@ -17,7 +17,7 @@ class LoginScreen extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        if (isLoading) FocusManager.instance.primaryFocus?.unfocus();
+        if (!isLoading) FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
         body: Stack(
