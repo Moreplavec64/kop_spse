@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:kop_spse/providers/auth.dart';
 import 'package:kop_spse/providers/edupage.dart';
 import 'package:kop_spse/providers/settings.dart';
+import 'package:kop_spse/screens/settings_screen.dart';
 import 'package:kop_spse/widgets/login_screen_widgets/input_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -74,29 +75,33 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                     return null;
                   },
                   controller: stareHeslo,
-                  labelText: 'Aktualne Heslo',
+                  labelText: 'Aktuálne Heslo',
                   isPassword: true,
                 ),
                 TextInputWidget(
                   size: MediaQuery.of(context).size,
                   validator: (String? x) {
+                    if (widget.isEdu) return null;
                     return RegExp(r'(.){6,}').hasMatch(x!)
                         ? null
                         : 'Heslo musí obsahovať aspoň 6 znakov';
                   },
                   controller: noveHeslo1,
-                  labelText: 'Nove Heslo',
+                  labelText: 'Nové Heslo',
                   isPassword: true,
                 ),
                 TextInputWidget(
                   size: MediaQuery.of(context).size,
                   validator: (String? x) {
+                    if (noveHeslo1.text != noveHeslo2.text)
+                      return 'Heslá sa nezhodujú';
+                    if (widget.isEdu) return null;
                     return RegExp(r'(.){6,}').hasMatch(x!)
                         ? null
                         : 'Heslo musí obsahovať aspoň 6 znakov';
                   },
                   controller: noveHeslo2,
-                  labelText: 'Zopakuj Heslo',
+                  labelText: 'Zopakujte Heslo',
                   isPassword: true,
                 ),
                 Align(
@@ -124,22 +129,60 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                               oldFirebaseAccPassCorrect = value.user != null;
                             }).onError((error, __) {
                               oldFirebaseAccPassCorrect = false;
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text(error.toString())));
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                content: Text(error.toString()),
+                                backgroundColor: Theme.of(context).errorColor,
+                              ));
                               print(error);
                             });
                           }
                           final bool isOk = _formKey.currentState!.validate();
-                          //TODO implement zmeny hesiel
-                          //TODO show alert dialog confirm zmenu
-                          print(isOk);
+
+                          final bool confirmed = isOk
+                              ? await showVerifyDialog(context,
+                                      'Chcete pokračovať so zmenou hesla?') ??
+                                  false
+                              : false;
+                          final authProv =
+                              Provider.of<AuthProvider>(context, listen: false);
+
+                          if (isOk && confirmed) {
+                            if (widget.isEdu) {
+                              await authProv
+                                  .changeEduPass(noveHeslo2.text)
+                                  .then((v) {
+                                if (v) uspesneZmeneneFunction(dprov);
+                              });
+                            } else {
+                              print(noveHeslo2.text);
+                              await authProv
+                                  .changePassword(noveHeslo2.text)
+                                  .then((v) {
+                                if (v) uspesneZmeneneFunction(dprov);
+                              });
+                            }
+                          }
                           dprov.toggleLoading();
-                          setState(() {});
+                          // setState(() {});
                         }))
               ],
             ),
           ),
       ],
     );
+  }
+
+  void uspesneZmeneneFunction(SettingsProvider dprov) {
+    stareHeslo.clear();
+    noveHeslo1.clear();
+    noveHeslo2.clear();
+    widget.isEdu
+        ? dprov.toggleIsChangingEduPass()
+        : dprov.toggleIsChangingPass();
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text('Heslo bolo úspešne zmenené'),
+      backgroundColor: Theme.of(context).primaryColor,
+    ));
   }
 }

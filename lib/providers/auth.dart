@@ -72,16 +72,37 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
-  void changePassword(String password) async {
+  Future<bool> changePassword(String password) async {
     //Create an instance of the current user.
     User? user = _auth.currentUser;
+    bool rv = false;
 
     //Pass in the password to updatePassword.
-    user!.updatePassword(password).then((_) {
+    await user!.updatePassword(password).then((_) {
       print("Successfully changed password");
+      rv = true;
     }).catchError((error) {
       print("Password can't be changed" + error.toString());
     });
+
+    return rv;
+  }
+
+  Future<bool> changeEduPass(String password) async {
+    bool rv = false;
+    await _firestore
+        .collection('users')
+        .doc(getUID)
+        .update({
+          'eduPassword': password,
+        })
+        .then((value) => rv = true)
+        .onError((error, stackTrace) {
+          print(error.toString());
+          rv = false;
+          return false;
+        });
+    return rv;
   }
 
   Future<bool> _firebaseRegisterEmail(String email, String password) async {
