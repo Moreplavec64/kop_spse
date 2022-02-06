@@ -1,5 +1,7 @@
+import 'package:encrypt/encrypt.dart' as crypt;
 import 'package:flutter/material.dart';
 import 'package:kop_spse/providers/auth.dart';
+import 'package:kop_spse/utils/encrypt.dart';
 import 'package:provider/provider.dart';
 
 import 'package:kop_spse/providers/settings.dart';
@@ -114,8 +116,18 @@ class SettingsScreen extends StatelessWidget {
                     ElevatedButton(
                       child: const Text('xxxxxxx'),
                       onPressed: () {
-                        Provider.of<SettingsProvider>(context, listen: false)
-                            .loadValues();
+                        // Provider.of<SettingsProvider>(context, listen: false)
+                        //     .loadValues();
+                        var x = 'xxxx';
+                        var uid =
+                            Provider.of<AuthProvider>(context, listen: false)
+                                .getUID;
+                        final b64hash = EncryptData.encryptAES(x, uid + x);
+                        print(b64hash);
+                        print((uid + x).length);
+                        var r = EncryptData.decryptAES(
+                            crypt.Encrypted.from64(b64hash), uid + x);
+                        print(r);
                       },
                     ),
                   ],

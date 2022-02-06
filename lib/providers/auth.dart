@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:kop_spse/utils/encrypt.dart';
 
 import 'edupage.dart';
 
@@ -138,7 +139,12 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<void> createDataAfterReg(
-      String eduUser, String eduPass, String lang) async {
+    String eduUser,
+    String eduPass,
+    String lang,
+  ) async {
+    final String key = getUID.padRight(32, 'x');
+    eduPass = EncryptData.encryptAES(eduPass, key);
     if (!await firestoreDocExists())
       await _firestore.collection('users').doc(getUID).set({
         'eduUsername': eduUser,
@@ -159,9 +165,10 @@ class AuthProvider with ChangeNotifier {
     final DocumentSnapshot docSnap = await users.doc(getUID).get();
     final Map<String, dynamic> data = docSnap.data() as Map<String, dynamic>;
 
-    eduProvider.setAuthValues(
+    eduProvider.setDecryptAuthValues(
       data['eduUsername'],
       data['eduPassword'],
+      getUID.padRight(32, 'x'),
     );
     if (eduProvider.getEduLoginStatus != LoginStatus.LoggedIn)
       await eduProvider.login();
@@ -217,9 +224,10 @@ class AuthProvider with ChangeNotifier {
       final DocumentSnapshot docSnap = await users.doc(getUID).get();
       final Map<String, dynamic> data = docSnap.data() as Map<String, dynamic>;
 
-      eduProvider.setAuthValues(
+      eduProvider.setDecryptAuthValues(
         data['eduUsername'],
         data['eduPassword'],
+        getUID.padRight(32, 'x'),
       );
       if (eduProvider.getEduLoginStatus != LoginStatus.LoggedIn)
         await eduProvider.login();

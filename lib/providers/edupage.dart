@@ -3,10 +3,12 @@ import 'package:flutter/services.dart';
 import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:encrypt/encrypt.dart' as crypt;
 // import 'dart:developer' as dev;
 
 import 'package:kop_spse/models/plan.dart';
 import 'package:kop_spse/utils/edu_get_utils.dart';
+import 'package:kop_spse/utils/encrypt.dart';
 
 enum LoginStatus {
   LoggedOut,
@@ -85,6 +87,12 @@ class EduPageProvider with ChangeNotifier {
   void setAuthValues(String username, String password) {
     _password = password;
     _username = username;
+  }
+
+  void setDecryptAuthValues(String username, String enPass, String key) {
+    String password =
+        EncryptData.decryptAES(crypt.Encrypted.from64(enPass), key);
+    setAuthValues(username, password);
   }
 
   Future<void> login({bool useTestValues = false}) async {
