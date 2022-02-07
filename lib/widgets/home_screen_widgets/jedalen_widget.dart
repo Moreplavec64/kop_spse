@@ -29,7 +29,7 @@ class JedalenHomeScreenWidget extends StatelessWidget {
       height: getWidgetHeight(jedalenProvider, dnesneMenu),
       width: _size.width - 10,
       child: CustomScrollView(
-        physics: const NeverScrollableScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         slivers: [
           SliverFillRemaining(
             hasScrollBody: false,
