@@ -77,8 +77,8 @@ class HomeScreenTimeTable extends StatelessWidget {
 
     return Text(
       v.isPrestavka
-          ? 'Aktualne je prestavka, do ${v.aktualnaHodina!.period}. hodiny zostáva ${_printDuration(v.zostavajuciCas)}'
-          : 'Prebieha ${v.aktualnaHodina!.period}. hodina, do prestávky zostáva ' +
+          ? 'Aktuálne je prestávka, do ${v.aktualnaHodina!.period}. hodiny zostáva ${_printDuration(v.zostavajuciCas)}'
+          : 'Prebieha ${v.aktualnaHodina!.period}. hodina, zostáva ' +
               _printDuration(v.zostavajuciCas),
       style: TextStyle(fontSize: 18),
     );

@@ -37,8 +37,7 @@ class TimeTableItem extends StatelessWidget {
             color: farba,
             border: v.isPrestavka || v.aktualnaHodina == null
                 ? Border.all(color: Colors.transparent, width: 0)
-                //TODO overit ci spravne vyznacuje
-                : v.aktualnaHodina!.period - 1 == index
+                : v.aktualnaHodina!.period == index
                     ? Border.all(
                         color: Theme.of(context).primaryColor, width: 2)
                     : Border.all(color: Colors.transparent, width: 0),
