@@ -64,7 +64,7 @@ class HomeScreenTimeTable extends StatelessWidget {
     String twoDigitHours = twoDigits(duration.inHours.remainder(24));
     String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
     String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
-    return "$twoDigitHours${twoDigitHours.length == 0 ? '' : ':'}$twoDigitMinutes:$twoDigitSeconds";
+    return "${twoDigitHours == "00" ? '' : '$twoDigitHours:'}$twoDigitMinutes:$twoDigitSeconds";
   }
 
   Widget getZostavajuciCasWidget(EduPageProvider v) {
