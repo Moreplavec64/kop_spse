@@ -58,7 +58,7 @@ class MapWidget extends StatelessWidget {
                       child: Stack(
                         children: [
                           Hero(
-                            tag: 'mapImage',
+                            tag: 'mapa',
                             child: SvgPicture.asset(
                               'assets/images/map_images/${prov.getZobrazenePodlazie}.svg',
                               fit: BoxFit.fitHeight,

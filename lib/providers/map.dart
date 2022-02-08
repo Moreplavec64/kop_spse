@@ -1,5 +1,6 @@
 import 'package:dijkstra/dijkstra.dart';
 import 'package:flutter/material.dart';
+import 'package:kop_spse/providers/settings.dart';
 import 'package:kop_spse/utils/map_constants.dart';
 
 class MapProvider with ChangeNotifier {
@@ -60,6 +61,11 @@ class MapProvider with ChangeNotifier {
   void toggleZobrazNazvy() {
     _zobrazNazvy = !_zobrazNazvy;
     notifyListeners();
+  }
+
+  void loadSettingsValues(SettingsProvider prov) {
+    setPoschodie(prov.getDefaultPodlazie);
+    if (getZobrazNazvy != prov.getShowNazvy) toggleZobrazNazvy();
   }
 
   bool get getZobrazNazvy => _zobrazNazvy;

@@ -14,12 +14,10 @@ Future<void> showMyDialog({
   required final Color farba,
 }) async {
   final provider = Provider.of<EduPageProvider>(context, listen: false);
-  String ucebna = EduIdUtil.idToClassroom(
+  String ucebna = EduIdUtil.idToNavClassroom(
     provider.getEduData,
     lessonData.classroomID,
-  ).split('-').last.trim();
-  //ak sa nenachadza na 6, zmaze leading poschodie 1D106 => D106
-  ucebna = ucebna.startsWith('6') ? ucebna : ucebna.substring(1);
+  );
   final MapProvider mapprov = Provider.of(context, listen: false);
 
   return showDialog<void>(
@@ -65,7 +63,7 @@ Future<void> showMyDialog({
               const SizedBox(height: 8),
               Text(
                 'Ucebna : ' +
-                    EduIdUtil.idToClassroom(
+                    EduIdUtil.idToLongClassroom(
                       provider.getEduData,
                       lessonData.classroomID,
                     ),
