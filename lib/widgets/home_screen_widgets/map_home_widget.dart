@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
+
 import 'package:kop_spse/providers/edupage.dart';
 import 'package:kop_spse/providers/map.dart';
 import 'package:kop_spse/providers/settings.dart';
 import 'package:kop_spse/utils/edu_id_util.dart';
-import 'package:provider/provider.dart';
 
 class MapHomeWidget extends StatelessWidget {
   const MapHomeWidget({
@@ -21,10 +23,10 @@ class MapHomeWidget extends StatelessWidget {
     final double widgetHeight = _size.height * (2 / 7);
     return Container(
         height: widgetHeight,
-        decoration: BoxDecoration(
-            color: Color(0xFFCECECE),
-            borderRadius: BorderRadius.all(Radius.circular(16))),
-        margin: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+        decoration: const BoxDecoration(
+            color: const Color(0xFFCECECE),
+            borderRadius: const BorderRadius.all(Radius.circular(16))),
+        margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
         child: Column(
           children: [
             Container(
@@ -38,6 +40,7 @@ class MapHomeWidget extends StatelessWidget {
                       bgColor: Theme.of(context).primaryColor,
                       textColor: Colors.white,
                       onTap: () {
+                        //TODO fix ked uz niesu nasledujuce hodiny
                         final eduProv = Provider.of<EduPageProvider>(context,
                             listen: false);
                         final mapProv =
@@ -80,13 +83,14 @@ class MapHomeWidget extends StatelessWidget {
             Container(
               height: widgetHeight * .7,
               width: _size.width - 32,
-              padding: EdgeInsets.all(8),
+              padding: const EdgeInsets.all(8),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(16),
                 child: FittedBox(
                   fit: BoxFit.cover,
                   clipBehavior: Clip.antiAlias,
                   child: GestureDetector(
+                    //TODO nastavenie podlazia
                     onTap: () =>
                         Navigator.of(context).pushNamed('/map/fullscreen'),
                     child: Hero(
