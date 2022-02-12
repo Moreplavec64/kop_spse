@@ -143,6 +143,7 @@ class MapWidget extends StatelessWidget {
   }
 
   void testAllRoutes() {
+    print(edges.keys.length);
     List<dynamic> route;
     //Najdene : 43056
     int najdene = 0;

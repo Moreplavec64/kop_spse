@@ -184,7 +184,6 @@ class EduPageProvider with ChangeNotifier {
 
   void _parseEduJsonData({String data = ''}) async {
     //data = reponse header na parsnutie, ak sa nezada, nacita sa test reponse
-    //TODO errors
     late final DateTime date;
     // dev.log(data);
     // data = '';
