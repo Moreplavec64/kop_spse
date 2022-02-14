@@ -3,13 +3,12 @@ import 'package:kop_spse/providers/auth.dart';
 import 'package:kop_spse/providers/edupage.dart';
 import 'package:kop_spse/providers/jedalen.dart';
 import 'package:kop_spse/providers/settings.dart';
+import 'package:kop_spse/widgets/login_screen_widgets/input_widget.dart';
 import 'package:kop_spse/widgets/login_screen_widgets/login_button.dart';
 import 'package:kop_spse/widgets/login_screen_widgets/login_button_google.dart';
 import 'package:kop_spse/widgets/login_screen_widgets/or_divider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import 'input_widget.dart';
 
 class LoginFormBody extends StatefulWidget {
   const LoginFormBody({
