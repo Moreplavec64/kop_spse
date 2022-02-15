@@ -4,7 +4,7 @@ import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:encrypt/encrypt.dart' as crypt;
-// import 'dart:developer' as dev;
+import 'dart:developer' as dev;
 
 import 'package:kop_spse/models/plan.dart';
 import 'package:kop_spse/utils/edu_get_utils.dart';
@@ -132,6 +132,8 @@ class EduPageProvider with ChangeNotifier {
       );
 
       _updateCookies(loginResponse.headers);
+      // dev.log({_username, _password}.toString());
+      dev.log(loginResponse.headers.toString());
 
       if (loginResponse.headers['location']!.contains('bad')) {
         setLoginStatus = LoginStatus.LoginFailed;
