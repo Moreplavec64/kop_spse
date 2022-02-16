@@ -120,7 +120,7 @@ class EduPageProvider with ChangeNotifier {
       final String? csrfToken = tokenRegex.stringMatch(r.body);
 
       final Map<String, String> parameters = {
-        "username": _username,
+        "username": _username + 'x',
         "password": _password,
         "csrfauth": csrfToken.toString(),
       };
@@ -133,6 +133,7 @@ class EduPageProvider with ChangeNotifier {
 
       _updateCookies(loginResponse.headers);
       // dev.log({_username, _password}.toString());
+      dev.log(loginResponse.statusCode.toString());
       dev.log(loginResponse.headers.toString());
 
       if (loginResponse.headers['location']!.contains('bad')) {
@@ -144,7 +145,7 @@ class EduPageProvider with ChangeNotifier {
         Uri.parse('https://$_school.edupage.org/user/'),
         headers: {'Cookie': _cookieList},
       );
-      // dev.log(loggedInResponse.body);
+
       _parseEduJsonData(data: loggedInResponse.body);
       updateAktualne(forceCheckHodiny: true);
 
