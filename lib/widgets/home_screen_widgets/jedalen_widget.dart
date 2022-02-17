@@ -58,18 +58,12 @@ class JedalenHomeScreenWidget extends StatelessWidget {
                       height: 30,
                       child: TextButton(
                           style: ButtonStyle(
-                            overlayColor: MaterialStateProperty.all(
-                                Theme.of(context).primaryColor.withOpacity(.4)),
-                            foregroundColor:
-                                MaterialStateProperty.resolveWith<Color?>(
-                              (Set<MaterialState> states) {
-                                if (states.contains(MaterialState.focused) ||
-                                    states.contains(MaterialState.pressed))
-                                  return Theme.of(context).primaryColor;
-                                return null; // Defer to the widget's default.
-                              },
-                            ),
-                          ),
+                              overlayColor: MaterialStateProperty.all(
+                                  Theme.of(context)
+                                      .primaryColor
+                                      .withOpacity(.4)),
+                              foregroundColor: MaterialStateProperty.all(
+                                  Theme.of(context).primaryColor)),
                           onPressed: () =>
                               Navigator.of(context).pushNamed('/menu'),
                           onLongPress: () async =>
@@ -83,18 +77,12 @@ class JedalenHomeScreenWidget extends StatelessWidget {
                       height: 30,
                       child: TextButton(
                           style: ButtonStyle(
-                            overlayColor: MaterialStateProperty.all(
-                                Theme.of(context).primaryColor.withOpacity(.4)),
-                            foregroundColor:
-                                MaterialStateProperty.resolveWith<Color?>(
-                              (Set<MaterialState> states) {
-                                if (states.contains(MaterialState.focused) ||
-                                    states.contains(MaterialState.pressed))
-                                  return Theme.of(context).primaryColor;
-                                return null; // Defer to the widget's default.
-                              },
-                            ),
-                          ),
+                              overlayColor: MaterialStateProperty.all(
+                                  Theme.of(context)
+                                      .primaryColor
+                                      .withOpacity(.4)),
+                              foregroundColor: MaterialStateProperty.all(
+                                  Theme.of(context).primaryColor)),
                           onPressed: () =>
                               jedalenProvider.toggleShouldBeExpanded(),
                           child: Text(
