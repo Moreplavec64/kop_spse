@@ -2,6 +2,7 @@ import 'package:kop_spse/main.dart';
 import 'package:kop_spse/providers/auth.dart';
 import 'package:kop_spse/providers/edupage.dart';
 import 'package:kop_spse/providers/jedalen.dart';
+import 'package:kop_spse/providers/map.dart';
 import 'package:kop_spse/providers/settings.dart';
 import 'package:kop_spse/widgets/login_screen_widgets/input_widget.dart';
 import 'package:kop_spse/widgets/login_screen_widgets/login_button.dart';
@@ -150,6 +151,8 @@ class _LoginFormState extends State<LoginFormBody> {
         Provider.of<JedalenProvider>(context, listen: false);
     final SettingsProvider settingsProvider =
         Provider.of<SettingsProvider>(context, listen: false);
+    final MapProvider mapProvider =
+        Provider.of<MapProvider>(context, listen: false);
 
     if (_formKey.currentState!.validate()) {
       if (eduProvider.getEduLoginStatus != LoginStatus.LoggingIn)
@@ -163,6 +166,7 @@ class _LoginFormState extends State<LoginFormBody> {
 
         await jedalenProvider.fetchJedalenData();
         await settingsProvider.loadValues();
+        mapProvider.loadSettingsValues(settingsProvider);
 
         if (authProvider.getLoggedIn) {
           navigationKey.currentState?.pushReplacementNamed('/home');

@@ -1,6 +1,7 @@
 import 'package:encrypt/encrypt.dart' as crypt;
 import 'package:flutter/material.dart';
 import 'package:kop_spse/providers/auth.dart';
+import 'package:kop_spse/providers/map.dart';
 import 'package:kop_spse/utils/encrypt.dart';
 import 'package:provider/provider.dart';
 
@@ -46,7 +47,13 @@ class SettingsScreen extends StatelessWidget {
                           const Text('Zobraziť názvy učební'),
                           Switch.adaptive(
                             value: provider.getShowNazvy,
-                            onChanged: (v) => provider.setShowNazvy = v,
+                            onChanged: (v) {
+                              provider.setShowNazvy = v;
+                              Provider.of<MapProvider>(context, listen: false)
+                                  .loadSettingsValues(
+                                      Provider.of<SettingsProvider>(context,
+                                          listen: false));
+                            },
                             activeColor: Theme.of(context).primaryColor,
                           )
                         ],

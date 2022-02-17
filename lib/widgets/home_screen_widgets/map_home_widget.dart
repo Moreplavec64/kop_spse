@@ -41,10 +41,11 @@ class MapHomeWidget extends StatelessWidget {
                       textColor: Colors.white,
                       onTap: () {
                         //TODO fix ked uz niesu nasledujuce hodiny
-                        final eduProv = Provider.of<EduPageProvider>(context,
-                            listen: false);
                         final mapProv =
                             Provider.of<MapProvider>(context, listen: false);
+                        final eduProv = Provider.of<EduPageProvider>(context,
+                            listen: false);
+
                         final String aktUcebna =
                             eduProv.aktualnaHodina!.classroomID;
 
@@ -53,9 +54,6 @@ class MapHomeWidget extends StatelessWidget {
                                     .indexOf(eduProv.aktualnaHodina!) +
                                 1]
                             .classroomID;
-
-                        mapProv.loadSettingsValues(
-                            Provider.of(context, listen: false));
 
                         mapProv.setodkial(EduIdUtil.idToNavClassroom(
                             eduProv.getEduData, aktUcebna));
@@ -72,9 +70,6 @@ class MapHomeWidget extends StatelessWidget {
                       bgColor: Colors.white,
                       textColor: Colors.black,
                       onTap: () {
-                        Provider.of<MapProvider>(context, listen: false)
-                            .loadSettingsValues(
-                                Provider.of(context, listen: false));
                         Navigator.of(context).pushNamed('/map');
                       },
                     ),
@@ -93,10 +88,25 @@ class MapHomeWidget extends StatelessWidget {
                     //TODO nastavenie podlazia
                     onTap: () =>
                         Navigator.of(context).pushNamed('/map/fullscreen'),
-                    child: Hero(
-                      tag: 'mapa',
-                      child: SvgPicture.asset(
-                          'assets/images/map_images/${Provider.of<SettingsProvider>(context, listen: false).getDefaultPodlazie}.svg'),
+                    child: Consumer<MapProvider>(
+                      builder: ((context, value, child) => Stack(
+                            children: [
+                              Hero(
+                                tag: 'mapa',
+                                child: SvgPicture.asset(
+                                  'assets/images/map_images/${value.getZobrazenePodlazie}.svg',
+                                  fit: BoxFit.fitHeight,
+                                  semanticsLabel: 'mapa skoly',
+                                ),
+                              ),
+                              if (value.getZobrazNazvy)
+                                SvgPicture.asset(
+                                  'assets/images/map_nazvy_overlays/${value.getZobrazenePodlazie}_nazvy.svg',
+                                  fit: BoxFit.fitWidth,
+                                  semanticsLabel: 'mapa skoly',
+                                ),
+                            ],
+                          )),
                     ),
                   ),
                 ),

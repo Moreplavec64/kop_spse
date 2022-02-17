@@ -72,14 +72,11 @@ class SettingsProvider with ChangeNotifier {
     _defaultPodlazie = await box.get('defaultPodlazie');
     _showNazvy = await box.get('showNazvy');
     toggleLoading();
-    print(box.values);
   }
 
   Future<void> setDefaultValues() async {
     await box.put('showNazvy', false);
     await box.put('defaultPodlazie', 'HBP0');
     await box.put('searchRecent', []);
-
-    print(box.values);
   }
 }

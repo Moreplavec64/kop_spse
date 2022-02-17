@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kop_spse/providers/map.dart';
 import 'package:kop_spse/providers/settings.dart';
 import 'package:kop_spse/utils/map_constants.dart';
 import 'package:provider/provider.dart';
@@ -34,7 +35,12 @@ class _PodlazieDropDownSettingButtonState
         items: List.generate(suradniceUcebni.keys.length, (index) {
           String nazov = suradniceUcebni.keys.elementAt(index);
           return DropdownMenuItem<String>(
-              onTap: () => provider.setDefaultPodlazie = nazov,
+              onTap: () {
+                provider.setDefaultPodlazie = nazov;
+                Provider.of<MapProvider>(context, listen: false)
+                    .loadSettingsValues(
+                        Provider.of<SettingsProvider>(context, listen: false));
+              },
               value: nazov,
               child: Text(
                 nazov,
