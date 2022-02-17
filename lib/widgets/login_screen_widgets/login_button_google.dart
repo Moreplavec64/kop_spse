@@ -31,6 +31,7 @@ class LoginGoogleButton extends StatelessWidget {
                   fit: BoxFit.fitWidth,
                   child: TextButton(
                     onPressed: () async {
+                      FocusManager.instance.primaryFocus?.unfocus();
                       Provider.of<EduPageProvider>(context, listen: false)
                           .setLoginStatus = LoginStatus.LoggingIn;
 

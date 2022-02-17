@@ -160,6 +160,10 @@ class AuthProvider with ChangeNotifier {
     required String password,
   }) async {
     _loggedIn = await _firebaseLoginEmail(email, password);
+    if (!_loggedIn) {
+      eduProvider.setLoginStatus = LoginStatus.LoginFailed;
+      return;
+    }
     CollectionReference users = _firestore.collection('users');
 
     final DocumentSnapshot docSnap = await users.doc(getUID).get();

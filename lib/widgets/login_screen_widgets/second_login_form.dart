@@ -114,6 +114,7 @@ class _SecondLoginFormState extends State<SecondLoginForm> {
           const Spacer(flex: 2),
           LoginButton(
             () async {
+              FocusManager.instance.primaryFocus?.unfocus();
               if (_formKey.currentState!.validate()) {
                 final eduProv =
                     Provider.of<EduPageProvider>(context, listen: false);

@@ -120,7 +120,7 @@ class EduPageProvider with ChangeNotifier {
       final String? csrfToken = tokenRegex.stringMatch(r.body);
 
       final Map<String, String> parameters = {
-        "username": _username + 'x',
+        "username": _username,
         "password": _password,
         "csrfauth": csrfToken.toString(),
       };

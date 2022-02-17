@@ -141,6 +141,7 @@ class _LoginFormState extends State<LoginFormBody> {
   }
 
   Future<void> loginFunction() async {
+    FocusManager.instance.primaryFocus?.unfocus();
     final EduPageProvider eduProvider =
         Provider.of<EduPageProvider>(context, listen: false);
     final AuthProvider authProvider =
@@ -172,7 +173,7 @@ class _LoginFormState extends State<LoginFormBody> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 duration: Duration(seconds: 2),
-                content: const Text('Neplatne prihlasovacie udaje'),
+                content: const Text('Neplatné prihlasovacie údaje'),
               ),
             );
           });
