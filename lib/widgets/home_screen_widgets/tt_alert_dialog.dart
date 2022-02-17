@@ -85,7 +85,7 @@ Future<void> showMyDialog({
                     icon: Icon(
                       Icons.directions,
                       size: 32,
-                      color: farba,
+                      color: Theme.of(context).primaryColor,
                     ),
                     onPressed: () {
                       mapprov.setodkial(ucebna);
@@ -97,7 +97,7 @@ Future<void> showMyDialog({
                     icon: Icon(
                       Icons.map_outlined,
                       size: 32,
-                      color: farba,
+                      color: Theme.of(context).primaryColor,
                     ),
                     onPressed: () {
                       mapprov.setVyznacene([ucebna]);

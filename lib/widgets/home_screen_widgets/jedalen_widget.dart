@@ -116,7 +116,7 @@ class JedalenHomeScreenWidget extends StatelessWidget {
   ) {
     final double notExpanded = _size.height * 1 / 7;
     final double expanded =
-        notExpanded + 12 * jedalenProvider.jedalenData.length;
+        notExpanded + 16 * jedalenProvider.jedalenData.length;
     if (dnesneMenu == null) return notExpanded;
     if (!jedalenProvider.shouldBeExpanded || dnesneMenu.length < 2)
       return notExpanded;
