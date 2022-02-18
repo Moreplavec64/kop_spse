@@ -9,6 +9,7 @@ class MapCustomLinePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    //TODO na zaciatok a na koniec pridat nejaky indicator
     //*Kreslenie trasy
     final List<String> toDrawPath =
         provider.routy[provider.getZobrazenePodlazie] ?? [];

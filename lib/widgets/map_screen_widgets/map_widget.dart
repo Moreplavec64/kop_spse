@@ -31,6 +31,7 @@ class MapWidget extends StatelessWidget {
                   (index) {
                     final String value =
                         mapprovider.routy.keys.elementAt(index);
+                    //TODO pri navigovani zobrazit iba ucebne v route zoradene
                     return DropdownMenuItem(
                       value: value,
                       child: Text(

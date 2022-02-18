@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 
 import 'package:kop_spse/providers/edupage.dart';
 import 'package:kop_spse/providers/map.dart';
-import 'package:kop_spse/providers/settings.dart';
 import 'package:kop_spse/utils/edu_id_util.dart';
 
 class MapHomeWidget extends StatelessWidget {

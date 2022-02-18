@@ -1,9 +1,6 @@
-import 'package:encrypt/encrypt.dart' as crypt;
 import 'package:flutter/material.dart';
 import 'package:kop_spse/providers/auth.dart';
 import 'package:kop_spse/providers/map.dart';
-import 'package:kop_spse/utils/encrypt.dart';
-import 'package:kop_spse/utils/map_constants.dart';
 import 'package:provider/provider.dart';
 
 import 'package:kop_spse/providers/settings.dart';
