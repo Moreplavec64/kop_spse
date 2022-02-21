@@ -20,15 +20,13 @@ class LoginButton extends StatelessWidget {
           color: Theme.of(context).primaryColor,
           child: TextButton(
             onPressed: () async => await onPressedFunction(),
-            child: true == false
-                ? CircularProgressIndicator()
-                : Text(
-                    labelText,
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700),
-                  ),
+            child: Text(
+              labelText,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700),
+            ),
           ),
         ),
       ),

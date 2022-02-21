@@ -47,8 +47,8 @@ class SearchFieldButton extends StatelessWidget {
           ),
           child: Text(
             isOdkial
-                ? 'Odkial ' + provider.getOdkial
-                : 'Ciel ' + provider.getKam,
+                ? 'Odkiaľ ' + provider.getOdkial
+                : 'Cieľ ' + provider.getKam,
             style: TextStyle(
                 color: (isOdkial
                         ? provider.getOdkialDefault

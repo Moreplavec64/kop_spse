@@ -132,7 +132,7 @@ class _SecondLoginFormState extends State<SecondLoginForm> {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       duration: Duration(seconds: 2),
-                      content: const Text('Chyba pri prihalsovani'),
+                      content: const Text('Chyba pri prihlasovaní'),
                     ),
                   );
                   return;

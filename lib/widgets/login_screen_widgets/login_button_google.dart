@@ -26,59 +26,53 @@ class LoginGoogleButton extends StatelessWidget {
             border: Border.all(width: 1),
             borderRadius: BorderRadius.circular(20),
           ),
-          child: true == false
-              ? Center(child: const CircularProgressIndicator())
-              : FittedBox(
-                  fit: BoxFit.fitWidth,
-                  child: TextButton(
-                    onPressed: () async {
-                      FocusManager.instance.primaryFocus?.unfocus();
-                      Provider.of<EduPageProvider>(context, listen: false)
-                          .setLoginStatus = LoginStatus.LoggingIn;
+          child: FittedBox(
+            fit: BoxFit.fitWidth,
+            child: TextButton(
+              onPressed: () async {
+                FocusManager.instance.primaryFocus?.unfocus();
+                Provider.of<EduPageProvider>(context, listen: false)
+                    .setLoginStatus = LoginStatus.LoggingIn;
 
-                      final isNew = await Provider.of<AuthProvider>(context,
-                              listen: false)
-                          .continueWithGoogle(
-                        eduProvider: Provider.of<EduPageProvider>(context,
-                            listen: false),
-                      );
-                      //wait for jedalen data to be fetched
-                      await Provider.of<JedalenProvider>(context, listen: false)
-                          .fetchJedalenData();
-                      await Provider.of<SettingsProvider>(context,
-                              listen: false)
-                          .loadValues();
-                      Provider.of<MapProvider>(context, listen: false)
-                          .loadSettingsValues(Provider.of<SettingsProvider>(
-                              context,
-                              listen: false));
-                      if (isNew)
-                        navigationKey.currentState!
-                            .pushReplacementNamed('/login2');
-                      else
-                        navigationKey.currentState!
-                            .pushReplacementNamed('/home');
-                    },
-                    child: Row(
-                      children: [
-                        Image.asset(
-                          'assets\\images\\google_logo.png',
-                          height: (_height / 2).toDouble(),
-                        ),
-                        SizedBox(width: _size.width * .02),
-                        Text(
-                          'Continue with Google',
-                          softWrap: false,
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
+                final isNew =
+                    await Provider.of<AuthProvider>(context, listen: false)
+                        .continueWithGoogle(
+                  eduProvider:
+                      Provider.of<EduPageProvider>(context, listen: false),
+                );
+                //wait for jedalen data to be fetched
+                await Provider.of<JedalenProvider>(context, listen: false)
+                    .fetchJedalenData();
+                await Provider.of<SettingsProvider>(context, listen: false)
+                    .loadValues();
+                Provider.of<MapProvider>(context, listen: false)
+                    .loadSettingsValues(
+                        Provider.of<SettingsProvider>(context, listen: false));
+                if (isNew)
+                  navigationKey.currentState!.pushReplacementNamed('/login2');
+                else
+                  navigationKey.currentState!.pushReplacementNamed('/home');
+              },
+              child: Row(
+                children: [
+                  Image.asset(
+                    'assets\\images\\google_logo.png',
+                    height: (_height / 2).toDouble(),
+                  ),
+                  SizedBox(width: _size.width * .02),
+                  const Text(
+                    'Pokračovať s Google',
+                    softWrap: false,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                ),
+                ],
+              ),
+            ),
+          ),
         ),
       ),
     );

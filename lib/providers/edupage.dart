@@ -138,7 +138,7 @@ class EduPageProvider with ChangeNotifier {
 
       if (loginResponse.headers['location']!.contains('bad')) {
         setLoginStatus = LoginStatus.LoginFailed;
-        throw Exception('Nespravne udaje!');
+        throw Exception('Nesprávne údaje!');
       }
 
       final loggedInResponse = await http.post(

@@ -40,7 +40,7 @@ class _LoginFormState extends State<LoginFormBody> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             duration: Duration(seconds: 2),
-            content: const Text('Neplatné prihlasovacie údaje do Edupage'),
+            content: const Text('Neplatné prihlasovacie údaje do EduPage'),
           ),
         );
         eduProvider.setLoginStatus = LoginStatus.LoggedOut;
@@ -109,9 +109,9 @@ class _LoginFormState extends State<LoginFormBody> {
             const SizedBox(height: 24),
             LoginButton(
               loginFunction,
-              authProvider.getLoggingIn ? 'Login' : 'Pokračovať',
+              authProvider.getLoggingIn ? 'Prihlásiť' : 'Pokračovať',
             ),
-            OrDivider(label: 'OR', height: 24),
+            OrDivider(label: 'ALEBO', height: 24),
             const LoginGoogleButton(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

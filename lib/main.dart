@@ -52,7 +52,8 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           fontFamily: 'Sen',
-          primaryColor: Color.fromRGBO(3, 192, 60, 1),
+          primaryColor: Color(0xFF08C43C),
+          // primaryColor: Color.fromRGBO(3, 192, 60, 1),
           // primarySwatch: Colors.blue,
         ),
         routes: {

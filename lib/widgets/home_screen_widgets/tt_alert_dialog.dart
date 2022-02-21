@@ -62,7 +62,7 @@ Future<void> showMyDialog({
               ),
               const SizedBox(height: 8),
               Text(
-                'Ucebna : ' +
+                'Učebňa : ' +
                     EduIdUtil.idToLongClassroom(
                       provider.getEduData,
                       lessonData.classroomID,
