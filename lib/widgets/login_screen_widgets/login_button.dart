@@ -16,7 +16,7 @@ class LoginButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         child: Container(
           height: _size.height * .08 < 40 ? _size.height * .08 : 40,
-          width: _size.width * .55,
+          width: _size.width * .75,
           color: Theme.of(context).primaryColor,
           child: TextButton(
             onPressed: () async => await onPressedFunction(),

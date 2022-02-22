@@ -111,8 +111,9 @@ class _LoginFormState extends State<LoginFormBody> {
               loginFunction,
               authProvider.getLoggingIn ? 'Prihlásiť' : 'Pokračovať',
             ),
-            OrDivider(label: 'ALEBO', height: 24),
+            const OrDivider(label: 'ALEBO', height: 24),
             const LoginGoogleButton(),
+            SizedBox(height: 24),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

@@ -17,15 +17,18 @@ class LoginGoogleButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       //zaoblenie aj containeru aj flatButtonu
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(20),
-        child: Container(
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: _size.width * .1),
+        width: _size.width * .75,
+        height: _height,
+        decoration: BoxDecoration(
+          // border: Border.all(width: 1),
+          borderRadius: BorderRadius.circular(20),
+          color: Color(0xFF37608F),
+        ),
+        child: SizedBox(
           height: _height,
           width: _size.width * .55,
-          decoration: BoxDecoration(
-            border: Border.all(width: 1),
-            borderRadius: BorderRadius.circular(20),
-          ),
           child: FittedBox(
             fit: BoxFit.fitWidth,
             child: TextButton(
@@ -65,7 +68,7 @@ class LoginGoogleButton extends StatelessWidget {
                     softWrap: false,
                     style: TextStyle(
                       fontSize: 14,
-                      color: Colors.black,
+                      color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

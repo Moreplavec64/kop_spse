@@ -4,7 +4,7 @@ class OrDivider extends StatelessWidget {
   final String label;
   final double height;
 
-  OrDivider({
+  const OrDivider({
     required this.label,
     required this.height,
   });
@@ -23,9 +23,12 @@ class OrDivider extends StatelessWidget {
             ),
           ),
         ),
-        Text(
-          label,
-          style: const TextStyle(color: Colors.grey),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            label,
+            style: const TextStyle(color: Colors.grey, fontSize: 16),
+          ),
         ),
         Expanded(
           child: Container(
