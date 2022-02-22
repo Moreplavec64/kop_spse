@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:kop_spse/providers/jedalen.dart';
 import 'package:provider/provider.dart';
@@ -66,10 +67,19 @@ class JedalenHomeScreenWidget extends StatelessWidget {
                                   Theme.of(context).primaryColor)),
                           onPressed: () =>
                               Navigator.of(context).pushNamed('/menu'),
-                          onLongPress: () async =>
-                              await Provider.of<JedalenProvider>(context,
-                                      listen: false)
-                                  .fetchJedalenData(),
+                          onLongPress: () {
+                            // await Provider.of<JedalenProvider>(context,
+                            //           listen: false)
+                            //       .fetchJedalenData();
+
+                            dnesneMenu!.forEach((e) {
+                              print(e);
+                              TextSpan t = TextSpan(text: e);
+                              List<LineMetrics> lines =
+                                  TextPainter(text: t).computeLineMetrics();
+                              print(lines.length);
+                            });
+                          },
                           child: Text('Týždenné menu')),
                     ),
                     SizedBox(
@@ -118,6 +128,7 @@ class JedalenHomeScreenWidget extends StatelessWidget {
       Text(
         'Na dnes nieje vypísané žiadne menu',
         style: TextStyle(fontSize: 17),
+        textAlign: TextAlign.center,
       )
     ];
     if (dnesneMenu == null) return noData;
@@ -126,7 +137,15 @@ class JedalenHomeScreenWidget extends StatelessWidget {
       if (dnesneMenu.first.trim().length == 0) return noData;
     }
 
-    return dnesneMenu.map((e) => Text(e)).toList().sublist(
-        0, shouldBeExpanded ? dnesneMenu.length : min(2, dnesneMenu.length));
+    return dnesneMenu
+        .map((e) {
+          return Text(
+            e,
+            textAlign: TextAlign.center,
+          );
+        })
+        .toList()
+        .sublist(0,
+            shouldBeExpanded ? dnesneMenu.length : min(2, dnesneMenu.length));
   }
 }
