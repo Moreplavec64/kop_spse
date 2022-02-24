@@ -6,11 +6,11 @@ import 'package:kop_spse/widgets/map_screen_widgets/vyhladavanie_delegate.dart';
 import 'package:provider/provider.dart';
 
 class SearchFieldButton extends StatelessWidget {
-  final bool isOdkial;
+  final typVyhladavania typ;
   final MapProvider provider;
   const SearchFieldButton({
     Key? key,
-    required this.isOdkial,
+    required this.typ,
     required this.provider,
   }) : super(key: key);
 
@@ -21,15 +21,15 @@ class SearchFieldButton extends StatelessWidget {
         showSearch(
           context: context,
           delegate: Vyhladavanie(
-            isOdkial,
+            typ,
             getAllClassrooms(
                 Provider.of<EduPageProvider>(context, listen: false)
                     .getEduData),
           ),
         );
-        isOdkial
-            ? provider.setOdkialDefault = false
-            : provider.setKamDefault = false;
+
+        if (typ == typVyhladavania.odkial) provider.setOdkialDefault = false;
+        if (typ == typVyhladavania.kam) provider.setKamDefault = false;
       },
       child: Material(
         elevation: 6,
@@ -46,13 +46,17 @@ class SearchFieldButton extends StatelessWidget {
             ),
           ),
           child: Text(
-            isOdkial
+            typ == typVyhladavania.odkial
                 ? 'Odkiaľ ' + provider.getOdkial
-                : 'Cieľ ' + provider.getKam,
+                : typ == typVyhladavania.kam
+                    ? 'Cieľ ' + provider.getKam
+                    : '',
             style: TextStyle(
-                color: (isOdkial
+                color: (typ == typVyhladavania.odkial
                         ? provider.getOdkialDefault
-                        : provider.getKamDefault)
+                        : typ == typVyhladavania.kam
+                            ? provider.getKamDefault
+                            : false)
                     ? Colors.grey
                     : Colors.black),
           ),

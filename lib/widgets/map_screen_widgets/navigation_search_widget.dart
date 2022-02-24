@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kop_spse/providers/map.dart';
 import 'package:kop_spse/widgets/map_screen_widgets/search_field_widget.dart';
+import 'package:kop_spse/widgets/map_screen_widgets/vyhladavanie_delegate.dart';
 import 'package:provider/provider.dart';
 
 class NavigationSearchWidget extends StatelessWidget {
@@ -33,7 +34,7 @@ class NavigationSearchWidget extends StatelessWidget {
             Consumer<MapProvider>(
               builder: (_, value, __) {
                 return SearchFieldButton(
-                  isOdkial: true,
+                  typ: typVyhladavania.odkial,
                   provider: value,
                 );
               },
@@ -63,7 +64,7 @@ class NavigationSearchWidget extends StatelessWidget {
             Consumer<MapProvider>(
               builder: (_, value, __) {
                 return SearchFieldButton(
-                  isOdkial: false,
+                  typ: typVyhladavania.kam,
                   provider: value,
                 );
               },

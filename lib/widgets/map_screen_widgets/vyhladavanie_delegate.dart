@@ -4,6 +4,8 @@ import 'package:kop_spse/providers/settings.dart';
 import 'package:kop_spse/utils/map_constants.dart';
 import 'package:provider/provider.dart';
 
+enum typVyhladavania { odkial, kam, zobrazenie }
+
 List<String> generateUcebne() {
   final List<String> x = [];
   for (String podlazie in suradniceUcebni.keys) {
@@ -15,11 +17,11 @@ List<String> generateUcebne() {
 class Vyhladavanie extends SearchDelegate<String> {
   final List<String> recent = [];
   final List<String> ucebne = generateUcebne();
-  final bool isOdkial;
+  final typVyhladavania typ;
   List<String> vsetkyUcebne;
 
   Vyhladavanie(
-    this.isOdkial,
+    this.typ,
     this.vsetkyUcebne,
   );
 
@@ -102,7 +104,12 @@ class Vyhladavanie extends SearchDelegate<String> {
           leading: Icon(Icons.class_),
           onTap: () {
             final provider = Provider.of<MapProvider>(context, listen: false);
-            isOdkial ? provider.setodkial(value) : provider.setKam(value);
+            if (typ == typVyhladavania.odkial)
+              provider.setodkial(value);
+            else if (typ == typVyhladavania.kam)
+              provider.setKam(value);
+            else if (typ == typVyhladavania.zobrazenie)
+              provider.setVyznacene([value]);
             Navigator.of(context).pop();
             showResults(context);
             print(value);

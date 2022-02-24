@@ -81,6 +81,7 @@ class HomeScreenTimeTable extends StatelessWidget {
           : 'Prebieha ${v.aktualnaHodina!.period}. hodina, zostáva ' +
               _printDuration(v.zostavajuciCas),
       style: TextStyle(fontSize: 18),
+      textAlign: TextAlign.center,
     );
   }
 
