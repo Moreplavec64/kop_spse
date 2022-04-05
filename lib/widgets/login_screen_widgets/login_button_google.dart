@@ -51,9 +51,11 @@ class LoginGoogleButton extends StatelessWidget {
                 Provider.of<MapProvider>(context, listen: false)
                     .loadSettingsValues(
                         Provider.of<SettingsProvider>(context, listen: false));
-                if (isNew)
+                if (isNew) {
                   navigationKey.currentState!.pushReplacementNamed('/login2');
-                else
+                  Provider.of<EduPageProvider>(context, listen: false)
+                      .setLoginStatus = LoginStatus.LoggedOut;
+                } else
                   navigationKey.currentState!.pushReplacementNamed('/home');
               },
               child: Row(

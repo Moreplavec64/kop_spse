@@ -20,7 +20,8 @@ class HomeScreenTimeTable extends StatelessWidget {
     final double ttItemsize = (_size.width / subjNumber) - 10;
 
     return Container(
-      height: _size.height * (2 / 7),
+      padding: const EdgeInsets.symmetric(vertical: 16),
+      // height: _size.height * (2 / 7),
       width: _size.width,
       child: Column(
         children: [

@@ -129,6 +129,8 @@ class _SecondLoginFormState extends State<SecondLoginForm> {
                   lang: authProv.getCurrentLang,
                 );
                 if (eduProv.getEduLoginStatus == LoginStatus.LoginFailed) {
+                  eduProv.setLoginStatus = LoginStatus.LoggedOut;
+                  authProv.setLoggedIn = false;
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       duration: Duration(seconds: 2),
