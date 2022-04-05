@@ -100,6 +100,7 @@ class Vyhladavanie extends SearchDelegate<String> {
                 color: Color.fromARGB(150, 0, 0, 0),
               ));
         }
+        //TODO fix dvakrat zobrazovanie ak uz navstivene
         return ListTile(
           leading: Icon(Icons.class_),
           onTap: () {
