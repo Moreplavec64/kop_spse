@@ -12,13 +12,20 @@ class EduIdUtil {
 
   static String idToClass(Map<String, dynamic> data, String id) =>
       data['dbi']['classes'][id.toString()]['name'];
-  static String? idToShortSubject(Map<String, dynamic> data, String id) =>
-      data['dbi']['subjects']?[id.toString()]?['short'];
+  static String? idToShortSubject(Map<String, dynamic> data, String id) {
+    return (id != "0"
+        ? (data['dbi']['subjects']?[id.toString()]?['short'])
+        : "Neexistuje");
+  }
+
   static String idToTeacher(Map<String, dynamic> data, String id) {
     final td = data['dbi']['teachers'][id.toString()];
     return '${td['firstname']} ${td['lastname']}';
   }
 
-  static String idToLongSubject(Map<String, dynamic> data, String id) =>
-      data['dbi']['subjects'][id.toString()]['name'];
+  static String idToLongSubject(Map<String, dynamic> data, String id) {
+    return (id != "0"
+        ? (data['dbi']['subjects'][id.toString()]['name'])
+        : "Neexistuje");
+  }
 }
