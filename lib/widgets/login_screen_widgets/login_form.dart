@@ -36,7 +36,7 @@ class _LoginFormState extends State<LoginFormBody> {
     super.didChangeDependencies();
     final eduProvider = Provider.of<EduPageProvider>(context, listen: false);
     if (eduProvider.getEduLoginStatus == LoginStatus.LoginFailed)
-      WidgetsBinding.instance?.addPostFrameCallback((_) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             duration: Duration(seconds: 2),
@@ -50,7 +50,7 @@ class _LoginFormState extends State<LoginFormBody> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       _emailController.clear();
       _passwordController.clear();
     });
@@ -174,7 +174,7 @@ class _LoginFormState extends State<LoginFormBody> {
         }
 
         if (!authProvider.getLoggedIn)
-          WidgetsBinding.instance?.addPostFrameCallback((_) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 duration: Duration(seconds: 2),
