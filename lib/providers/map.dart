@@ -159,9 +159,15 @@ class MapProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void tvojeSur() async {
-    if (await Permission.location.isRestricted) {
+  Future<void> tvojeSur() async {
+    if ((await Permission.location.isDenied) ||
+        (await Permission.location.isRestricted) ||
+        (await Permission.location.isPermanentlyDenied)) {
       await Permission.location.request();
     }
+    if (!await Permission.location.isGranted) {
+      return;
+    }
+    print(await Geolocator.getCurrentPosition());
   }
 }
