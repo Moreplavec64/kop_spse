@@ -206,7 +206,7 @@ class AuthProvider with ChangeNotifier {
     // open dialog with google accounts
     final authUser = await GoogleSignIn().signIn();
 
-    if (authUser == null) throw NullThrownError();
+    if (authUser == null) throw TypeError();
 
     final googleAuth = await authUser.authentication;
 

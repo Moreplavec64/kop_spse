@@ -95,6 +95,7 @@ class MapWidget extends StatelessWidget {
                     splashColor: Colors.white,
                     onTap: () {
                       // testAllRoutes();
+                      mapprovider.tvojeSur();
                       mapprovider.setKamDefault = false;
                       mapprovider.setOdkialDefault = false;
                       mapprovider.createRoute(

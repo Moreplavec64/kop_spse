@@ -42,7 +42,7 @@ class JedalenHomeScreenWidget extends StatelessWidget {
                   SizedBox(width: _size.width * .025),
                   Text(
                     'Obedové menu',
-                    style: Theme.of(context).textTheme.headline6,
+                    style: Theme.of(context).textTheme.titleLarge,
                   )
                 ]),
                 //zobraz error ak je vikend, inak pre kazdy element v menu vytvori text widget,

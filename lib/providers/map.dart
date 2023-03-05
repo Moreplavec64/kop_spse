@@ -2,6 +2,9 @@ import 'package:dijkstra/dijkstra.dart';
 import 'package:flutter/material.dart';
 import 'package:kop_spse/providers/settings.dart';
 import 'package:kop_spse/utils/map_constants.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:location/location.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class MapProvider with ChangeNotifier {
   //*Zobrazene podlazia
@@ -154,5 +157,11 @@ class MapProvider with ChangeNotifier {
     }
     _vyznacene = [];
     notifyListeners();
+  }
+
+  void tvojeSur() async {
+    if (await Permission.location.isRestricted) {
+      await Permission.location.request();
+    }
   }
 }

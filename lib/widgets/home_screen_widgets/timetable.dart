@@ -101,6 +101,13 @@ class HomeScreenTimeTable extends StatelessWidget {
         v.getDnesnyRozvrh.first.eventName ?? '',
         style: TextStyle(fontSize: 16),
       ));
+    //Ak už nie je vyučovanie rozvrh sa už nebude ukazovať
+    if (v.aktualnaHodina == null && v.isPrestavka == false)
+      return Center(
+          child: Text(
+        'Škola už skončila/nezačala',
+        style: TextStyle(fontSize: 16),
+      ));
 
     return ListView.builder(
       padding: EdgeInsets.symmetric(

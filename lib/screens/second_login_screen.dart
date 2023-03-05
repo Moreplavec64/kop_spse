@@ -54,7 +54,7 @@ class SecondLoginScreen extends StatelessWidget {
                               'Doplňte daľšie údaje',
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline4!
+                                  .headlineMedium!
                                   .copyWith(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold),

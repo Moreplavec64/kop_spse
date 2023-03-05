@@ -16,7 +16,7 @@ class SettingKategoriaTitle extends StatelessWidget {
         padding: const EdgeInsets.only(top: 8.0, left: 8),
         child: Text(
           title,
-          style: Theme.of(context).textTheme.headline4,
+          style: Theme.of(context).textTheme.headlineMedium,
           textAlign: TextAlign.center,
         ),
       ),

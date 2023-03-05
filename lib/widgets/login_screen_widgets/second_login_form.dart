@@ -62,7 +62,7 @@ class _SecondLoginFormState extends State<SecondLoginForm> {
               'Prihlasovacie údaje do EduPage',
               style: Theme.of(context)
                   .textTheme
-                  .headline6!
+                  .titleLarge!
                   .copyWith(fontWeight: FontWeight.bold),
             ),
           ),
@@ -97,7 +97,7 @@ class _SecondLoginFormState extends State<SecondLoginForm> {
               'Predvolený jazyk',
               style: Theme.of(context)
                   .textTheme
-                  .headline6!
+                  .titleLarge!
                   .copyWith(fontWeight: FontWeight.bold),
             ),
           ),

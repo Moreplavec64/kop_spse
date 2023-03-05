@@ -166,7 +166,7 @@ Future<bool?> showVerifyDialog(BuildContext context, String title) {
                   ElevatedButton(
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(
-                              Theme.of(context).errorColor)),
+                              Theme.of(context).colorScheme.error)),
                       onPressed: () => Navigator.of(context).pop(false),
                       child: Text('Nie')),
                 ],

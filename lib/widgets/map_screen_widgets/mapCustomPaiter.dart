@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:kop_spse/providers/map.dart';
 import 'package:kop_spse/utils/map_constants.dart';
@@ -11,11 +13,12 @@ class MapCustomLinePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     //TODO na zaciatok a na koniec pridat nejaky indicator
     //*Kreslenie trasy
+
     final List<String> toDrawPath =
         provider.routy[provider.getZobrazenePodlazie] ?? [];
     final suradnicePrePodlazie =
         suradniceWaypointov[provider.getZobrazenePodlazie];
-    final Color primaryColor = Color.fromRGBO(3, 192, 60, 1);
+    final Color primaryColor = Color.fromRGBO(5, 243, 5, 1);
     final Paint paint = Paint()
       ..strokeWidth = 1
       ..color = primaryColor;
@@ -24,7 +27,18 @@ class MapCustomLinePainter extends CustomPainter {
       canvas.drawLine(suradnicePrePodlazie![toDrawPath[i]] ?? Offset(0, 0),
           suradnicePrePodlazie[toDrawPath[i + 1]] ?? Offset(0, 0), paint);
     }
-    //*Vykreslenie jednotlivych waypointov
+    if (!toDrawPath.isEmpty) {
+      canvas.drawPoints(
+          PointMode.points,
+          [toDrawPath.first, toDrawPath.last]
+              .map((e) => suradnicePrePodlazie![e]!)
+              .toList(),
+          Paint()
+            ..strokeWidth = 2.5
+            ..color = Color.fromRGBO(5, 243, 5, 1)
+            ..strokeCap = StrokeCap.round);
+    }
+    // //*Vykreslenie jednotlivych waypointov
     // canvas.drawPoints(
     //     PointMode.points,
     //     toDrawPath.map((e) => suradnicePrePodlazie![e]!).toList(),

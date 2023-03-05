@@ -132,7 +132,8 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(SnackBar(
                                 content: Text(error.toString()),
-                                backgroundColor: Theme.of(context).errorColor,
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.error,
                               ));
                               print(error);
                             });
