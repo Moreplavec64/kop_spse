@@ -93,9 +93,9 @@ class MapWidget extends StatelessWidget {
                   child: InkWell(
                     borderRadius: BorderRadius.all(Radius.circular(16)),
                     splashColor: Colors.white,
-                    onTap: () {
+                    onTap: () async {
                       // testAllRoutes();
-                      mapprovider.tvojeSur();
+                      await mapprovider.tvojeSur();
                       mapprovider.setKamDefault = false;
                       mapprovider.setOdkialDefault = false;
                       mapprovider.createRoute(
