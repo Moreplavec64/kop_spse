@@ -170,4 +170,20 @@ class MapProvider with ChangeNotifier {
     }
     print(await Geolocator.getCurrentPosition());
   }
+
+  void hore() {
+    if (_zobrazenePodlazie == 'HBP0') {
+      setPoschodie("HBP1");
+    } else if (_zobrazenePodlazie == 'HBP1') {
+      setPoschodie("HBP2");
+    }
+  }
+
+  void dole() {
+    if (_zobrazenePodlazie == 'HBP2') {
+      setPoschodie("HBP1");
+    } else if (_zobrazenePodlazie == 'HBP1') {
+      setPoschodie("HBP0");
+    }
+  }
 }

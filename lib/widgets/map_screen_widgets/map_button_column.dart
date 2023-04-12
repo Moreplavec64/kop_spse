@@ -56,6 +56,48 @@ class MapIconButtonsColumn extends StatelessWidget {
               ),
             ),
           ),
+          Tooltip(
+            message: 'Získanie polohy',
+            child: InkWell(
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+              splashColor: Theme.of(context).primaryColor.withOpacity(.65),
+              onTap: () =>
+                  Provider.of<MapProvider>(context, listen: false).tvojeSur(),
+              child: Icon(
+                Icons.location_on_outlined,
+                size: 36,
+                color: Colors.grey,
+              ),
+            ),
+          ),
+          Tooltip(
+            message: 'Vyššie poschodie',
+            child: InkWell(
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+              splashColor: Theme.of(context).primaryColor.withOpacity(.65),
+              onTap: () =>
+                  Provider.of<MapProvider>(context, listen: false).hore(),
+              child: Icon(
+                Icons.arrow_upward,
+                size: 36,
+                color: Colors.grey,
+              ),
+            ),
+          ),
+          Tooltip(
+            message: 'Nižšie poschodie',
+            child: InkWell(
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+              splashColor: Theme.of(context).primaryColor.withOpacity(.65),
+              onTap: () =>
+                  Provider.of<MapProvider>(context, listen: false).dole(),
+              child: Icon(
+                Icons.arrow_downward,
+                size: 36,
+                color: Colors.grey,
+              ),
+            ),
+          ),
         ],
       ),
     );
